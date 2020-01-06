@@ -1,114 +1,57 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { useEffect, useState, useCallback } from "react";
+import { AsyncStorage, StatusBar, Text, Button } from "react-native";
+import * as Colyseus from "colyseus.js";
+import { Buffer } from "buffer";
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { Rooms } from "./Containers/Rooms";
+import { Room } from "./Containers/Room";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+window.localStorage = AsyncStorage;
+global.Buffer = Buffer;
 
-const App: () => React$Node = () => {
+const App = () => {
+  const [rooms, setRooms] = useState([]);
+  const [room, setRoom] = useState(null);
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    const url = "ws://belkagame.herokuapp.com";
+    const newClient = new Colyseus.Client(url);
+    setClient(newClient);
+  }, []);
+
+  useEffect(() => {
+    updateRooms();
+  }, [client]);
+
+  const updateRooms = useCallback(() => {
+    if (!client) return;
+
+    async function getRooms() {
+      const rooms = await client.getAvailableRooms();
+      setRooms(rooms);
+    }
+
+    getRooms();
+  }, [client]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      {client ? (
+        room ? (
+          <Room room={room} />
+        ) : (
+          <>
+            <Button title="update rooms list" onPress={updateRooms} />
+            <Rooms client={client} setRoom={setRoom} rooms={rooms} />
+          </>
+        )
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
