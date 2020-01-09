@@ -6,6 +6,8 @@ import { PlayerCard } from './PlayerCard'
 import { PlayerBoard } from './PlayerBoard'
 import { DeckCards } from './DeckCards'
 
+import uid from 'lodash/uniqueId'
+
 export const GameBoard = memo(function() {
   const { players, objects, clients, room } = useSelector(state => state.belkaGame)
   const me = useMemo(
@@ -37,20 +39,38 @@ export const GameBoard = memo(function() {
 
     const enemies = playersList.filter(player => player !== me)
 
-    return enemies.map(player => (
-      <View key={player.id} style={{ flex: 1 }}>
-        <PlayerCard player={player} />
-        <PlayerBoard player={player} />
-      </View>
-    ))
+    return enemies.map(player => {
+      const playerId = uid(player.id)
+      return (
+        <View
+          key={`${playerId}-view`}
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center'
+          }}
+        >
+          <PlayerBoard key={`${playerId}-board`} player={player} />
+          <PlayerCard key={`${playerId}-card`} player={player} />
+        </View>
+      )
+    })
   }, [clients, me, objects, players])
 
   return (
     <View style={{ flex: 1 }}>
       {renderEnemies()}
-      <View>
-        <PlayerCard player={me} />
-        <PlayerBoard player={me} />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center'
+        }}
+      >
+        <PlayerBoard key={`${uid(me.id)}-board`} player={me} />
+        <PlayerCard key={`${uid(me.id)}-card`} player={me} />
       </View>
       <DeckCards />
     </View>

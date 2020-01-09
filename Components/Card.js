@@ -1,36 +1,51 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import { getSuit, getSuitCode } from '../utils/suit'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-export const Card = memo(function({ data, onPress }) {
+export const Card = memo(function({ data, onPress, deck }) {
   const face = (data && (data.face || data.data)) || { value: '' }
-  const cardClass = ['card', 'rank-' + face.value.toLowerCase(), getSuit(face.suit)].join(' ')
+
+  const deckCards = useCallback(() => {
+    return (
+      <View
+        style={{
+          padding: 5,
+          borderRadius: 3,
+          elevation: 3,
+          borderColor: 'black',
+          width: 40,
+          height: 60,
+          marginLeft: 5,
+          backgroundColor: 'white'
+        }}
+      >
+        <Text>*</Text>
+      </View>
+    )
+  }, [])
+
+  if (deck) {
+    return deckCards()
+  }
 
   return face.value || data.side === 'face' ? (
-    <View
+    <TouchableOpacity
       style={{
         borderWidth: 1,
+        borderRadius: 3,
         borderColor: 'black',
-        width: 20,
-        height: 40,
+        padding: 5,
+        elevation: 3,
+        width: 40,
+        height: 60,
         backgroundColor: 'white'
       }}
       onPress={onPress}
     >
       <Text class="rank">{face.value}</Text>
       <Text class="suit">{getSuitCode(face.suit)}</Text>
-    </View>
+    </TouchableOpacity>
   ) : (
-    <View
-      style={{
-        borderWidth: 1,
-        borderColor: 'black',
-        width: 20,
-        height: 40,
-        backgroundColor: 'white'
-      }}
-    >
-      <Text>*</Text>
-    </View>
+    deckCards()
   )
 })

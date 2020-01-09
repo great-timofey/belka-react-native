@@ -21,9 +21,9 @@ export const DeckCards = memo(function() {
   ])
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', height: 30, justifyContent: 'flex-end', flex: 0.5 }}>
       {deck.map(card => (
-        <Card data={card} key={card.id} />
+        <Card deck data={card} key={card.id} />
       ))}
     </View>
   )
