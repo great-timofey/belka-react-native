@@ -1,28 +1,28 @@
-import React, { memo, useMemo, useCallback } from "react";
-import { View, Text } from "react-native";
+import React, { memo, useMemo } from 'react'
+import { View, Text } from 'react-native'
 
 export const Player = memo(function({ id, me, objects }) {
   const self = useMemo(() => {
-    if (!objects) return;
-    return objects[id];
-  }, [objects]);
+    if (!objects) return
+    return objects[id]
+  }, [objects, id])
 
   const backCards = useMemo(() => {
-    if (!self || !objects) return [];
-    return objects[self.handId];
-  }, [self, objects]);
+    if (!self || !objects) return []
+    return objects[self.handId]
+  }, [self, objects])
 
   const faceCards = useMemo(() => {
-    if (!self || !objects) return [];
-    return objects[self.cardSlotId];
-  }, [self, objects]);
+    if (!self || !objects) return []
+    return objects[self.cardSlotId]
+  }, [self, objects])
 
   return (
     <View
       style={{
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         padding: 10
       }}
     >
@@ -36,18 +36,14 @@ export const Player = memo(function({ id, me, objects }) {
             style={{
               width: 20,
               height: 20,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center"
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
             key={objects[cardId].id}
           >
-            <Text>
-              {me
-                ? `${objects[cardId].data.suit} ${objects[cardId].data.value}`
-                : "*"}
-            </Text>
+            <Text>{me ? `${objects[cardId].data.suit} ${objects[cardId].data.value}` : '*'}</Text>
           </View>
         ))}
       {backCards &&
@@ -58,15 +54,15 @@ export const Player = memo(function({ id, me, objects }) {
             style={{
               width: 20,
               height: 20,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center"
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
             <Text>*</Text>
           </View>
         ))}
     </View>
-  );
-});
+  )
+})

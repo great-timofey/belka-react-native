@@ -1,39 +1,39 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { AsyncStorage, StatusBar, Text, Button } from "react-native";
-import * as Colyseus from "colyseus.js";
-import { Buffer } from "buffer";
+import React, { useEffect, useState, useCallback } from 'react'
+import { AsyncStorage, StatusBar, Text, Button } from 'react-native'
+import * as Colyseus from 'colyseus.js'
+import { Buffer } from 'buffer'
 
-import { Rooms } from "./Containers/Rooms";
-import { Room } from "./Containers/Room";
+import { Rooms } from './Containers/Rooms'
+import { Room } from './Containers/Room'
 
-window.localStorage = AsyncStorage;
-global.Buffer = Buffer;
+window.localStorage = AsyncStorage
+global.Buffer = Buffer
 
 const App = () => {
-  const [rooms, setRooms] = useState([]);
-  const [room, setRoom] = useState(null);
-  const [client, setClient] = useState(null);
+  const [rooms, setRooms] = useState([])
+  const [room, setRoom] = useState(null)
+  const [client, setClient] = useState(null)
 
   useEffect(() => {
-    const url = "ws://belkagame.herokuapp.com";
-    const newClient = new Colyseus.Client(url);
-    setClient(newClient);
-  }, []);
+    const url = 'ws://belkagame.herokuapp.com'
+    const newClient = new Colyseus.Client(url)
+    setClient(newClient)
+  }, [])
 
   useEffect(() => {
-    updateRooms();
-  }, [client]);
+    updateRooms()
+  }, [client])
 
   const updateRooms = useCallback(() => {
-    if (!client) return;
+    if (!client) return
 
     async function getRooms() {
-      const rooms = await client.getAvailableRooms();
-      setRooms(rooms);
+      const rooms = await client.getAvailableRooms()
+      setRooms(rooms)
     }
 
-    getRooms();
-  }, [client]);
+    getRooms()
+  }, [client])
 
   return (
     <>
@@ -51,7 +51,7 @@ const App = () => {
         <Text>Loading...</Text>
       )}
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
