@@ -17,9 +17,7 @@ const rootStack = {
     navigationOptions: {
       title: 'Belka Game',
       gestureEnabled: false,
-      headerStyle: {
-        elevation: 0
-      }
+      headerShown: false
     }
   }
 }

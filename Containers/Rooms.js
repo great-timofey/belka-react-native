@@ -20,7 +20,7 @@ export const Rooms = memo(function(props) {
   }, [client])
 
   const joinRoom = useCallback(
-    async roomId => {
+    roomId => {
       if (!client) return
 
       props.navigation.navigate(belkaGameScreenName, { roomId })

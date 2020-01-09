@@ -2,14 +2,16 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Provider } from 'react-redux'
-import { store } from './redux'
 import { AppNavigator } from './navigation'
 
 import { Buffer } from 'buffer'
+import { configureStore } from './redux'
 
 // eslint-disable-next-line no-undef
 window.localStorage = AsyncStorage
 global.Buffer = Buffer
+
+const { store, persistor } = configureStore()
 
 const App = () => {
   return (
