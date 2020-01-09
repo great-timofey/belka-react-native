@@ -1,15 +1,31 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 
-export const Rooms = memo(function({ rooms = [], client, setRoom }) {
+import { useClientHook } from '../hooks/useClientHook'
+import { belkaGameScreenName } from '../navigation/names'
+
+export const Rooms = memo(function(props) {
+  const client = useClientHook()
+  const [rooms, setRooms] = useState([])
+
+  useEffect(() => {
+    if (!client) return
+
+    async function getRooms() {
+      const newRooms = await client.getAvailableRooms()
+      if (newRooms && newRooms.length) setRooms(newRooms)
+    }
+
+    getRooms()
+  }, [client])
+
   const joinRoom = useCallback(
     async roomId => {
       if (!client) return
 
-      const room = await client.joinById(roomId)
-      setRoom(room)
+      props.navigation.navigate(belkaGameScreenName, { roomId })
     },
-    [setRoom, client]
+    [props.navigation, client]
   )
 
   return (

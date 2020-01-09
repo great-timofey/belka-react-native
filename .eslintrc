@@ -30,16 +30,11 @@
     "codeFrame": false
   },
   "rules": {
-    "max-len": [
-      "error",
-      {
-        "code": 100
-      }
-    ],
     "import/prefer-default-export": "off",
     "prefer-promise-reject-errors": [
       "off"
     ],
+    "import/order": "off",
     "react/jsx-filename-extension": [
       "off"
     ],
@@ -47,6 +42,7 @@
       "off"
     ],
     "react/jsx-one-expression-per-line": "off",
+    "no-case-declarations": "off",
     "consistent-return": "off",
     "react/prop-types": "off",
     "func-names": "off",
