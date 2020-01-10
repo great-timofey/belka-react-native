@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { getSuitCode } from '../../utils/suit'
+import { getSuitCode } from 'utils/suit'
 import styles from './styles'
 
 export const Card = memo(function({ data, onPress, deck }) {

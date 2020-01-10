@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 
-import { useClientHook } from '../../hooks/useClientHook'
-import { belkaGameScreenName } from '../../navigation/names'
+import { useClientHook } from 'hooks/useClientHook'
+import { belkaGameScreenName } from 'navigation/names'
 
 import styles from './styles'
 

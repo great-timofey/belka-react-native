@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga'
-import { take, takeEvery, put, call, select, fork, apply } from 'redux-saga/effects'
+import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 import * as Colyseus from 'colyseus.js'
 import AsyncStorage from '@react-native-community/async-storage'
 

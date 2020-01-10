@@ -2,9 +2,9 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Card } from '../Card'
-import { getSuitCode } from '../../utils/suit'
-import { ROOM_ADD_ACTION } from '../../redux/belkaGame/actions'
+import { Card } from 'components/Card'
+import { getSuitCode } from 'utils/suit'
+import { ROOM_ADD_ACTION } from 'redux/belkaGame/actions'
 
 import styles from './styles'
 

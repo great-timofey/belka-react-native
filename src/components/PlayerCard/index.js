@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import uid from 'lodash/uniqueId'
 import { useSelector } from 'react-redux'
 
-import { Card } from '../Card'
+import { Card } from 'components/Card'
 import styles from './styles'
 
 export const PlayerCard = memo(function({ player }) {

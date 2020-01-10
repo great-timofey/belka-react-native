@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import uid from 'lodash/uniqueId'
 
-import { PlayerCard } from '../PlayerCard'
-import { PlayerBoard } from '../PlayerBoard'
-import { DeckCards } from '../DeckCards'
+import { PlayerCard } from 'components/PlayerCard'
+import { PlayerBoard } from 'components/PlayerBoard'
+import { DeckCards } from 'components/DeckCards'
 
 import styles from './styles'
 

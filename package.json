@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "clean-deps": "watchman watch-del-all && rm -rf /tmp/metro-*",
+    "reinstall": "rm -rf node_modules && yarn clean-deps && yarn --clean-cache"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.7.1",
@@ -41,6 +43,7 @@
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
+    "babel-plugin-module-resolver": "4.0.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.9.0",

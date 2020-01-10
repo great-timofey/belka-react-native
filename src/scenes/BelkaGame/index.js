@@ -2,10 +2,10 @@ import React, { memo, useEffect } from 'react'
 import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { START_CHANNEL } from '../../redux/belkaGame/actions'
+import { START_CHANNEL } from 'redux/belkaGame/actions'
 
-import { InfoBoard } from '../../Components/InfoBoard'
-import { GameBoard } from '../../Components/GameBoard'
+import { InfoBoard } from 'components/InfoBoard'
+import { GameBoard } from 'components/GameBoard'
 
 import styles from './styles'
 
