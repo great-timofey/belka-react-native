@@ -1,10 +1,11 @@
 import React, { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
+import uid from 'lodash/uniqueId'
 import { useSelector } from 'react-redux'
 
-import { Card } from './Card'
-import uid from 'lodash/uniqueId'
+import { Card } from '../Card'
+import styles from './styles'
 
 export const PlayerCard = memo(function({ player }) {
   const { objects } = useSelector(state => state.belkaGame)
@@ -20,7 +21,7 @@ export const PlayerCard = memo(function({ player }) {
   )
 
   return (
-    <View style={{ flexDirection: 'row', flex: 0.5, paddingTop: 10 }}>
+    <View style={styles.container}>
       {playerCard.map(card => (
         <Card
           data={card}

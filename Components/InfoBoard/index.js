@@ -1,10 +1,12 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { Text, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { ROOM_ADD_BOT } from '../redux/belkaGame/actions'
+
+import { ROOM_ADD_BOT } from '../../redux/belkaGame/actions'
+import styles from './styles'
 
 export const InfoBoard = memo(function() {
-  const { clients, room, objects } = useSelector(state => state.belkaGame)
+  const { clients, objects } = useSelector(state => state.belkaGame)
   const dispatch = useDispatch()
 
   const boardId = useMemo(
@@ -17,7 +19,7 @@ export const InfoBoard = memo(function() {
   const addBot = useCallback(() => dispatch({ type: ROOM_ADD_BOT }), [dispatch])
 
   return clientList.length === 4 && board ? (
-    <Text style={{ textAlign: 'center', fontSize: 20, color: 'white', marginTop: 3 }}>
+    <Text style={styles.infoBoard}>
       Очки команд (глаза) {board.team1} / {board.team2}
     </Text>
   ) : (

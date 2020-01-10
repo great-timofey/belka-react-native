@@ -1,8 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 
-import { useClientHook } from '../hooks/useClientHook'
-import { belkaGameScreenName } from '../navigation/names'
+import { useClientHook } from '../../hooks/useClientHook'
+import { belkaGameScreenName } from '../../navigation/names'
+
+import styles from './styles'
 
 export const Rooms = memo(function(props) {
   const client = useClientHook()
@@ -31,18 +33,13 @@ export const Rooms = memo(function(props) {
   )
 
   return (
-    <View style={{ padding: 10, flex: 1 }}>
+    <View style={styles.container}>
       <>
         {rooms.length ? (
           rooms.map(room => (
             <Button
-              style={{
-                flex: 1,
-                borderBottom: 'black',
-                borderBottomWidth: 1,
-                marginBottom: 5
-              }}
               key={room.roomId}
+              style={styles.joinRoomButton}
               onPress={() => joinRoom(room.roomId)}
               title={`${room.name} - ${room.roomId}`}
             />
@@ -50,7 +47,12 @@ export const Rooms = memo(function(props) {
         ) : (
           <Text>No rooms available</Text>
         )}
-        <Button title="update rooms" style={{ marginTop: 5 }} color="red" onPress={updateRooms} />
+        <Button
+          title="update rooms"
+          style={styles.updateRoomButton}
+          color="red"
+          onPress={updateRooms}
+        />
       </>
     </View>
   )

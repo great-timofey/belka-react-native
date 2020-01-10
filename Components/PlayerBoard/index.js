@@ -1,10 +1,12 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSuitCode } from '../utils/suit'
 
-import { Card } from './Card'
-import { ROOM_ADD_ACTION } from '../redux/belkaGame/actions'
+import { Card } from '../Card'
+import { getSuitCode } from '../../utils/suit'
+import { ROOM_ADD_ACTION } from '../../redux/belkaGame/actions'
+
+import styles from './styles'
 
 export const PlayerBoard = memo(function({ player }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)
@@ -18,15 +20,15 @@ export const PlayerBoard = memo(function({ player }) {
 
   const handlePlayCard = useCallback(
     cardId => () => {
-      // console.log('play card with id', cardId)
       const foundAction = actions.find(action => action.data.objectId === cardId)
-      console.log(foundAction)
-      if (foundAction) dispatch({ type: ROOM_ADD_ACTION, data: { actionId: foundAction.id, room } })
+      if (foundAction) {
+        dispatch({ type: ROOM_ADD_ACTION, data: { actionId: foundAction.id, room } })
+      }
     },
     [actions, dispatch, room]
   )
 
-  const playerCards = useCallback(() => {
+  const renderPlayerCards = useCallback(() => {
     const playerHand = []
 
     if (objects && player.handId && objects[player.handId]) {
@@ -45,30 +47,21 @@ export const PlayerBoard = memo(function({ player }) {
   }, [hand, me, objects, player, handlePlayCard])
 
   return (
-    <View
-      style={{
-        padding: 10,
-        flex: 1
-      }}
-    >
-      <Text style={{ color: 'white', fontSize: 14 }}>{player.name}</Text>
-      {!player.connected ? (
-        <Text style={{ color: 'red', fontSize: 12 }}>Weak signal!</Text>
-      ) : (
-        <View />
-      )}
+    <View style={styles.playerBoardContainer}>
+      <Text style={styles.commonTextStyles}>{player.name}</Text>
+      {!player.connected ? <Text style={styles.commonTextStyles}>Weak signal!</Text> : <View />}
       {player.timer >= 0 ? (
-        <Text style={{ color: 'white', fontSize: 12 }}>Time: {player.timer}</Text>
+        <Text style={styles.commonTextStyles}>Time: {player.timer}</Text>
       ) : (
         <View />
       )}
       {player.suit >= 0 ? (
-        <Text style={{ color: 'white', fontSize: 14 }}>Trump: {getSuitCode(player.suit)}</Text>
+        <Text style={styles.commonTextStyles}>Trump: {getSuitCode(player.suit)}</Text>
       ) : (
         <View />
       )}
-      <Text style={{ color: 'white', fontSize: 14, marginBottom: 3 }}>score: {player.score}</Text>
-      <View style={{ flex: 2, flexDirection: 'row' }}>{playerCards()}</View>
+      <Text style={styles.commonTextStyles}>score: {player.score}</Text>
+      <View style={styles.playerCardsContainer}>{renderPlayerCards()}</View>
     </View>
   )
 })

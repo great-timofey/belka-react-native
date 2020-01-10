@@ -1,11 +1,13 @@
 import React, { memo, useEffect } from 'react'
-import { Text, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { View } from 'react-native'
+import { useDispatch } from 'react-redux'
 
-import { START_CHANNEL } from '../redux/belkaGame/actions'
+import { START_CHANNEL } from '../../redux/belkaGame/actions'
 
-import { InfoBoard } from '../Components/InfoBoard'
-import { GameBoard } from '../Components/GameBoard'
+import { InfoBoard } from '../../Components/InfoBoard'
+import { GameBoard } from '../../Components/GameBoard'
+
+import styles from './styles'
 
 export const BelkaGame = memo(function(props) {
   const dispatch = useDispatch()
@@ -20,7 +22,7 @@ export const BelkaGame = memo(function(props) {
   }, [dispatch, props.navigation])
 
   return (
-    <View style={{ backgroundColor: 'green', flex: 1 }}>
+    <View style={styles.container}>
       <InfoBoard />
       <GameBoard />
     </View>

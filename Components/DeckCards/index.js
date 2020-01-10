@@ -1,8 +1,9 @@
 import React, { memo, useMemo } from 'react'
 import { View } from 'react-native'
-
-import { Card } from './Card'
 import { useSelector } from 'react-redux'
+
+import { Card } from '../Card'
+import styles from './styles'
 
 export const DeckCards = memo(function() {
   const { objects } = useSelector(state => state.belkaGame)
@@ -21,7 +22,7 @@ export const DeckCards = memo(function() {
   ])
 
   return (
-    <View style={{ flexDirection: 'row', height: 30, justifyContent: 'flex-end', flex: 0.5 }}>
+    <View style={styles.container}>
       {deck.map(card => (
         <Card deck data={card} key={card.id} />
       ))}

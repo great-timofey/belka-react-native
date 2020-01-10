@@ -1,12 +1,13 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
-
-import { PlayerCard } from './PlayerCard'
-import { PlayerBoard } from './PlayerBoard'
-import { DeckCards } from './DeckCards'
-
 import uid from 'lodash/uniqueId'
+
+import { PlayerCard } from '../PlayerCard'
+import { PlayerBoard } from '../PlayerBoard'
+import { DeckCards } from '../DeckCards'
+
+import styles from './styles'
 
 export const GameBoard = memo(function() {
   const { players, objects, clients, room } = useSelector(state => state.belkaGame)
@@ -42,15 +43,7 @@ export const GameBoard = memo(function() {
     return enemies.map(player => {
       const playerId = uid(player.id)
       return (
-        <View
-          key={`${playerId}-view`}
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center'
-          }}
-        >
+        <View key={`${playerId}-view`} style={styles.playerContainer}>
           <PlayerBoard key={`${playerId}-board`} player={player} />
           <PlayerCard key={`${playerId}-card`} player={player} />
         </View>
@@ -59,16 +52,9 @@ export const GameBoard = memo(function() {
   }, [clients, me, objects, players])
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.gameBoardContainer}>
       {renderEnemies()}
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center'
-        }}
-      >
+      <View style={styles.playerContainer}>
         <PlayerBoard key={`${uid(me.id)}-board`} player={me} />
         <PlayerCard key={`${uid(me.id)}-card`} player={me} />
       </View>
