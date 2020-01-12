@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Card } from 'components/Card'
 import { getSuitCode } from 'utils/suit'
-import { ROOM_ADD_ACTION } from 'redux/belkaGame/actions'
+import { roomAddAction } from 'redux/belkaGame/actions'
 
 import styles from './styles'
 
@@ -22,7 +22,7 @@ export const PlayerBoard = memo(function({ player }) {
     cardId => () => {
       const foundAction = actions.find(action => action.data.objectId === cardId)
       if (foundAction) {
-        dispatch({ type: ROOM_ADD_ACTION, data: { actionId: foundAction.id, room } })
+        dispatch(roomAddAction(foundAction.id))
       }
     },
     [actions, dispatch, room]

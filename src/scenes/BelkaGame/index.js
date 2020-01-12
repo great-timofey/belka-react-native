@@ -2,7 +2,8 @@ import React, { memo, useEffect } from 'react'
 import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { START_CHANNEL } from 'redux/belkaGame/actions'
+// import { START_CHANNEL } from 'redux/belkaGame/actions'
+import { startChannel } from 'redux/belkaGame/actions'
 
 import { InfoBoard } from 'components/InfoBoard'
 import { GameBoard } from 'components/GameBoard'
@@ -18,7 +19,7 @@ export const BelkaGame = memo(function(props) {
 
     if (!roomId) return
 
-    dispatch({ type: START_CHANNEL, roomId })
+    dispatch(startChannel(roomId))
   }, [dispatch, props.navigation])
 
   return (

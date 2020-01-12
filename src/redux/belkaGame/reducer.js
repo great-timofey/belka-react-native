@@ -1,4 +1,5 @@
-import * as ACTIONS from './actions'
+import * as TYPES from './types'
+import { createReducer } from 'utils/createReducer'
 
 const initState = {
   objects: {},
@@ -9,39 +10,44 @@ const initState = {
   room: null
 }
 
-function belkaGameReducer(state = initState, action) {
-  switch (action.type) {
-    case ACTIONS.INIT_ROOM:
-      const { room } = action
-      return { ...state, room }
-    case ACTIONS.GET_MESSAGE_OBJECT:
-      const { object } = action
-      return { ...state, hand: { ...state.hand, [object.id]: object } }
-    case ACTIONS.GET_MESSAGE_ACTIONS:
-      const { actions } = action
-      return { ...state, actions }
-    case ACTIONS.ADD_OBJECT:
-      const { obj: newObject } = action
-      return { ...state, objects: { ...state.objects, [newObject.id]: newObject } }
-    case ACTIONS.UPDATE_OBJECT:
-      const { key, obj: updatedObject } = action
-      return { ...state, objects: { ...state.objects, [key]: updatedObject } }
-    case ACTIONS.ADD_CLIENT:
-      const { sessionId, playerId: data } = action
-      return { ...state, clients: { ...state.clients, [sessionId]: data } }
-    case ACTIONS.REMOVE_CLIENT:
-      const { sessionId: clientId } = action
-      return { ...state, clients: { ...state.clients, [clientId]: undefined } }
-    case ACTIONS.ADD_PLAYER:
-      const { playerId } = action
-      return { ...state, players: [...state.players, playerId] }
-    case ACTIONS.REMOVE_PLAYER:
-      const { index } = action
-      const players = state.players.splice(index, 1)
-      return { ...state, players }
-    default:
-      return state
-  }
+const initRoomHandler = (state, room) => ({ ...state, room })
+const setMessageObjectHandler = (state, object) => ({
+  ...state,
+  hand: { ...state.hand, [object.id]: object }
+})
+const setMessageActionsHandler = (state, actions) => ({ ...state, actions })
+const addObjectHandler = (state, newObject) => ({
+  ...state,
+  objects: { ...state.objects, [newObject.id]: newObject }
+})
+const updateObjectHandler = (state, { key, object }) => ({
+  ...state,
+  objects: { ...state.objects, [key]: object }
+})
+const addClientHandler = (state, { playerId, sessionId }) => ({
+  ...state,
+  clients: { ...state.clients, [sessionId]: playerId }
+})
+const removeClientHandler = (state, clientId) => ({
+  ...state,
+  clients: { ...state.clients, [clientId]: undefined }
+})
+const addPlayerHandler = (state, player) => ({ ...state, players: [...state.players, player] })
+const removePlayerHandler = (state, playerIndex) => ({
+  ...state,
+  players: state.players.filter((_, index) => index !== playerIndex)
+})
+
+const handlersMap = {
+  [TYPES.INIT_ROOM]: initRoomHandler,
+  [TYPES.SET_MESSAGE_OBJECT]: setMessageObjectHandler,
+  [TYPES.SET_MESSAGE_ACTIONS]: setMessageActionsHandler,
+  [TYPES.ADD_OBJECT]: addObjectHandler,
+  [TYPES.UPDATE_OBJECT]: updateObjectHandler,
+  [TYPES.ADD_CLIENT]: addClientHandler,
+  [TYPES.REMOVE_CLIENT]: removeClientHandler,
+  [TYPES.ADD_PLAYER]: addPlayerHandler,
+  [TYPES.REMOVE_PLAYER]: removePlayerHandler
 }
 
-export default belkaGameReducer
+export default createReducer(initState, handlersMap)

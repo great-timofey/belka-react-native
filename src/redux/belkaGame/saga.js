@@ -1,9 +1,20 @@
-import { eventChannel } from 'redux-saga'
-import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 import * as Colyseus from 'colyseus.js'
+import { eventChannel } from 'redux-saga'
 import AsyncStorage from '@react-native-community/async-storage'
+import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
-import * as ACTIONS from './actions'
+import * as TYPES from './types'
+import {
+  initRoom,
+  setMessageObject,
+  setMessageActions,
+  addClient,
+  removeClient,
+  addObject,
+  updateObject,
+  addPlayer,
+  removePlayer
+} from './actions'
 
 const client = new Colyseus.Client('ws://belkagame.herokuapp.com')
 let roomSend
@@ -13,22 +24,30 @@ function createRoomChannel(room) {
   return eventChannel(emit => {
     room.onMessage(message => {
       if (message.type === 'object') {
-        emit({ type: ACTIONS.GET_MESSAGE_OBJECT, object: message.data })
+        // emit({ type: ACTIONS.GET_MESSAGE_OBJECT, object: message.data })
+        emit(setMessageObject(message.data))
       } else if (message.type === 'actions') {
-        emit({ type: ACTIONS.GET_MESSAGE_ACTIONS, actions: message.data })
+        // emit({ type: ACTIONS.GET_MESSAGE_ACTIONS, actions: message.data })
+        emit(setMessageActions(message.data))
       }
     })
 
-    room.state.objects.onAdd = obj => emit({ type: ACTIONS.ADD_OBJECT, obj })
-    room.state.objects.onChange = (obj, key) => emit({ type: ACTIONS.UPDATE_OBJECT, key, obj })
-    room.state.clients.onAdd = (playerId, sessionId) =>
-      emit({ type: ACTIONS.ADD_CLIENT, sessionId, playerId })
-    room.state.clients.onRemove = (player, sessionId) =>
-      emit({ type: ACTIONS.REMOVE_CLIENT, sessionId })
-    room.state.players.onAdd = playerId => emit({ type: ACTIONS.ADD_PLAYER, playerId })
-    room.state.players.onRemove = index => emit({ type: ACTIONS.REMOVE_PLAYER, index })
+    // room.state.objects.onAdd = obj => emit({ type: ACTIONS.ADD_OBJECT, obj })
+    room.state.objects.onAdd = obj => emit(addObject(obj))
+    // room.state.objects.onChange = (obj, key) => emit({ type: ACTIONS.UPDATE_OBJECT, key, obj })
+    room.state.objects.onChange = (obj, key) => emit(updateObject(obj, key))
+    // room.state.clients.onAdd = (playerId, sessionId) =>
+    //   emit({ type: ACTIONS.ADD_CLIENT, sessionId, playerId })
+    room.state.clients.onAdd = (playerId, sessionId) => emit(addClient(playerId, sessionId))
+    // room.state.clients.onRemove = (player, sessionId) =>
+    //   emit({ type: ACTIONS.REMOVE_CLIENT, sessionId })
+    room.state.clients.onRemove = (player, sessionId) => emit(removeClient(sessionId))
+    // room.state.players.onAdd = playerId => emit({ type: ACTIONS.ADD_PLAYER, playerId })
+    room.state.players.onAdd = playerId => emit(addPlayer(playerId))
+    // room.state.players.onRemove = index => emit({ type: ACTIONS.REMOVE_PLAYER, index })
+    room.state.players.onRemove = index => emit(removePlayer(index))
 
-    roomSend = args => room.send(args)
+    roomSend = msg => room.send(msg)
     roomLeave = () => room.leave()
 
     return () => {
@@ -71,7 +90,8 @@ const reconnectSaga = function*(roomId) {
 const listenServerSaga = function*(roomId) {
   try {
     const room = yield call(connect, roomId)
-    yield put({ type: ACTIONS.INIT_ROOM, room })
+    // yield put({ type: ACTIONS.INIT_ROOM, room })
+    yield put(initRoom(room))
     const socketChannel = yield call(createRoomChannel, room)
 
     while (true) {
@@ -94,25 +114,25 @@ const addBotSaga = function*() {
   }
 }
 
-const addActionSaga = function*(action) {
+const addActionSaga = function*({ payload }) {
   try {
-    yield call(roomSend, { type: 'action', data: { actionId: action.data.actionId } })
+    yield call(roomSend, { type: 'action', data: { actionId: payload } })
   } catch (e) {
     console.log(e)
   }
 }
 
 const sendSagaWorker = function*() {
-  yield takeEvery(ACTIONS.ROOM_ADD_BOT, addBotSaga)
-  yield takeEvery(ACTIONS.ROOM_ADD_ACTION, addActionSaga)
+  yield takeEvery(TYPES.ROOM_ADD_BOT, addBotSaga)
+  yield takeEvery(TYPES.ROOM_ADD_ACTION, addActionSaga)
 }
 
 const startStopChannel = function*() {
   while (true) {
     try {
-      const { roomId } = yield take(ACTIONS.START_CHANNEL)
+      const { payload } = yield take(TYPES.START_CHANNEL)
       yield fork(sendSagaWorker)
-      yield call(listenServerSaga, roomId)
+      yield call(listenServerSaga, payload)
     } catch (e) {
       if (roomLeave) {
         console.log('leave')

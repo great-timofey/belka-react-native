@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
-import uid from 'lodash/uniqueId'
 
 import { PlayerCard } from 'components/PlayerCard'
 import { PlayerBoard } from 'components/PlayerBoard'
@@ -41,11 +40,10 @@ export const GameBoard = memo(function() {
     const enemies = playersList.filter(player => player !== me)
 
     return enemies.map(player => {
-      const playerId = uid(player.id)
       return (
-        <View key={`${playerId}-view`} style={styles.playerContainer}>
-          <PlayerBoard key={`${playerId}-board`} player={player} />
-          <PlayerCard key={`${playerId}-card`} player={player} />
+        <View key={`${player.id}-view`} style={styles.playerContainer}>
+          <PlayerBoard key={`${player.id}-board`} player={player} />
+          <PlayerCard key={`${player.id}-card`} player={player} />
         </View>
       )
     })
@@ -55,8 +53,8 @@ export const GameBoard = memo(function() {
     <View style={styles.gameBoardContainer}>
       {renderEnemies()}
       <View style={styles.playerContainer}>
-        <PlayerBoard key={`${uid(me.id)}-board`} player={me} />
-        <PlayerCard key={`${uid(me.id)}-card`} player={me} />
+        <PlayerBoard key={`${me.id}-board`} player={me} />
+        <PlayerCard key={`${me.id}-card`} player={me} />
       </View>
       <DeckCards />
     </View>

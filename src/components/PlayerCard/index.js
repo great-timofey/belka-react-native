@@ -1,7 +1,6 @@
 import React, { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
-import uid from 'lodash/uniqueId'
 import { useSelector } from 'react-redux'
 
 import { Card } from 'components/Card'
@@ -23,10 +22,7 @@ export const PlayerCard = memo(function({ player }) {
   return (
     <View style={styles.container}>
       {playerCard.map(card => (
-        <Card
-          data={card}
-          key={`${player.id}-${player.name}-${player.cardSlotId}-${uid(card.id)}`}
-        />
+        <Card data={card} key={`${player.id}-${player.name}`} />
       ))}
     </View>
   )

@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { Text, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ROOM_ADD_BOT } from 'redux/belkaGame/actions'
+import { roomAddBot } from 'redux/belkaGame/actions'
 import styles from './styles'
 
 export const InfoBoard = memo(function() {
@@ -16,7 +16,7 @@ export const InfoBoard = memo(function() {
   const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
   const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
 
-  const addBot = useCallback(() => dispatch({ type: ROOM_ADD_BOT }), [dispatch])
+  const addBot = useCallback(() => dispatch(roomAddBot()), [dispatch])
 
   return clientList.length === 4 && board ? (
     <Text style={styles.infoBoard}>
