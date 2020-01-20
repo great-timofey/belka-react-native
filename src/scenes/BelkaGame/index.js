@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 // import { START_CHANNEL } from 'redux/belkaGame/actions'
-import { startChannel } from 'redux/belkaGame/actions'
+import { startChannel } from 'reduxLocal/belkaGame/actions'
 
 import { InfoBoard } from 'components/InfoBoard'
 import { GameBoard } from 'components/GameBoard'

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Card } from 'components/Card'
 import { getSuitCode } from 'utils/suit'
-import { roomAddAction } from 'redux/belkaGame/actions'
+import { roomAddAction } from 'reduxLocal/belkaGame/actions'
 
 import styles from './styles'
 

@@ -9,7 +9,7 @@ module.exports = {
           scenes: './src/scenes',
           hooks: './src/hooks',
           navigation: './src/navigation',
-          redux: './src/redux',
+          reduxLocal: './src/redux',
           utils: './src/utils'
         }
       }

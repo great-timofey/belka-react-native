@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { Text, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { roomAddBot } from 'redux/belkaGame/actions'
+import { roomAddBot } from 'reduxLocal/belkaGame/actions'
 import styles from './styles'
 
 export const InfoBoard = memo(function() {
