@@ -1,0 +1,51 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "prettier",
+    "react-hooks"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "src"
+        ]
+    }
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "prefer-promise-reject-errors": [
+      "off"
+    ],
+    "import/order": "off",
+    "react/jsx-filename-extension": [
+      "off"
+    ],
+    "no-return-assign": [
+      "off"
+    ],
+    "react/jsx-one-expression-per-line": "off",
+    "no-case-declarations": "off",
+    "consistent-return": "off",
+    "react/prop-types": "off",
+    "func-names": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
