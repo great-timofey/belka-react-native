@@ -5,12 +5,14 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          components: './src/components',
-          scenes: './src/scenes',
-          hooks: './src/hooks',
-          navigation: './src/navigation',
-          reduxLocal: './src/redux',
-          utils: './src/utils'
+          '@components': './src/components',
+          '@scenes': './src/scenes',
+          '@hooks': './src/hooks',
+          '@navigation': './src/navigation',
+          '@redux': './src/redux',
+          '@utils': './src/utils',
+          '@global': './src/global',
+          '@assets': './assets'
         }
       }
     ]
