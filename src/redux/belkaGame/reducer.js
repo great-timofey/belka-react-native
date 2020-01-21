@@ -1,5 +1,5 @@
 import * as TYPES from './types'
-import { createReducer } from 'utils/createReducer'
+import { createReducer } from '@utils/createReducer'
 
 const initState = {
   objects: {},

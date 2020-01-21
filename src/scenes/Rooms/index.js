@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 
-import { useClientHook } from 'hooks/useClientHook'
-import { belkaGameScreenName } from 'navigation/names'
+import { useClientHook } from '@hooks/useClientHook'
+import { belkaGameScreenName } from '@navigation/names'
 
 import styles from './styles'
+import { fonts } from '@global/styles'
 
 export const Rooms = memo(function(props) {
   const client = useClientHook()
@@ -21,7 +22,7 @@ export const Rooms = memo(function(props) {
     getRooms()
   }, [client])
 
-  useEffect(() => updateRooms, [])
+  useEffect(updateRooms, [])
 
   const joinRoom = useCallback(
     roomId => {

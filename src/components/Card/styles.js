@@ -11,5 +11,9 @@ export default StyleSheet.create({
     height: 60,
     marginLeft: 5,
     backgroundColor: 'white'
+  },
+  image: {
+    width: 40,
+    height: 60
   }
 })

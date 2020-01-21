@@ -2,9 +2,9 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import { PlayerCard } from 'components/PlayerCard'
-import { PlayerBoard } from 'components/PlayerBoard'
-import { DeckCards } from 'components/DeckCards'
+import { PlayerCard } from '@components/PlayerCard'
+import { PlayerBoard } from '@components/PlayerBoard'
+import { DeckCards } from '@components/DeckCards'
 
 import styles from './styles'
 
