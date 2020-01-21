@@ -3,7 +3,9 @@ import { View } from 'react-native'
 
 import { useSelector } from 'react-redux'
 
-import { Card } from 'components/Card'
+import { Card } from '@components/Card'
+import { BelkaGame } from '@scenes/BelkaGame'
+
 import styles from './styles'
 
 export const PlayerCard = memo(function({ player }) {
