@@ -1,6 +1,6 @@
 import * as Colyseus from 'colyseus.js'
 import { eventChannel } from 'redux-saga'
-import AsyncStorage from '@react-native-community/async-storage'
+// import AsyncStorage from '@react-native-community/async-storage'
 import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
 import * as TYPES from './types'
@@ -64,28 +64,28 @@ const connect = roomId => {
   })
 }
 
-const reconnect = (roomId, sessionId) => {
-  return new Promise(resolve => {
-    client.reconnect(roomId, sessionId).then(room => {
-      resolve(room)
-    })
-  })
-}
+// const reconnect = (roomId, sessionId) => {
+//   return new Promise(resolve => {
+//     client.reconnect(roomId, sessionId).then(room => {
+//       resolve(room)
+//     })
+//   })
+// }
 
-const reconnectSaga = function*(roomId) {
-  try {
-    const sessionId = yield AsyncStorage.getItem('sessionId')
-    const room = yield call(reconnect, roomId, sessionId)
-    const socketChannel = yield call(createRoomChannel, room)
-
-    for (let i = 0; i < 3; i += 1) {
-      const payload = yield take(socketChannel)
-      yield put(payload)
-    }
-  } catch (error) {
-    console.log('reconnection error')
-  }
-}
+// const reconnectSaga = function*(roomId) {
+//   try {
+//     const sessionId = yield AsyncStorage.getItem('sessionId')
+//     const room = yield call(reconnect, roomId, sessionId)
+//     const socketChannel = yield call(createRoomChannel, room)
+//
+//     for (let i = 0; i < 3; i += 1) {
+//       const payload = yield take(socketChannel)
+//       yield put(payload)
+//     }
+//   } catch (error) {
+//     console.log('reconnection error')
+//   }
+// }
 
 const listenServerSaga = function*(roomId) {
   try {
@@ -110,7 +110,7 @@ const addBotSaga = function*() {
   try {
     yield call(roomSend, { type: 'addbot' })
   } catch (e) {
-    console.log(r)
+    console.log(e)
   }
 }
 

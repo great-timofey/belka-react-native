@@ -7,9 +7,11 @@ import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
 
 import styles from './styles'
+// import { mockState } from '@redux/belkaGame/mockState'
 
-export const PlayerBoard = memo(function({ player }) {
+export const PlayerBoard = memo(function({ player, index }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)
+  // const { actions, room, hand, clients, objects } = mockState
   const dispatch = useDispatch()
 
   const me = useMemo(() => (room && objects[clients[room.sessionId]]) || {}, [
@@ -25,7 +27,7 @@ export const PlayerBoard = memo(function({ player }) {
         dispatch(roomAddAction(foundAction.id))
       }
     },
-    [actions, dispatch, room]
+    [actions, dispatch]
   )
 
   const renderPlayerCards = useCallback(() => {
@@ -41,27 +43,32 @@ export const PlayerBoard = memo(function({ player }) {
       })
     }
 
-    return playerHand.map(card => (
-      <Card key={`${card.id}`} data={card} onPress={handlePlayCard(card.id)} />
+    return playerHand.map((card, i) => (
+      <Card
+        my={player === me}
+        index={i}
+        key={`${card.id}`}
+        data={card}
+        onPress={handlePlayCard(card.id)}
+      />
     ))
   }, [hand, me, objects, player, handlePlayCard])
 
   return (
-    <View style={styles.playerBoardContainer}>
-      <Text style={styles.commonTextStyles}>{player.name}</Text>
-      {!player.connected ? <Text style={styles.commonTextStyles}>Weak signal!</Text> : <View />}
-      {player.timer >= 0 ? (
-        <Text style={styles.commonTextStyles}>Time: {player.timer}</Text>
-      ) : (
-        <View />
+    <View style={[styles.playerBoardContainer, player === me && styles.playerBoardContainerMy]}>
+      {player !== me && (
+        <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer-${index}`]]}>
+          <Text style={styles.commonTextStyles}>{player.name}</Text>
+        </View>
       )}
-      {player.suit >= 0 ? (
-        <Text style={styles.commonTextStyles}>Trump: {getSuitCode(player.suit)}</Text>
-      ) : (
-        <View />
+      {player.suit >= 0 && (
+        <View style={styles.nameContainer}>
+          <Text style={styles.commonTextStyles}>Trump: {getSuitCode(player.suit)}</Text>
+        </View>
       )}
-      <Text style={styles.commonTextStyles}>score: {player.score}</Text>
-      <View style={styles.playerCardsContainer}>{renderPlayerCards()}</View>
+      <View style={[styles.playerCardsContainer, styles[`playerCardsContainer-${index}`]]}>
+        {renderPlayerCards()}
+      </View>
     </View>
   )
 })

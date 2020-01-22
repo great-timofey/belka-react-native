@@ -5,7 +5,6 @@ import { useClientHook } from '@hooks/useClientHook'
 import { belkaGameScreenName } from '@navigation/names'
 
 import styles from './styles'
-import { fonts } from '@global/styles'
 
 export const Rooms = memo(function(props) {
   const client = useClientHook()
@@ -36,6 +35,7 @@ export const Rooms = memo(function(props) {
   return (
     <View style={styles.container}>
       <>
+        <Button onPress={joinRoom} title="mock join room" />
         {rooms.length ? (
           rooms.map(room => (
             <Button

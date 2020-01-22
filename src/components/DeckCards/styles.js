@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: 30,
-    justifyContent: 'flex-end',
-    flex: 0.5
+  deck: {
+    position: 'absolute',
+    top: 50,
+    left: 10,
+    width: 150,
+    height: 50,
+    backgroundColor: 'cyan'
   }
 })

@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native'
+import { width } from '@global/styles'
 
 export default StyleSheet.create({
   gameBoardContainer: {
     flex: 1
   },
-  playerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+  myPlayerContainer: {
+    width,
+    height: 100,
+    position: 'absolute',
+    bottom: 20
   }
 })

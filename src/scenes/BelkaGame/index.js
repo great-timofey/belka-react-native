@@ -2,7 +2,6 @@ import React, { memo, useEffect } from 'react'
 import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-// import { START_CHANNEL } from 'redux/belkaGame/actions'
 import { startChannel } from '@redux/belkaGame/actions'
 
 import { InfoBoard } from '@components/InfoBoard'

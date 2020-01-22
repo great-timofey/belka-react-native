@@ -1,15 +1,19 @@
 import React, { memo, useCallback, useMemo } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { PlayerCard } from '@components/PlayerCard'
 import { PlayerBoard } from '@components/PlayerBoard'
 import { DeckCards } from '@components/DeckCards'
+import { Player } from '@components/Player'
 
 import styles from './styles'
+// import { mockState } from '@redux/belkaGame/mockState'
 
 export const GameBoard = memo(function() {
   const { players, objects, clients, room } = useSelector(state => state.belkaGame)
+  // const { players, objects, clients, room } = mockState
+
   const me = useMemo(
     () =>
       (room && room.sessionId && clients[room.sessionId] && objects[clients[room.sessionId]]) || {},
@@ -39,24 +43,38 @@ export const GameBoard = memo(function() {
 
     const enemies = playersList.filter(player => player !== me)
 
-    return enemies.map(player => {
+    const indices = ['first', 'second', 'third']
+    const enemiesMap = enemies.reduce((acc, item) => {
+      if (!acc[item.id]) {
+        acc[item.id] = indices.shift()
+      }
+      return acc
+    }, {})
+
+    return enemies.map((player, index) => {
+      const localIndex = enemiesMap[player.id]
       return (
-        <View key={`${player.id}-view`} style={styles.playerContainer}>
-          <PlayerBoard key={`${player.id}-board`} player={player} />
-          <PlayerCard key={`${player.id}-card`} player={player} />
-        </View>
+        <>
+          <Player key={`${localIndex}-view`} index={localIndex}>
+            <Text style={{ position: 'absolute', zIndex: 30, color: 'white' }}>index {index}</Text>
+            <PlayerBoard index={index} key={`${player.id}-board`} player={player} />
+          </Player>
+          <PlayerCard index={localIndex} key={`${localIndex}-card`} player={player} />
+        </>
       )
     })
   }, [clients, me, objects, players])
 
   return (
     <View style={styles.gameBoardContainer}>
-      {renderEnemies()}
-      <View style={styles.playerContainer}>
-        <PlayerBoard key={`${me.id}-board`} player={me} />
-        <PlayerCard key={`${me.id}-card`} player={me} />
-      </View>
       <DeckCards />
+      {renderEnemies()}
+      <>
+        <View style={[styles.myPlayerContainer]}>
+          <PlayerBoard my key={`${me.id}-board`} player={me} />
+        </View>
+        <PlayerCard key={`${me.id}-card`} player={me} />
+      </>
     </View>
   )
 })
