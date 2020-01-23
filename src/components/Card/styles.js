@@ -1,28 +1,28 @@
-import { StatusBar, StyleSheet } from 'react-native'
-import { width } from '@global/styles'
+import { StyleSheet } from 'react-native'
+import { cardHeight, cardWidth, normalize } from '@global/styles'
 
 export default StyleSheet.create({
   card: {
     position: 'absolute',
     borderWidth: 1,
     borderColor: 'black',
-    padding: 5,
+    padding: normalize(5),
     borderRadius: 3,
-    width: (width + StatusBar.currentHeight) / 8,
-    height: (((width + StatusBar.currentHeight) / 8) * 3) / 2,
-    marginLeft: 5,
+    width: cardWidth,
+    height: cardHeight,
+    marginLeft: normalize(5),
     backgroundColor: 'white'
   },
   cover: {
-    width: 40,
-    height: 60
+    width: normalize(133),
+    height: normalize(191)
   },
   deck: {
     left: 0
   },
   myCard: {
     position: 'relative',
-    marginLeft: 0
+    marginLeft: normalize(-cardWidth)
   },
   'card-0': {
     transform: [{ rotate: '-50deg' }, { translateY: -8 }, { translateX: -24 }],

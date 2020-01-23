@@ -7,7 +7,6 @@ import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
 
 import styles from './styles'
-// import { mockState } from '@redux/belkaGame/mockState'
 
 export const PlayerBoard = memo(function({ player, index }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)
@@ -62,8 +61,13 @@ export const PlayerBoard = memo(function({ player, index }) {
         </View>
       )}
       {player.suit >= 0 && (
-        <View style={styles.nameContainer}>
-          <Text style={styles.commonTextStyles}>Trump: {getSuitCode(player.suit)}</Text>
+        <View
+          style={[
+            styles.trumpContainer,
+            player === me ? styles.trumpContainerMy : styles[`playerTrumpContainer-${index}`]
+          ]}
+        >
+          <Text style={styles.commonTextStyles}>{getSuitCode(player.suit)}</Text>
         </View>
       )}
       <View style={[styles.playerCardsContainer, styles[`playerCardsContainer-${index}`]]}>

@@ -35,7 +35,6 @@ export const Rooms = memo(function(props) {
   return (
     <View style={styles.container}>
       <>
-        <Button onPress={joinRoom} title="mock join room" />
         {rooms.length ? (
           rooms.map(room => (
             <Button

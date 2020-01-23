@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useMemo } from 'react'
-import { View, Text } from 'react-native'
+import React, { Fragment, memo, useCallback, useMemo } from 'react'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { PlayerCard } from '@components/PlayerCard'
@@ -8,11 +8,9 @@ import { DeckCards } from '@components/DeckCards'
 import { Player } from '@components/Player'
 
 import styles from './styles'
-// import { mockState } from '@redux/belkaGame/mockState'
 
 export const GameBoard = memo(function() {
   const { players, objects, clients, room } = useSelector(state => state.belkaGame)
-  // const { players, objects, clients, room } = mockState
 
   const me = useMemo(
     () =>
@@ -41,26 +39,33 @@ export const GameBoard = memo(function() {
       })
     }
 
-    const enemies = playersList.filter(player => player !== me)
-
     const indices = ['first', 'second', 'third']
-    const enemiesMap = enemies.reduce((acc, item) => {
-      if (!acc[item.id]) {
-        acc[item.id] = indices.shift()
-      }
-      return acc
-    }, {})
+
+    let playersSorted = playersList.sort((a, b) => +a.id[1] - +b.id[1])
+    const enemiesMap = {}
+    const enemiesCount = playersList.length - 1
+    const myIndex = playersSorted.findIndex(player => player === me)
+
+    if (myIndex !== 0) {
+      playersSorted = [...playersSorted.slice(myIndex), ...playersSorted.slice(0, myIndex)]
+    }
+
+    for (let i = 1; i < enemiesCount + 1; i++) {
+      const nextPlayer = playersSorted[i]
+      enemiesMap[nextPlayer.id] = indices.shift()
+    }
+
+    const enemies = playersList.filter(player => player !== me)
 
     return enemies.map((player, index) => {
       const localIndex = enemiesMap[player.id]
       return (
-        <>
+        <Fragment key={`${localIndex}-fragment`}>
           <Player key={`${localIndex}-view`} index={localIndex}>
-            <Text style={{ position: 'absolute', zIndex: 30, color: 'white' }}>index {index}</Text>
             <PlayerBoard index={index} key={`${player.id}-board`} player={player} />
           </Player>
           <PlayerCard index={localIndex} key={`${localIndex}-card`} player={player} />
-        </>
+        </Fragment>
       )
     })
   }, [clients, me, objects, players])

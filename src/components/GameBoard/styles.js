@@ -3,12 +3,13 @@ import { width } from '@global/styles'
 
 export default StyleSheet.create({
   gameBoardContainer: {
-    flex: 1
+    flex: 1,
+    ...StyleSheet.absoluteFillObject
   },
   myPlayerContainer: {
     width,
     height: 100,
     position: 'absolute',
-    bottom: 20
+    bottom: 0
   }
 })

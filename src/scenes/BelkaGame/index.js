@@ -1,9 +1,10 @@
 import React, { memo, useEffect } from 'react'
-import { View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { startChannel } from '@redux/belkaGame/actions'
 
+import { gameScreenBackground } from '@global/images'
 import { InfoBoard } from '@components/InfoBoard'
 import { GameBoard } from '@components/GameBoard'
 
@@ -23,8 +24,10 @@ export const BelkaGame = memo(function(props) {
 
   return (
     <View style={styles.container}>
-      <InfoBoard />
-      <GameBoard />
+      <ImageBackground style={styles.backgroundImage} source={gameScreenBackground}>
+        <InfoBoard />
+        <GameBoard />
+      </ImageBackground>
     </View>
   )
 })

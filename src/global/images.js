@@ -53,6 +53,8 @@ const diamondsKing = require('../../assets/cards/Kd.png')
 const diamondsAce = require('../../assets/cards/Ad.png')
 const cover = require('../../assets/cards/cover.png')
 
+export const gameScreenBackground = require('../../assets/images/background.png')
+
 /*
 0 = spades
 1 = clubs

@@ -15,7 +15,7 @@ export const Card = memo(function({ data, onPress, my, index, deckIndex }) {
           styles.card,
           styles.deck,
           styles.cover,
-          { transform: [{ translateX: 2 * deckIndex + offset }] }
+          { transform: [{ translateX: 1 * deckIndex + offset }] }
         ]}
         source={cards.cover}
       />
