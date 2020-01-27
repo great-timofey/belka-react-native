@@ -12,6 +12,8 @@ import styles from './styles'
 
 export const BelkaGame = memo(function(props) {
   const dispatch = useDispatch()
+  // const { gameOver } = useSelector(state => state.belkaGame)
+  // const [showGameOverModal, setShowGameOverModal] = useState(false)
 
   useEffect(() => {
     const roomId =
@@ -22,6 +24,12 @@ export const BelkaGame = memo(function(props) {
     dispatch(startChannel(roomId))
   }, [dispatch, props.navigation])
 
+  // useEffect(() => {
+  //   if (gameOver) {
+  //     setShowGameOverModal(true)
+  //   }
+  // }, [gameOver])
+  //
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.backgroundImage} source={gameScreenBackground}>

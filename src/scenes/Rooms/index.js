@@ -3,12 +3,14 @@ import { Button, Text, View } from 'react-native'
 
 import { useClientHook } from '@hooks/useClientHook'
 import { belkaGameScreenName } from '@navigation/names'
+import { GameOverModal } from '@components/GameOverModal'
 
 import styles from './styles'
 
 export const Rooms = memo(function(props) {
   const client = useClientHook()
   const [rooms, setRooms] = useState([])
+  const [showModal, setShowModal] = useState(false)
 
   const updateRooms = useCallback(() => {
     if (!client) return
@@ -53,6 +55,12 @@ export const Rooms = memo(function(props) {
           color="red"
           onPress={updateRooms}
         />
+        <Button
+          title="show modal"
+          style={styles.updateRoomButton}
+          onPress={() => setShowModal(true)}
+        />
+        <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
       </>
     </View>
   )
