@@ -1,12 +1,14 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import * as Progress from 'react-native-progress'
 
 import { Card } from '@components/Card'
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
 
 import styles from './styles'
+import { colors } from '@global/styles'
 
 export const PlayerBoard = memo(function({ player, index }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)
@@ -55,6 +57,24 @@ export const PlayerBoard = memo(function({ player, index }) {
 
   return (
     <View style={[styles.playerBoardContainer, player === me && styles.playerBoardContainerMy]}>
+      {player.timer > -1 && (
+        <View
+          style={[
+            styles.playerTimerContainerCommon,
+            player === me ? styles.playerTimerContainerMy : styles[`playerTimerContainer-${index}`]
+          ]}
+        >
+          <Progress.Circle
+            direction="counter-clockwise"
+            color={colors.semanticHighlight}
+            thickness={1}
+            textStyle={{ fontSize: 20, color: 'white' }}
+            formatText={progress => `${Math.round((progress * 1000) / 30)}`}
+            progress={(30 / 100 / 10) * player.timer || 0}
+            showsText
+          />
+        </View>
+      )}
       {player !== me && (
         <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer-${index}`]]}>
           <Text style={styles.commonTextStyles}>{player.name}</Text>

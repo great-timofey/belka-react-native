@@ -12,6 +12,32 @@ export default StyleSheet.create({
     right: normalize(-cardWidth / 2),
     bottom: normalize(-60)
   },
+  playerTimerContainerCommon: {
+    position: 'absolute',
+    bottom: 120,
+    width: 50,
+    height: 50,
+    top: 0,
+    zIndex: 199
+  },
+  playerTimerContainerMy: {
+    top: -height / 6,
+    right: width * 0.035
+  },
+  'playerTimerContainer-0': {
+    transform: [{ rotate: '-90deg' }],
+    top: -width * 0.16,
+    right: -width * 0.16
+  },
+  'playerTimerContainer-1': {
+    top: -width * 0.13,
+    left: -width * 0.15
+  },
+  'playerTimerContainer-2': {
+    transform: [{ rotate: '180deg' }],
+    top: width * 0.06,
+    left: -width * 0.15
+  },
   nameContainer: {
     position: 'absolute',
     bottom: 10,
@@ -82,8 +108,8 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   trumpContainerMy: {
-    bottom: height / 3,
-    left: normalize(60)
+    bottom: height / 4,
+    left: width * 0.01
   },
   'playerTrumpContainer-0': {
     bottom: -width / 20,
