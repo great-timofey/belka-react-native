@@ -24,7 +24,6 @@
   "rules": {
     "import/prefer-default-export": "off",
     "prefer-promise-reject-errors": ["off"],
-    "import/order": "off",
     "react/jsx-filename-extension": ["off"],
     "no-return-assign": ["off"],
     "react/jsx-one-expression-per-line": "off",
@@ -38,6 +37,13 @@
     "no-unused-expressions": "off",
     "no-param-reassign": "off",
     "prefer-destructuring": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ]
   }
 }

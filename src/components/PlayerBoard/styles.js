@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native'
-import { colors, fonts, makeSquare, normalize, width } from '@global/styles'
+import { height, cardWidth, colors, fonts, makeSquare, normalize, width } from '@global/styles'
 
 export default StyleSheet.create({
   playerBoardContainer: {
-    width: normalize(206)
+    width: width / 3
   },
   playerBoardContainerMy: {
     position: 'absolute',
     alignItems: 'center',
     width,
+    right: normalize(-cardWidth / 2),
     bottom: normalize(-60)
   },
   nameContainer: {
@@ -20,7 +21,7 @@ export default StyleSheet.create({
   },
   playerNameContainerCommon: {
     backgroundColor: 'black',
-    width: 200,
+    width: width / 3,
     height: 40,
     zIndex: 20,
     borderWidth: 1,
@@ -32,9 +33,15 @@ export default StyleSheet.create({
     alignSelf: 'center',
     top: -10
   },
+  'playerNameContainer-1': {
+    top: height * -0.08
+  },
+  'playerNameContainer-0': {
+    top: height * -0.08
+  },
   'playerNameContainer-2': {
     transform: [{ rotate: '180deg' }],
-    top: 50
+    top: height * 0.05
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
@@ -50,18 +57,18 @@ export default StyleSheet.create({
   },
   'playerCardsContainer-0': {
     transform: [{ rotate: '180deg' }],
-    marginTop: 30,
-    marginLeft: 30
-    // alignItems: 'flex-end'
+    marginRight: width * 0.1,
+    alignItems: 'flex-start'
   },
   'playerCardsContainer-1': {
     transform: [{ rotate: '180deg' }],
-    marginTop: 30
-    // alignItems: 'flex-end'
+    marginRight: width * 0.1,
+    alignItems: 'flex-start'
   },
   'playerCardsContainer-2': {
-    marginBottom: 110,
-    marginRight: 30,
+    marginBottom: height * 0.11,
+    marginTop: height * 0.02,
+    marginLeft: width * 0.08,
     alignItems: 'flex-start'
   },
   trumpContainer: {
@@ -75,23 +82,23 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   trumpContainerMy: {
-    bottom: normalize(580),
-    left: normalize(40)
+    bottom: height / 3,
+    left: normalize(60)
   },
   'playerTrumpContainer-0': {
-    bottom: '-100%',
+    bottom: -width / 20,
     alignSelf: 'center',
     transform: [{ rotate: '270deg' }],
     ...makeSquare(normalize(90))
   },
   'playerTrumpContainer-1': {
-    bottom: '-100%',
+    bottom: -width / 20,
     alignSelf: 'center',
     transform: [{ rotate: '90deg' }],
     ...makeSquare(normalize(90))
   },
   'playerTrumpContainer-2': {
-    bottom: 80,
+    bottom: height / 12,
     alignSelf: 'center',
     transform: [{ rotate: '180deg' }],
     ...makeSquare(normalize(90))

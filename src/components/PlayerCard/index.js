@@ -1,6 +1,5 @@
 import React, { memo, useMemo } from 'react'
 import { View } from 'react-native'
-
 import { useSelector } from 'react-redux'
 
 import { Card } from '@components/Card'

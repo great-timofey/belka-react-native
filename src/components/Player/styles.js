@@ -1,23 +1,22 @@
-import { StyleSheet } from 'react-native'
-import { normalize } from '@global/styles'
+import { StatusBar, StyleSheet } from 'react-native'
+import { height } from '@global/styles'
 
 export default StyleSheet.create({
   common: {
     position: 'absolute'
   },
   first: {
-    top: normalize(600),
-    left: normalize(20),
+    top: height * 0.4 + StatusBar.currentHeight,
+    left: 0,
     transform: [{ rotate: '270deg' }]
   },
   second: {
-    top: normalize(-40),
     alignSelf: 'center',
     transform: [{ rotate: '180deg' }]
   },
   third: {
-    top: normalize(600),
-    right: normalize(20),
+    top: height * 0.4 + StatusBar.currentHeight,
+    right: 0,
     transform: [{ rotate: '90deg' }]
   }
 })

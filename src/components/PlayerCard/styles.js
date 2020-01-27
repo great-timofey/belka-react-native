@@ -1,30 +1,30 @@
-import { StatusBar, StyleSheet } from 'react-native'
-import { width } from '@global/styles'
+import { StyleSheet } from 'react-native'
+import { cardWidth, cardHeight, width, normalize } from '@global/styles'
 
-const deviceWidth = width - StatusBar.currentHeight
+const center = width / 2 - cardWidth / 2
 
 export default StyleSheet.create({
   commonContainer: {
     position: 'absolute'
   },
   first: {
-    bottom: 310,
-    zIndex: 4,
-    left: deviceWidth / 2 - 50 - 20
+    bottom: 310 + cardHeight / 2,
+    left: center,
+    zIndex: 3
   },
   second: {
-    bottom: 360,
-    zIndex: 3,
-    left: deviceWidth / 2 - 20
+    bottom: 310,
+    zIndex: 4,
+    left: center - normalize(110)
   },
   third: {
     bottom: 310,
     zIndex: 2,
-    left: deviceWidth / 2 + 50 - 20
+    left: center + normalize(110)
   },
   player: {
     bottom: 270,
     zIndex: 1,
-    left: deviceWidth / 2 - 20
+    left: center
   }
 })

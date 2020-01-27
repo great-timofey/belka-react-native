@@ -69,7 +69,8 @@
   },
   "lint-staged": {
     "./src/**/*.{js,jsx}": [
-      "eslint src/**/*.{js,jsx} --fix-dry-run"
+      "./node_modules/.bin/prettier --write",
+      "./node_modules/.bin/eslint src/**/*.{js,jsx} --fix-dry-run"
     ]
   }
 }

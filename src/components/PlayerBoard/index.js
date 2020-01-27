@@ -44,10 +44,10 @@ export const PlayerBoard = memo(function({ player, index }) {
 
     return playerHand.map((card, i) => (
       <Card
-        my={player === me}
         index={i}
-        key={`${card.id}`}
         data={card}
+        key={`${card.id}`}
+        my={player === me}
         onPress={handlePlayCard(card.id)}
       />
     ))

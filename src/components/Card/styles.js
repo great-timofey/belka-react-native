@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { cardHeight, cardWidth, normalize } from '@global/styles'
+import { cardHeight, cardWidth, width, height, colors, normalize } from '@global/styles'
 
 export default StyleSheet.create({
   card: {
@@ -11,45 +11,54 @@ export default StyleSheet.create({
     width: cardWidth,
     height: cardHeight,
     marginLeft: normalize(5),
-    backgroundColor: 'white'
+    backgroundColor: colors.trumpContainer
   },
   cover: {
-    width: normalize(133),
-    height: normalize(191)
+    width: width * 0.09,
+    height: height * 0.08
   },
-  deck: {
-    left: 0
+  cardDeck: {
+    left: 0,
+    width: width * 0.12,
+    height: height * 0.1
+  },
+  cardDeckOffseted: {
+    transform: [{ translateX: normalize(150) }]
   },
   myCard: {
     position: 'relative',
     marginLeft: normalize(-cardWidth)
   },
   'card-0': {
-    transform: [{ rotate: '-50deg' }, { translateY: -8 }, { translateX: -24 }],
-    zIndex: 10
+    transform: [{ rotate: '-45deg' }, { translateY: -45 }, { translateX: -30 }],
+    zIndex: 11
   },
   'card-1': {
-    transform: [{ rotate: '-30deg' }, { translateY: -5 }, { translateX: -9 }],
-    zIndex: 9
+    transform: [{ rotate: '-30deg' }, { translateY: -45 }, { translateX: -30 }],
+    zIndex: 10
   },
   'card-2': {
-    transform: [{ rotate: '-11deg' }, { translateY: -8 }, { translateX: 5 }],
-    zIndex: 8
+    transform: [{ rotate: '-15deg' }, { translateY: -40 }, { translateX: -30 }],
+    zIndex: 9
   },
   'card-3': {
-    transform: [{ rotate: '18deg' }, { translateY: -15 }, { translateX: 27 }],
-    zIndex: 7
+    transform: [{ rotate: '0deg' }, { translateY: -35 }, { translateX: -25 }],
+    zIndex: 8
   },
   'card-4': {
-    transform: [{ rotate: '30deg' }, { translateY: -19 }, { translateX: 38 }],
-    zIndex: 6
+    transform: [{ rotate: '15deg' }, { translateY: -30 }, { translateX: -15 }],
+    zIndex: 7
   },
   'card-5': {
-    transform: [{ rotate: '40deg' }, { translateY: -21 }, { translateX: 45 }],
-    zIndex: 5
+    transform: [{ rotate: '25deg' }, { translateY: -25 }, { translateX: -0 }],
+    zIndex: 6
   },
   'card-6': {
-    transform: [{ rotate: '-70deg' }, { translateY: -20 }, { translateX: -37 }],
-    zIndex: 11
+    transform: [{ rotate: '40deg' }, { translateY: -25 }, { translateX: 5 }],
+    zIndex: 5
+  },
+  'card-7': {
+    transform: [{ rotate: '45deg' }, { translateY: -25 }, { translateX: 20 }],
+    zIndex: 4
   }
 })

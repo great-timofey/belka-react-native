@@ -1,7 +1,8 @@
 import React, { memo, useMemo } from 'react'
-import { Text } from 'react-native'
+import { ImageBackground, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 
+import { scoreContainer } from '@global/images'
 import styles from './styles'
 
 export const InfoBoard = memo(function() {
@@ -17,9 +18,17 @@ export const InfoBoard = memo(function() {
   return (
     clientList.length === 4 &&
     board && (
-      <Text style={styles.infoBoard}>
-        {board.team1} / {board.team2}
-      </Text>
+      <View style={styles.infoBoard}>
+        <ImageBackground source={scoreContainer} style={styles.scoreContainerImage}>
+          <Text style={styles.scoreText}>{board.team1}</Text>
+        </ImageBackground>
+        <ImageBackground
+          source={scoreContainer}
+          style={[styles.scoreContainerImage, styles.scoreContainerImageRight]}
+        >
+          <Text style={[styles.scoreText, styles.scoreTextRight]}>{board.team2}</Text>
+        </ImageBackground>
+      </View>
     )
   )
 })

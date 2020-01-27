@@ -4,18 +4,17 @@ import { cards } from '@global/images'
 
 import styles from './styles'
 
-export const Card = memo(function({ data, onPress, my, index, deckIndex }) {
+export const Card = memo(function({ data, onPress, my, index, deck }) {
   const face = (data && (data.face || data.data)) || { value: '' }
 
-  if (deckIndex !== undefined) {
-    const offset = deckIndex % 2 === 0 ? 0 : 30
+  if (deck) {
     return (
       <Image
         style={[
           styles.card,
-          styles.deck,
           styles.cover,
-          { transform: [{ translateX: 1 * deckIndex + offset }] }
+          styles.cardDeck,
+          index % 2 === 0 && styles.cardDeckOffseted
         ]}
         source={cards.cover}
       />

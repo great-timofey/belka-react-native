@@ -54,6 +54,7 @@ const diamondsAce = require('../../assets/cards/Ad.png')
 const cover = require('../../assets/cards/cover.png')
 
 export const gameScreenBackground = require('../../assets/images/background.png')
+export const scoreContainer = require('../../assets/images/score-container.png')
 
 /*
 0 = spades

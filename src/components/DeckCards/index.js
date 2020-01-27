@@ -1,8 +1,9 @@
 import React, { memo, useMemo } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { Card } from '@components/Card'
+
 import styles from './styles'
 
 export const DeckCards = memo(function() {
@@ -24,9 +25,8 @@ export const DeckCards = memo(function() {
 
   return (
     <View style={styles.deck}>
-      <Text>deck</Text>
       {deck.map((card, index) => (
-        <Card deckIndex={index} data={card} key={card.id} />
+        <Card deck index={index} data={card} key={card.id} />
       ))}
     </View>
   )
