@@ -3,6 +3,7 @@ import { ImageBackground, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { scoreContainer } from '@global/images'
+
 import styles from './styles'
 
 export const InfoBoard = memo(function() {

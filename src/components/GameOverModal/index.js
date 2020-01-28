@@ -2,8 +2,9 @@ import React, { memo } from 'react'
 import { Text, View } from 'react-native'
 import Modal from 'react-native-modal'
 
-import styles from './styles'
 import { BelkaButton } from '@components/BelkaButton'
+
+import styles from './styles'
 
 export const GameOverModal = memo(function({ open, closeCallback }) {
   return (

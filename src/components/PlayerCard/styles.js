@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 import { cardWidth, cardHeight, width, normalize } from '@global/styles'
 
 const center = width / 2 - cardWidth / 2

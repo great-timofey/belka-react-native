@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 import { normalize } from '@global/styles'
 
 export default StyleSheet.create({

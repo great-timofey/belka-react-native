@@ -6,9 +6,9 @@ import * as Progress from 'react-native-progress'
 import { Card } from '@components/Card'
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
+import { colors } from '@global/styles'
 
 import styles from './styles'
-import { colors } from '@global/styles'
 
 export const PlayerBoard = memo(function({ player, index }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)

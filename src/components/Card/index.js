@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { Image, ImageBackground, TouchableOpacity } from 'react-native'
+
 import { cards } from '@global/images'
 
 import styles from './styles'

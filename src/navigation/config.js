@@ -1,9 +1,10 @@
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
-import { belkaGameScreenName, roomsScreenName } from './names'
 import { Rooms } from '@scenes/Rooms'
 import { BelkaGame } from '@scenes/BelkaGame'
+
+import { belkaGameScreenName, roomsScreenName } from './names'
 
 const rootStack = {
   [roomsScreenName]: {

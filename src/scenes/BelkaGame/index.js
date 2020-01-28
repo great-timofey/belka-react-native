@@ -3,7 +3,6 @@ import { ImageBackground, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { startChannel } from '@redux/belkaGame/actions'
-
 import { gameScreenBackground } from '@global/images'
 import { InfoBoard } from '@components/InfoBoard'
 import { GameBoard } from '@components/GameBoard'

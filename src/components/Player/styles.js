@@ -1,4 +1,5 @@
 import { StatusBar, StyleSheet } from 'react-native'
+
 import { height } from '@global/styles'
 
 export default StyleSheet.create({

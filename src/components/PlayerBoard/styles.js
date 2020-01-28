@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 import { height, cardWidth, colors, fonts, makeSquare, normalize, width } from '@global/styles'
 
 export default StyleSheet.create({
