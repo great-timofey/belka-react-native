@@ -1,34 +1,43 @@
-import React, { memo, useCallback } from 'react'
-import { Image, TouchableOpacity, View } from 'react-native'
+import React, { memo } from 'react'
+import { Image, ImageBackground, TouchableOpacity } from 'react-native'
+
 import { cards } from '@global/images'
 
 import styles from './styles'
 
-export const Card = memo(function({ data, onPress, deck }) {
+export const Card = memo(function({ data, onPress, my, index, deck }) {
   const face = (data && (data.face || data.data)) || { value: '' }
 
-  if (deck || !(face.value || data.side === 'face')) {
+  if (deck) {
     return (
-      <View style={styles.card}>
-        <Image style={styles.image} source={cards.cover} />
-      </View>
+      <Image
+        style={[
+          styles.card,
+          styles.cover,
+          styles.cardDeck,
+          index % 2 === 0 && styles.cardDeckOffseted
+        ]}
+        source={cards.cover}
+      />
     )
   }
 
-  const getCard = useCallback(() => {
-    try {
-      const cardImageIndex = face.suit.toString()
-      const card = cards[cardImageIndex]
-      return <Image style={styles.image} source={card[face.value.toString()]} />
-    } catch (e) {
-      console.log('ERROR', e)
-      return <Image style={styles.image} source={cards['1']['K']} />
-    }
-  }, [face])
+  if (!(face.value || data.side === 'face')) {
+    return (
+      <Image style={[styles.card, styles[`card-${index}`], styles.cover]} source={cards.cover} />
+    )
+  }
+
+  const cardImageIndex = face.suit.toString()
+  const cardSuit = cards[cardImageIndex]
+  const cardValue = face.value.toString()
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-      {getCard()}
+    <TouchableOpacity onPress={onPress}>
+      <ImageBackground
+        style={[styles.card, my ? styles.myCard : styles[`card-${index}`]]}
+        source={cardSuit[cardValue]}
+      />
     </TouchableOpacity>
   )
 })

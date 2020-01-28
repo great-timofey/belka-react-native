@@ -1,10 +1,9 @@
 import React, { memo, useEffect } from 'react'
-import { View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-// import { START_CHANNEL } from 'redux/belkaGame/actions'
 import { startChannel } from '@redux/belkaGame/actions'
-
+import { gameScreenBackground } from '@global/images'
 import { InfoBoard } from '@components/InfoBoard'
 import { GameBoard } from '@components/GameBoard'
 
@@ -12,6 +11,8 @@ import styles from './styles'
 
 export const BelkaGame = memo(function(props) {
   const dispatch = useDispatch()
+  // const { gameOver } = useSelector(state => state.belkaGame)
+  // const [showGameOverModal, setShowGameOverModal] = useState(false)
 
   useEffect(() => {
     const roomId =
@@ -22,10 +23,18 @@ export const BelkaGame = memo(function(props) {
     dispatch(startChannel(roomId))
   }, [dispatch, props.navigation])
 
+  // useEffect(() => {
+  //   if (gameOver) {
+  //     setShowGameOverModal(true)
+  //   }
+  // }, [gameOver])
+  //
   return (
     <View style={styles.container}>
-      <InfoBoard />
-      <GameBoard />
+      <ImageBackground style={styles.backgroundImage} source={gameScreenBackground}>
+        <InfoBoard />
+        <GameBoard />
+      </ImageBackground>
     </View>
   )
 })

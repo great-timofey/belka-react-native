@@ -24,7 +24,6 @@
   "rules": {
     "import/prefer-default-export": "off",
     "prefer-promise-reject-errors": ["off"],
-    "import/order": "off",
     "react/jsx-filename-extension": ["off"],
     "no-return-assign": ["off"],
     "react/jsx-one-expression-per-line": "off",
@@ -34,6 +33,17 @@
     "func-names": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/no-cycle": 2
+    "import/no-cycle": 2,
+    "no-unused-expressions": "off",
+    "no-param-reassign": "off",
+    "prefer-destructuring": "off",
+    "no-plusplus": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ]
   }
 }

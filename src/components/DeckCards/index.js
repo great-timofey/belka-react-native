@@ -3,10 +3,12 @@ import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { Card } from '@components/Card'
+
 import styles from './styles'
 
 export const DeckCards = memo(function() {
   const { objects } = useSelector(state => state.belkaGame)
+
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
     [objects]
@@ -22,9 +24,9 @@ export const DeckCards = memo(function() {
   ])
 
   return (
-    <View style={styles.container}>
-      {deck.map(card => (
-        <Card deck data={card} key={card.id} />
+    <View style={styles.deck}>
+      {deck.map((card, index) => (
+        <Card deck index={index} data={card} key={card.id} />
       ))}
     </View>
   )

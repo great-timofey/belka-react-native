@@ -1,15 +1,18 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import * as Progress from 'react-native-progress'
 
 import { Card } from '@components/Card'
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
+import { colors } from '@global/styles'
 
 import styles from './styles'
 
-export const PlayerBoard = memo(function({ player }) {
+export const PlayerBoard = memo(function({ player, index }) {
   const { actions, room, hand, clients, objects } = useSelector(state => state.belkaGame)
+  // const { actions, room, hand, clients, objects } = mockState
   const dispatch = useDispatch()
 
   const me = useMemo(() => (room && objects[clients[room.sessionId]]) || {}, [
@@ -25,7 +28,7 @@ export const PlayerBoard = memo(function({ player }) {
         dispatch(roomAddAction(foundAction.id))
       }
     },
-    [actions, dispatch, room]
+    [actions, dispatch]
   )
 
   const renderPlayerCards = useCallback(() => {
@@ -41,27 +44,55 @@ export const PlayerBoard = memo(function({ player }) {
       })
     }
 
-    return playerHand.map(card => (
-      <Card key={`${card.id}`} data={card} onPress={handlePlayCard(card.id)} />
+    return playerHand.map((card, i) => (
+      <Card
+        index={i}
+        data={card}
+        key={`${card.id}`}
+        my={player === me}
+        onPress={handlePlayCard(card.id)}
+      />
     ))
   }, [hand, me, objects, player, handlePlayCard])
 
   return (
-    <View style={styles.playerBoardContainer}>
-      <Text style={styles.commonTextStyles}>{player.name}</Text>
-      {!player.connected ? <Text style={styles.commonTextStyles}>Weak signal!</Text> : <View />}
-      {player.timer >= 0 ? (
-        <Text style={styles.commonTextStyles}>Time: {player.timer}</Text>
-      ) : (
-        <View />
+    <View style={[styles.playerBoardContainer, player === me && styles.playerBoardContainerMy]}>
+      {player.timer > -1 && (
+        <View
+          style={[
+            styles.playerTimerContainerCommon,
+            player === me ? styles.playerTimerContainerMy : styles[`playerTimerContainer-${index}`]
+          ]}
+        >
+          <Progress.Circle
+            direction="counter-clockwise"
+            color={colors.semanticHighlight}
+            thickness={1}
+            textStyle={{ fontSize: 20, color: 'white' }}
+            formatText={progress => `${Math.round((progress * 1000) / 30)}`}
+            progress={(30 / 100 / 10) * player.timer || 0}
+            showsText
+          />
+        </View>
       )}
-      {player.suit >= 0 ? (
-        <Text style={styles.commonTextStyles}>Trump: {getSuitCode(player.suit)}</Text>
-      ) : (
-        <View />
+      {player !== me && (
+        <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer-${index}`]]}>
+          <Text style={styles.commonTextStyles}>{player.name}</Text>
+        </View>
       )}
-      <Text style={styles.commonTextStyles}>score: {player.score}</Text>
-      <View style={styles.playerCardsContainer}>{renderPlayerCards()}</View>
+      {player.suit >= 0 && (
+        <View
+          style={[
+            styles.trumpContainer,
+            player === me ? styles.trumpContainerMy : styles[`playerTrumpContainer-${index}`]
+          ]}
+        >
+          <Text style={styles.commonTextStyles}>{getSuitCode(player.suit)}</Text>
+        </View>
+      )}
+      <View style={[styles.playerCardsContainer, styles[`playerCardsContainer-${index}`]]}>
+        {renderPlayerCards()}
+      </View>
     </View>
   )
 })

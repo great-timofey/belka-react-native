@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native'
 
+import { normalize } from '@global/styles'
+
 export default StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: 30,
-    justifyContent: 'flex-end',
-    flex: 0.5
+  deck: {
+    position: 'absolute',
+    top: normalize(350),
+    left: normalize(50)
   }
 })
