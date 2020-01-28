@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 
 import { useClientHook } from '@hooks/useClientHook'
-import { belkaGameScreenName } from '@navigation/names'
+import { BELKA } from '@navigation/names'
 import { GameOverModal } from '@components/GameOverModal'
 
 import styles from './styles'
@@ -29,7 +29,7 @@ export const Rooms = memo(function(props) {
     roomId => {
       if (!client) return
 
-      props.navigation.navigate(belkaGameScreenName, { roomId })
+      props.navigation.navigate(BELKA, { roomId })
     },
     [props.navigation, client]
   )

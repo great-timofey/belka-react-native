@@ -55,6 +55,18 @@ const cover = require('../../assets/cards/cover.png')
 
 export const gameScreenBackground = require('../../assets/images/background.png')
 export const scoreContainer = require('../../assets/images/score-container.png')
+export const tabBarBackground = require('../../assets/images/tab-bar-background.png')
+
+export const settingsIcon = require('../../assets/images/settings.png')
+export const settingsActiveIcon = require('../../assets/images/settings-active.png')
+export const tournamentIcon = require('../../assets/images/tournament.png')
+export const tournamentActiveIcon = require('../../assets/images/tournament-active.png')
+export const chatIcon = require('../../assets/images/chat.png')
+export const chatActiveIcon = require('../../assets/images/chat-active.png')
+export const shopIcon = require('../../assets/images/shop.png')
+export const shopActiveIcon = require('../../assets/images/shop-active.png')
+export const gameIcon = require('../../assets/images/game.png')
+export const gameActiveIcon = require('../../assets/images/game-active.png')
 
 /*
 0 = spades
