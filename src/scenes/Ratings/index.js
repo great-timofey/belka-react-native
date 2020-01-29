@@ -1,10 +1,12 @@
 import React, { memo } from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+
+import { ContainerWithBackground } from '@components/ContainerWithBackground'
 
 export const Ratings = memo(function() {
   return (
-    <View>
+    <ContainerWithBackground>
       <Text>ratings</Text>
-    </View>
+    </ContainerWithBackground>
   )
 })

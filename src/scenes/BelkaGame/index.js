@@ -1,13 +1,10 @@
 import React, { memo, useEffect } from 'react'
-import { ImageBackground, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { startChannel } from '@redux/belkaGame/actions'
-import { gameScreenBackground } from '@global/images'
 import { InfoBoard } from '@components/InfoBoard'
 import { GameBoard } from '@components/GameBoard'
-
-import styles from './styles'
+import { ContainerWithBackground } from '@components/ContainerWithBackground'
 
 export const BelkaGame = memo(function(props) {
   const dispatch = useDispatch()
@@ -30,11 +27,9 @@ export const BelkaGame = memo(function(props) {
   // }, [gameOver])
   //
   return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.backgroundImage} source={gameScreenBackground}>
-        <InfoBoard />
-        <GameBoard />
-      </ImageBackground>
-    </View>
+    <ContainerWithBackground size="full">
+      <InfoBoard />
+      <GameBoard />
+    </ContainerWithBackground>
   )
 })

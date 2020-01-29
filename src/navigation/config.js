@@ -49,7 +49,8 @@ const gameStack = createStackNavigator({
     navigationOptions: {
       title: 'Belka Game',
       gestureEnabled: false,
-      headerShown: false
+      headerShown: false,
+      tabBarVisible: false
     }
   }
 })
@@ -63,7 +64,7 @@ const rootStack = {
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
         <Image
-          style={{ width: 30, height: 35 }}
+          style={{ width: 25, height: 30 }}
           source={focused ? settingsActiveIcon : settingsIcon}
         />
       )
@@ -74,7 +75,7 @@ const rootStack = {
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
         <Image
-          style={{ width: 35, height: 35 }}
+          style={{ width: 28, height: 28 }}
           source={focused ? tournamentActiveIcon : tournamentIcon}
         />
       )
@@ -92,7 +93,7 @@ const rootStack = {
     screen: chatStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image style={{ width: 30, height: 35 }} source={focused ? chatActiveIcon : chatIcon} />
+        <Image style={{ width: 28, height: 30 }} source={focused ? chatActiveIcon : chatIcon} />
       )
     }
   },
@@ -100,7 +101,7 @@ const rootStack = {
     screen: shopStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image style={{ width: 30, height: 30 }} source={focused ? shopActiveIcon : shopIcon} />
+        <Image style={{ width: 28, height: 28 }} source={focused ? shopActiveIcon : shopIcon} />
       )
     }
   }
@@ -111,14 +112,9 @@ const RootNavigator = createBottomTabNavigator(rootStack, {
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
+  initialRouteName: 'GAME_STACK',
   tabBarOptions: {
-    showLabel: false,
-    activeTintColor: '#4F4F4F',
-    inactiveTintColor: '#ddd'
-    // if (!navigationState) return <></>
-    // style: {
-    //   marginBottom: isAndroid && normalize(25),
-    // },
+    showLabel: false
   }
 })
 export default createAppContainer(RootNavigator)

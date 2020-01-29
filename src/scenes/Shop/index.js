@@ -1,10 +1,12 @@
 import React, { memo } from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+
+import { ContainerWithBackground } from '@components/ContainerWithBackground'
 
 export const Shop = memo(function() {
   return (
-    <View>
+    <ContainerWithBackground>
       <Text>Shop</Text>
-    </View>
+    </ContainerWithBackground>
   )
 })

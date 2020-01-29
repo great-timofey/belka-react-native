@@ -16,7 +16,7 @@ const designWidth = 1080
 export const scale = width / designWidth
 export const normalize = value => parseInt(value * scale, 10)
 
-export const makeSquare = size => ({ width: size, height: size })
+export const squareSize = size => ({ width: size, height: size })
 
 export const cardWidth = normalize(182)
 export const cardHeight = normalize(269)

@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native'
 
-import { width } from '@global/styles'
+import { colors, width } from '@global/styles'
 import * as SCENES_NAMES from '@navigation/names'
 
 export default StyleSheet.create({
+  wrapper: {
+    height: 80,
+    backgroundColor: colors.gameBackground
+  },
   container: {
     height: 80,
     flexDirection: 'row',
@@ -22,8 +26,7 @@ export default StyleSheet.create({
   },
   [SCENES_NAMES.SETTINGS_STACK]: {
     alignItems: 'center',
-    marginLeft: -10,
-    marginRight: -10
+    marginLeft: -20
   },
   [SCENES_NAMES.RATINGS_STACK]: {
     alignItems: 'flex-start'
@@ -33,7 +36,6 @@ export default StyleSheet.create({
   },
   [SCENES_NAMES.SHOP_STACK]: {
     alignItems: 'center',
-    marginLeft: -10,
-    marginRight: -10
+    marginRight: -20
   }
 })

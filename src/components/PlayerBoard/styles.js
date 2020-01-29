@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { height, cardWidth, colors, fonts, makeSquare, normalize, width } from '@global/styles'
+import { height, cardWidth, colors, fonts, squareSize, normalize, width } from '@global/styles'
 
 export default StyleSheet.create({
   playerBoardContainer: {
@@ -104,7 +104,7 @@ export default StyleSheet.create({
     zIndex: 49,
     backgroundColor: colors.trumpContainer,
     borderRadius: 100,
-    ...makeSquare(normalize(131)),
+    ...squareSize(normalize(131)),
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -116,18 +116,18 @@ export default StyleSheet.create({
     bottom: -width / 20,
     alignSelf: 'center',
     transform: [{ rotate: '270deg' }],
-    ...makeSquare(normalize(90))
+    ...squareSize(normalize(90))
   },
   'playerTrumpContainer-1': {
     bottom: -width / 20,
     alignSelf: 'center',
     transform: [{ rotate: '90deg' }],
-    ...makeSquare(normalize(90))
+    ...squareSize(normalize(90))
   },
   'playerTrumpContainer-2': {
     bottom: height / 12,
     alignSelf: 'center',
     transform: [{ rotate: '180deg' }],
-    ...makeSquare(normalize(90))
+    ...squareSize(normalize(90))
   }
 })

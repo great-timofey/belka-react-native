@@ -53,9 +53,12 @@ const diamondsKing = require('../../assets/cards/Kd.png')
 const diamondsAce = require('../../assets/cards/Ad.png')
 const cover = require('../../assets/cards/cover.png')
 
-export const gameScreenBackground = require('../../assets/images/background.png')
 export const scoreContainer = require('../../assets/images/score-container.png')
 export const tabBarBackground = require('../../assets/images/tab-bar-background.png')
+export const tabBarBackgroundPad = require('../../assets/images/tab-bar-background-pad.png')
+export const backgroundCenter = require('../../assets/images/background-only-center.png')
+export const backgroundFullscreen = require('../../assets/images/background.png')
+export const cardsMainBackground = require('../../assets/images/main-cards.png')
 
 export const settingsIcon = require('../../assets/images/settings.png')
 export const settingsActiveIcon = require('../../assets/images/settings-active.png')

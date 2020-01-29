@@ -3,10 +3,6 @@ import { StyleSheet } from 'react-native'
 import { fonts } from '@global/styles'
 
 export default StyleSheet.create({
-  container: {
-    padding: 10,
-    flex: 1
-  },
   joinRoomButton: {
     flex: 1,
     borderBottomColor: 'black',

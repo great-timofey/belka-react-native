@@ -15,12 +15,10 @@ const { store, persistor } = configureStore()
 
 const App = () => {
   return (
-    <>
-      <Provider store={store}>
-        <StatusBar barStyle="light-content" backgroundColor="#52146C" />
-        <AppNavigator />
-      </Provider>
-    </>
+    <Provider store={store}>
+      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+      <AppNavigator />
+    </Provider>
   )
 }
 

@@ -1,9 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button, Text } from 'react-native'
 
 import { useClientHook } from '@hooks/useClientHook'
 import { BELKA } from '@navigation/names'
 import { GameOverModal } from '@components/GameOverModal'
+import { ContainerWithBackground } from '@components/ContainerWithBackground'
 
 import styles from './styles'
 
@@ -35,7 +36,7 @@ export const Rooms = memo(function(props) {
   )
 
   return (
-    <View style={styles.container}>
+    <ContainerWithBackground>
       <>
         {rooms.length ? (
           rooms.map(room => (
@@ -62,6 +63,6 @@ export const Rooms = memo(function(props) {
         />
         <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
       </>
-    </View>
+    </ContainerWithBackground>
   )
 })
