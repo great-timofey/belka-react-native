@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
+import { useNavigation } from 'react-navigation-hooks'
 
 import { CHAT, RATINGS, ROOMS } from '@navigation/names'
 import { ContainerWithBackground } from '@components/ContainerWithBackground'
@@ -8,27 +9,24 @@ import { BelkaButton } from '@components/BelkaButton'
 
 import styles from './styles'
 
-export const Main = memo(function({ navigation }) {
+export const Main = memo(function() {
+  const { navigate } = useNavigation()
   return (
     <ContainerWithBackground>
       <Image style={styles.cardsBackground} source={cardsMainBackground} />
       <TouchableOpacity
-        onPress={() => navigation.navigate(RATINGS)}
+        onPress={() => navigate(RATINGS)}
         style={[styles.pressable, styles.pressableLeft]}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate(CHAT)}
+        onPress={() => navigate(CHAT)}
         style={[styles.pressable, styles.pressableRight]}
       />
       <BelkaButton
         additionalStyles={[styles.startGameButton]}
-        onPress={() => navigation.navigate(ROOMS)}
+        onPress={() => navigate(ROOMS)}
         title="Начать игру"
       />
     </ContainerWithBackground>
   )
-})
-
-Main.navigationOptions = () => ({
-  title: 'main main main'
 })

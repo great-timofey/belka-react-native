@@ -24,6 +24,7 @@ import { Chat } from '@scenes/Chat'
 import { Main } from '@scenes/Main'
 import { Shop } from '@scenes/Shop'
 import { TabBar } from '@components/TabBar'
+import { Header } from '@components/Header'
 
 import * as SCENES_NAMES from './names'
 
@@ -36,24 +37,32 @@ const ratingsStack = createStackNavigator({
 const chatStack = createStackNavigator({
   [SCENES_NAMES.CHAT]: Chat
 })
-const gameStack = createStackNavigator({
-  [SCENES_NAMES.MAIN]: Main,
-  [SCENES_NAMES.ROOMS]: {
-    screen: Rooms,
-    navigationOptions: {
-      title: 'Rooms'
+const mainStack = createStackNavigator(
+  {
+    [SCENES_NAMES.MAIN]: Main,
+    [SCENES_NAMES.ROOMS]: {
+      screen: Rooms,
+      navigationOptions: {
+        title: 'Rooms',
+        headerLeft: () => null
+      }
+    },
+    [SCENES_NAMES.BELKA]: {
+      screen: BelkaGame,
+      navigationOptions: {
+        title: 'Belka Game',
+        gestureEnabled: false,
+        headerShown: false,
+        tabBarVisible: false
+      }
     }
   },
-  [SCENES_NAMES.BELKA]: {
-    screen: BelkaGame,
-    navigationOptions: {
-      title: 'Belka Game',
-      gestureEnabled: false,
-      headerShown: false,
-      tabBarVisible: false
+  {
+    defaultNavigationOptions: {
+      headerTitle: () => <Header />
     }
   }
-})
+)
 const shopStack = createStackNavigator({
   [SCENES_NAMES.SHOP]: Shop
 })
@@ -81,8 +90,8 @@ const rootStack = {
       )
     }
   },
-  [SCENES_NAMES.GAME_STACK]: {
-    screen: gameStack,
+  [SCENES_NAMES.MAIN_STACK]: {
+    screen: mainStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
         <Image style={{ width: 80, height: 80 }} source={focused ? gameActiveIcon : gameIcon} />
@@ -112,7 +121,7 @@ const RootNavigator = createBottomTabNavigator(rootStack, {
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
-  initialRouteName: 'GAME_STACK',
+  initialRouteName: SCENES_NAMES.MAIN_STACK,
   tabBarOptions: {
     showLabel: false
   }

@@ -6,7 +6,7 @@ import * as SCENES_NAMES from '@navigation/names'
 export default StyleSheet.create({
   wrapper: {
     height: 80,
-    backgroundColor: colors.gameBackground
+    backgroundColor: colors.appBackground
   },
   container: {
     height: 80,
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     width: '25%',
     alignItems: 'center'
   },
-  [SCENES_NAMES.GAME_STACK]: {
+  [SCENES_NAMES.MAIN_STACK]: {
     width: 80,
     position: 'absolute',
     top: -30,

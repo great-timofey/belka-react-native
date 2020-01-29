@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Button, Text } from 'react-native'
+import { useNavigation } from 'react-navigation-hooks'
 
 import { useClientHook } from '@hooks/useClientHook'
 import { BELKA } from '@navigation/names'
@@ -8,10 +9,11 @@ import { ContainerWithBackground } from '@components/ContainerWithBackground'
 
 import styles from './styles'
 
-export const Rooms = memo(function(props) {
+export const Rooms = memo(function() {
   const client = useClientHook()
   const [rooms, setRooms] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const { navigate } = useNavigation()
 
   const updateRooms = useCallback(() => {
     if (!client) return
@@ -30,9 +32,9 @@ export const Rooms = memo(function(props) {
     roomId => {
       if (!client) return
 
-      props.navigation.navigate(BELKA, { roomId })
+      navigate(BELKA, { roomId })
     },
-    [props.navigation, client]
+    [navigate, client]
   )
 
   return (
@@ -66,3 +68,7 @@ export const Rooms = memo(function(props) {
     </ContainerWithBackground>
   )
 })
+
+// Rooms.navigationOptions = () => ({
+//   headerTitle: null
+// })

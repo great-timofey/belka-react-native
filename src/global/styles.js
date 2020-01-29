@@ -24,7 +24,7 @@ export const cardHeight = normalize(269)
 export const colors = {
   black: '#000000',
   white: '#ffffff',
-  gameBackground: '#18191c',
+  appBackground: '#18191c',
   semanticHighlight: '#0cb2ff',
   semanticSecondary: '#616372',
   trumpContainer: '#ebe4d4',
