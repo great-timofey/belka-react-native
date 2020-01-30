@@ -3,10 +3,11 @@ import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Progress from 'react-native-progress'
 
-import { Card } from '@components/Card'
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
 import { colors } from '@global/styles'
+
+import { Card } from '../Card'
 
 import styles from './styles'
 

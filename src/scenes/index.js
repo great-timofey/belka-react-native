@@ -1,0 +1,7 @@
+export { BelkaGame } from './BelkaGame'
+export { Chat } from './Chat'
+export { Main } from './Main'
+export { Ratings } from './Ratings'
+export { Rooms } from './Rooms'
+export { Settings } from './Settings'
+export { Shop } from './Shop'

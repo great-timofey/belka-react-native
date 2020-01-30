@@ -1,27 +1,21 @@
 import React, { memo, useEffect } from 'react'
-import { ImageBackground, View } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { useNavigationParam } from 'react-navigation-hooks'
 
 import { startChannel } from '@redux/belkaGame/actions'
-import { gameScreenBackground } from '@global/images'
-import { InfoBoard } from '@components/InfoBoard'
-import { GameBoard } from '@components/GameBoard'
+import { InfoBoard, GameBoard, ContainerWithBackground } from '@components'
 
-import styles from './styles'
-
-export const BelkaGame = memo(function(props) {
+export const BelkaGame = memo(function() {
   const dispatch = useDispatch()
+  const roomId = useNavigationParam('roomId')
   // const { gameOver } = useSelector(state => state.belkaGame)
   // const [showGameOverModal, setShowGameOverModal] = useState(false)
 
   useEffect(() => {
-    const roomId =
-      props.navigation && props.navigation.getParam && props.navigation.getParam('roomId')
-
     if (!roomId) return
 
     dispatch(startChannel(roomId))
-  }, [dispatch, props.navigation])
+  }, [dispatch, roomId])
 
   // useEffect(() => {
   //   if (gameOver) {
@@ -30,11 +24,9 @@ export const BelkaGame = memo(function(props) {
   // }, [gameOver])
   //
   return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.backgroundImage} source={gameScreenBackground}>
-        <InfoBoard />
-        <GameBoard />
-      </ImageBackground>
-    </View>
+    <ContainerWithBackground size="full">
+      <InfoBoard />
+      <GameBoard />
+    </ContainerWithBackground>
   )
 })

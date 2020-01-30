@@ -1,67 +1,106 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Button, Text, View } from 'react-native'
+import { useNavigation } from 'react-navigation-hooks'
 
 import { useClientHook } from '@hooks/useClientHook'
-import { belkaGameScreenName } from '@navigation/names'
-import { GameOverModal } from '@components/GameOverModal'
+import { BELKA } from '@navigation/names'
+import {
+  GameOverModal,
+  ContainerWithBackground,
+  BelkaSegmentedControl,
+  RoomsList
+} from '@components'
 
 import styles from './styles'
+import { ROOMS_GAMES_TYPES } from './constants'
 
-export const Rooms = memo(function(props) {
+const rooms = [
+  {
+    roomId: 'RgDxmhrka',
+    name: 'belka',
+    clients: 1,
+    maxClients: 4,
+    password: '123',
+    bet: 100,
+    eggsX4: true,
+    dropAce: true,
+    spas30: true,
+    chat: true,
+    fin120: true
+  },
+  {
+    roomId: 'RgDxmhrbk',
+    name: 'belka',
+    clients: 1,
+    maxClients: 4,
+    bet: 1000,
+    eggsX4: false,
+    dropAce: false,
+    spas30: false,
+    chat: false,
+    fin120: false
+  }
+]
+
+export const Rooms = memo(function() {
   const client = useClientHook()
-  const [rooms, setRooms] = useState([])
+  const { navigate } = useNavigation()
+
+  // const [rooms, setRooms] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [activeTab, setActiveTab] = useState(0)
 
-  const updateRooms = useCallback(() => {
-    if (!client) return
-
-    async function getRooms() {
-      const newRooms = await client.getAvailableRooms()
-      if (newRooms && newRooms.length) setRooms(newRooms)
-    }
-
-    getRooms()
-  }, [client])
-
-  useEffect(updateRooms, [])
-
+  // const updateRooms = useCallback(() => {
+  //   if (!client) return
+  //
+  //   async function getRooms() {
+  //     const newRooms = await client.getAvailableRooms()
+  //     if (newRooms && newRooms.length) setRooms(newRooms)
+  //   }
+  //
+  //   getRooms()
+  // }, [client])
+  //
+  // useEffect(updateRooms, [])
+  //
   const joinRoom = useCallback(
     roomId => {
       if (!client) return
 
-      props.navigation.navigate(belkaGameScreenName, { roomId })
+      navigate(BELKA, { roomId, tabBarVisible: false })
     },
-    [props.navigation, client]
+    [navigate, client]
   )
 
   return (
-    <View style={styles.container}>
-      <>
-        {rooms.length ? (
-          rooms.map(room => (
-            <Button
-              key={room.roomId}
-              style={styles.joinRoomButton}
-              onPress={() => joinRoom(room.roomId)}
-              title={`${room.name} - ${room.roomId}`}
-            />
-          ))
-        ) : (
-          <Text>No rooms available</Text>
-        )}
-        <Button
-          title="update rooms"
-          style={styles.updateRoomButton}
-          color="red"
-          onPress={updateRooms}
+    <ContainerWithBackground>
+      <View style={styles.container}>
+        <BelkaSegmentedControl
+          tabs={ROOMS_GAMES_TYPES}
+          onChange={setActiveTab}
+          additionalStyles={[styles.segmentedControl]}
+          activeTabIndex={activeTab}
         />
-        <Button
-          title="show modal"
-          style={styles.updateRoomButton}
-          onPress={() => setShowModal(true)}
-        />
-        <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
-      </>
-    </View>
+        <>
+          {rooms.length ? (
+            <RoomsList onItemPress={joinRoom} rooms={rooms} />
+          ) : (
+            <Text>No rooms available</Text>
+          )}
+          <Button
+            title="update rooms"
+            style={styles.updateRoomButton}
+            color="red"
+            // onPress={updateRooms}
+          />
+          <Button
+            title="show modal"
+            style={styles.updateRoomButton}
+            onPress={() => setShowModal(true)}
+          />
+          <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
+        </>
+      </View>
+    </ContainerWithBackground>
   )
 })

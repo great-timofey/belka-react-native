@@ -4,8 +4,8 @@ import { fonts } from '@global/styles'
 
 export default StyleSheet.create({
   container: {
-    padding: 10,
-    flex: 1
+    flex: 1,
+    padding: 10
   },
   joinRoomButton: {
     flex: 1,
@@ -16,5 +16,8 @@ export default StyleSheet.create({
   },
   updateRoomButton: {
     marginTop: 5
+  },
+  segmentedControl: {
+    marginBottom: 10
   }
 })

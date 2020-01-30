@@ -12,7 +12,7 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     height: height * 0.45,
-    backgroundColor: colors.gameBackground
+    backgroundColor: colors.appBackground
   },
   modalHeader: {
     textAlign: 'center',
