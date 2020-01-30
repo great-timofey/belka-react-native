@@ -28,6 +28,8 @@ import { Header } from '@components/Header'
 
 import * as SCENES_NAMES from './names'
 
+const noTabBarScenes = [SCENES_NAMES.BELKA]
+
 const settingsStack = createStackNavigator({
   [SCENES_NAMES.SETTINGS]: Settings
 })
@@ -52,17 +54,22 @@ const mainStack = createStackNavigator(
       navigationOptions: {
         title: 'Belka Game',
         gestureEnabled: false,
-        headerShown: false,
-        tabBarVisible: false
+        headerShown: false
       }
     }
   },
   {
     defaultNavigationOptions: {
       headerTitle: () => <Header />
-    }
+    },
+    navigationOptions: ({ navigation }) => ({
+      tabBarVisible: !noTabBarScenes.includes(
+        navigation.state.routes[navigation.state.index].routeName
+      )
+    })
   }
 )
+
 const shopStack = createStackNavigator({
   [SCENES_NAMES.SHOP]: Shop
 })

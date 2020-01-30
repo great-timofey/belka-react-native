@@ -3,9 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigationParam } from 'react-navigation-hooks'
 
 import { startChannel } from '@redux/belkaGame/actions'
-import { InfoBoard } from '@components/InfoBoard'
-import { GameBoard } from '@components/GameBoard'
-import { ContainerWithBackground } from '@components/ContainerWithBackground'
+import { InfoBoard, GameBoard, ContainerWithBackground } from '@components'
 
 export const BelkaGame = memo(function() {
   const dispatch = useDispatch()

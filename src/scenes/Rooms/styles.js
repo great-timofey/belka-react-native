@@ -3,6 +3,10 @@ import { StyleSheet } from 'react-native'
 import { fonts } from '@global/styles'
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10
+  },
   joinRoomButton: {
     flex: 1,
     borderBottomColor: 'black',
@@ -12,5 +16,8 @@ export default StyleSheet.create({
   },
   updateRoomButton: {
     marginTop: 5
+  },
+  segmentedControl: {
+    marginBottom: 10
   }
 })
