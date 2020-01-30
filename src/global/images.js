@@ -75,6 +75,27 @@ export const shopActiveIcon = require('../../assets/images/shop-active.png')
 export const gameIcon = require('../../assets/images/game.png')
 export const gameActiveIcon = require('../../assets/images/game-active.png')
 
+export const iconChatTrueGold = require('../../assets/images/icon-chat-true-gold.png')
+export const iconChatTrueWhite = require('../../assets/images/icon-chat-true-white.png')
+export const iconChatFalseGold = require('../../assets/images/icon-chat-false-gold.png')
+export const iconChatFalseWhite = require('../../assets/images/icon-chat-false-white.png')
+export const iconAceTrueGold = require('../../assets/images/icon-ace-true-gold.png')
+export const iconAceTrueWhite = require('../../assets/images/icon-ace-true-white.png')
+export const iconAceFalseGold = require('../../assets/images/icon-ace-false-gold.png')
+export const iconAceFalseWhite = require('../../assets/images/icon-ace-false-white.png')
+export const iconEggX4TrueGold = require('../../assets/images/icon-egg-x4-true-gold.png')
+export const iconEggX4TrueWhite = require('../../assets/images/icon-egg-x4-true-white.png')
+export const iconEggX4FalseGold = require('../../assets/images/icon-egg-x4-false-gold.png')
+export const iconEggX4FalseWhite = require('../../assets/images/icon-egg-x4-false-white.png')
+export const icon120TrueGold = require('../../assets/images/icon-120-true-gold.png')
+export const icon120TrueWhite = require('../../assets/images/icon-120-true-white.png')
+export const icon120FalseGold = require('../../assets/images/icon-120-false-gold.png')
+export const icon120FalseWhite = require('../../assets/images/icon-120-false-white.png')
+export const iconWingsGold = require('../../assets/images/icon-wings-gold.png')
+export const iconWingsWhite = require('../../assets/images/icon-wings-white.png')
+export const iconLockOn = require('../../assets/images/icon-lock-on.png')
+export const iconLockOff = require('../../assets/images/icon-lock-off.png')
+
 /*
 0 = spades
 1 = clubs
