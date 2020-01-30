@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, fonts, height } from '@global/styles'
+import { colors, fonts } from '@global/styles'
 
 export default StyleSheet.create({
   button: {
+    borderRadius: 25
+  },
+  gradient: {
     borderRadius: 25,
     padding: 10,
-    height: height * 0.07,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowRadius: 20,
+    shadowColor: 'rgba(26, 26, 26, 0.36)',
+    shadowOffset: { width: -1, height: 5 }
   },
   primaryButton: {
     backgroundColor: colors.semanticPrimary

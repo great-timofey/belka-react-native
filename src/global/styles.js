@@ -1,11 +1,11 @@
 import { Dimensions } from 'react-native'
 
-const prefix = 'PTSans'
+const ptSansPrefix = 'PTSans'
 
 export const fonts = {
   ptsans: {
-    bold: `${prefix}-Bold`,
-    regular: `${prefix}-Regular`
+    bold: `${ptSansPrefix}-Bold`,
+    regular: `${ptSansPrefix}-Regular`
   }
 }
 
@@ -32,4 +32,13 @@ export const colors = {
   semanticAttention: '#e7af43',
   semanticPositive: '#25bb15',
   semanticPrimary: '#e4a120' // -96deg, rgb(235,197,122) 0%, rgb(226,154,12) 100%
+}
+
+export const gradients = {
+  buttonPrimary: {
+    colors: ['rgb(235,197,122)', 'rgb(226,154,12)'],
+    locations: [0, 1],
+    useAngle: true,
+    angle: -96
+  }
 }
