@@ -2,9 +2,10 @@ import React, { memo } from 'react'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { Bar } from 'react-native-progress'
 
-import { BelkaButton } from '@components/BelkaButton'
 import { headerBackground, levelIcon, userDefaultAvatar } from '@global/images'
 import { colors } from '@global/styles'
+
+import { BelkaButton } from '../BelkaButton'
 
 import styles from './styles'
 

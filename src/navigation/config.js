@@ -4,9 +4,6 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 
-import { Rooms } from '@scenes/Rooms'
-import { BelkaGame } from '@scenes/BelkaGame'
-import { Settings } from '@scenes/Settings'
 import {
   chatActiveIcon,
   shopActiveIcon,
@@ -19,12 +16,8 @@ import {
   gameActiveIcon,
   gameIcon
 } from '@global/images'
-import { Ratings } from '@scenes/Ratings'
-import { Chat } from '@scenes/Chat'
-import { Main } from '@scenes/Main'
-import { Shop } from '@scenes/Shop'
-import { TabBar } from '@components/TabBar'
-import { Header } from '@components/Header'
+import { Ratings, Chat, Main, Shop, Rooms, BelkaGame, Settings } from '@scenes'
+import { TabBar, Header } from '@components'
 
 import * as SCENES_NAMES from './names'
 

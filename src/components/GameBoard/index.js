@@ -2,7 +2,10 @@ import React, { Fragment, memo, useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import { PlayerCard, Player, PlayerBoard, DeckCards } from '@components'
+import { Player } from '../Player'
+import { PlayerBoard } from '../PlayerBoard'
+import { DeckCards } from '../DeckCards'
+import { PlayerCard } from '../PlayerCard'
 
 import styles from './styles'
 import { getPlayersDataForGameBoard } from './utils'

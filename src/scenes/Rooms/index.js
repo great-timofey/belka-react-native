@@ -1,10 +1,15 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Button, Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 
 import { useClientHook } from '@hooks/useClientHook'
 import { BELKA } from '@navigation/names'
-import { GameOverModal, ContainerWithBackground, BelkaSegmentControl, RoomsList } from '@components'
+import {
+  GameOverModal,
+  ContainerWithBackground,
+  BelkaSegmentedControl,
+  RoomsList
+} from '@components'
 
 import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
@@ -36,15 +41,6 @@ const rooms = [
     fin120: false
   }
 ]
-
-/*
-  "bet": 100,
-  "password": "111aaaa",
-  "eggsX4": true,
-  "dropAce": false,
-  "spas30": true,
-  "fin120": true,
- */
 
 export const Rooms = memo(function() {
   const client = useClientHook()
@@ -79,7 +75,7 @@ export const Rooms = memo(function() {
   return (
     <ContainerWithBackground>
       <View style={styles.container}>
-        <BelkaSegmentControl
+        <BelkaSegmentedControl
           tabs={ROOMS_GAMES_TYPES}
           onChange={setActiveTab}
           additionalStyles={[styles.segmentedControl]}
