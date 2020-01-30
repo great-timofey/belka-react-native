@@ -8,7 +8,7 @@ import styles from './styles'
 export const ContainerWithBackground = memo(function({ children, size = 'center' }) {
   return (
     <ImageBackground
-      style={styles.container}
+      style={[styles.container, size === 'center' && styles.containerPadded]}
       source={size === 'center' ? backgroundCenter : backgroundFullscreen}
     >
       {children}

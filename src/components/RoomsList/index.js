@@ -1,10 +1,14 @@
 import React, { memo } from 'react'
-import { Text, View } from 'react-native'
+import { FlatList } from 'react-native'
 
-export const RoomsList = memo(function() {
+import { Room } from './Room'
+
+export const RoomsList = memo(function({ rooms, onItemPress }) {
   return (
-    <View>
-      <Text>here goes rooms</Text>
-    </View>
+    <FlatList
+      data={rooms}
+      renderItem={({ item }) => <Room {...item} onPress={onItemPress} />}
+      keyExtractor={item => item.roomId}
+    />
   )
 })

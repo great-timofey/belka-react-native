@@ -3,9 +3,8 @@ import { Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 
 import { CHAT, RATINGS, ROOMS } from '@navigation/names'
-import { ContainerWithBackground } from '@components/ContainerWithBackground'
+import { ContainerWithBackground, BelkaButton } from '@components'
 import { cardsMainBackground } from '@global/images'
-import { BelkaButton } from '@components/BelkaButton'
 
 import styles from './styles'
 

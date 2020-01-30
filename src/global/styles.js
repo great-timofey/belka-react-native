@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 const ptSansPrefix = 'PTSans'
 
@@ -8,6 +8,15 @@ export const fonts = {
     regular: `${ptSansPrefix}-Regular`
   }
 }
+
+export const selectStyles = (ios, android) =>
+  Platform.select({
+    ios,
+    android
+  })
+
+export const isIOS = Platform.OS === 'ios'
+export const isAndroid = Platform.OS === 'android'
 
 export const { width, height } = Dimensions.get('window')
 
@@ -40,5 +49,11 @@ export const gradients = {
     locations: [0, 1],
     useAngle: true,
     angle: -96
+  },
+  baseCard: {
+    colors: ['rgb(27,28,33)', 'rgb(22,23,27)', 'rgb(16,17,20)'],
+    locations: [0, 0.52, 1],
+    useAngle: true,
+    angle: 6
   }
 }

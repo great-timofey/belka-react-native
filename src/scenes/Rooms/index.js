@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react'
-import { Button, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 
 import { useClientHook } from '@hooks/useClientHook'
@@ -8,39 +8,13 @@ import {
   GameOverModal,
   ContainerWithBackground,
   BelkaSegmentedControl,
-  RoomsList
+  RoomsList,
+  BelkaButton
 } from '@components'
 
 import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
-
-const rooms = [
-  {
-    roomId: 'RgDxmhrka',
-    name: 'belka',
-    clients: 1,
-    maxClients: 4,
-    password: '123',
-    bet: 100,
-    eggsX4: true,
-    dropAce: true,
-    spas30: true,
-    chat: true,
-    fin120: true
-  },
-  {
-    roomId: 'RgDxmhrbk',
-    name: 'belka',
-    clients: 1,
-    maxClients: 4,
-    bet: 1000,
-    eggsX4: false,
-    dropAce: false,
-    spas30: false,
-    chat: false,
-    fin120: false
-  }
-]
+import { ROOMS_MOCKS } from './mocks'
 
 export const Rooms = memo(function() {
   const client = useClientHook()
@@ -82,22 +56,23 @@ export const Rooms = memo(function() {
           activeTabIndex={activeTab}
         />
         <>
-          {rooms.length ? (
-            <RoomsList onItemPress={joinRoom} rooms={rooms} />
+          {ROOMS_MOCKS.length ? (
+            <RoomsList onItemPress={joinRoom} rooms={ROOMS_MOCKS} />
           ) : (
             <Text>No rooms available</Text>
           )}
-          <Button
-            title="update rooms"
-            style={styles.updateRoomButton}
-            color="red"
-            // onPress={updateRooms}
-          />
-          <Button
-            title="show modal"
-            style={styles.updateRoomButton}
-            onPress={() => setShowModal(true)}
-          />
+          <BelkaButton additionalStyles={styles.createRoom} title="Создать игру" />
+          {/* <Button */}
+          {/*  title="update rooms" */}
+          {/*  style={styles.updateRoomButton} */}
+          {/*  color="red" */}
+          {/*  // onPress={updateRooms} */}
+          {/* /> */}
+          {/* <Button */}
+          {/*  title="show modal" */}
+          {/*  style={styles.updateRoomButton} */}
+          {/*  onPress={() => setShowModal(true)} */}
+          {/* /> */}
           <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
         </>
       </View>
