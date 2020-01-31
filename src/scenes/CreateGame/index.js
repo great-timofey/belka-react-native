@@ -1,9 +1,11 @@
 import React, { memo, useReducer, useState } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
+import { useNavigation } from 'react-navigation-hooks'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
 import { colors } from '@global/styles'
+import { PREPARATION } from '@navigation/names'
 
 import { NEW_GAME_DATA_ENTRIES, NEW_GAME_ICONS } from './constants'
 import styles from './styles'
@@ -17,6 +19,7 @@ const initialState = {
 }
 
 export const CreateGame = memo(function() {
+  const { navigate } = useNavigation()
   const [password, setPassword] = useState(null)
   const [bet, setBet] = useState(null)
   const [playersLevel, setPlayersLevel] = useState(1)
@@ -72,7 +75,11 @@ export const CreateGame = memo(function() {
           ))}
         </View>
 
-        <BelkaButton additionalStyles={[styles.createGame]} title="Создать игру" />
+        <BelkaButton
+          additionalStyles={[styles.createGame]}
+          title="Создать игру"
+          onPress={() => navigate(PREPARATION)}
+        />
       </ScrollView>
     </ContainerWithBackground>
   )

@@ -1,9 +1,17 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
+import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
 
 import { useClientHook } from '@hooks/useClientHook'
-import { BELKA, CREATE_GAME } from '@navigation/names'
+import {
+  BELKA,
+  CHAT_STACK,
+  CREATE_GAME,
+  RATINGS_STACK,
+  SETTINGS_STACK,
+  SHOP_STACK
+} from '@navigation/names'
 import {
   GameOverModal,
   ContainerWithBackground,
@@ -18,7 +26,7 @@ import { ROOMS_MOCKS } from './mocks'
 
 export const Rooms = memo(function() {
   const client = useClientHook()
-  const { navigate } = useNavigation()
+  const { navigate, dispatch } = useNavigation()
 
   // const [rooms, setRooms] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -48,6 +56,22 @@ export const Rooms = memo(function() {
 
   return (
     <ContainerWithBackground>
+      <NavigationEvents
+        onDidBlur={payload => {
+          const route = payload.action.routeName
+          const otherStacks = [RATINGS_STACK, SETTINGS_STACK, CHAT_STACK, SHOP_STACK]
+
+          if (otherStacks.includes(route)) {
+            const routeName = route.slice(0, route.indexOf('_'))
+            dispatch(StackActions.popToTop({ immediate: true }))
+            dispatch(
+              NavigationActions.navigate({
+                routeName
+              })
+            )
+          }
+        }}
+      />
       <View style={styles.container}>
         <BelkaSegmentedControl
           tabs={ROOMS_GAMES_TYPES}

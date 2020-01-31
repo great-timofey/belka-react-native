@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   nameText: {
-    color: colors.semanticPrimary,
+    color: colors.semanticAttention,
     fontFamily: fonts.ptsans.bold,
     fontSize: 15,
     marginRight: 3

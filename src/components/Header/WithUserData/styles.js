@@ -52,6 +52,11 @@ export default StyleSheet.create({
   },
   purchaseButton: {
     ...squareSize(35),
-    borderRadius: 17
+    borderRadius: 17,
+    fontSize: 50
+  },
+  purchaseButtonText: {
+    fontSize: 28,
+    color: colors.white
   }
 })

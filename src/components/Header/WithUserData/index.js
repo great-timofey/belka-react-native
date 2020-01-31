@@ -23,12 +23,21 @@ export const HeaderWithUserData = memo(function() {
           </ImageBackground>
           <View>
             <Text style={[styles.levelText, styles.nickname]}>Professional II</Text>
-            <Bar style={styles.expBar} progress={0.5} color={colors.semanticPrimary} width={90} />
+            <Bar
+              style={styles.expBar}
+              progress={0.5}
+              unfilledColor="#34373f"
+              borderWidth={0}
+              color={colors.semanticPrimary}
+              width={90}
+            />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.buttonRight]}>
           <Text style={styles.money}>10,500 P</Text>
-          <BelkaButton title="+" additionalStyles={[styles.purchaseButton]} />
+          <BelkaButton additionalStyles={[styles.purchaseButton]}>
+            <Text style={styles.purchaseButtonText}>+</Text>
+          </BelkaButton>
         </TouchableOpacity>
       </View>
     </Header>

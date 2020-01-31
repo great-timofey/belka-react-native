@@ -16,7 +16,17 @@ import {
   iconGameActive,
   iconGame
 } from '@global/images'
-import { Ratings, Chat, Main, Shop, Rooms, BelkaGame, Settings, CreateGame } from '@scenes'
+import {
+  Ratings,
+  Chat,
+  Main,
+  Shop,
+  Rooms,
+  BelkaGame,
+  Settings,
+  CreateGame,
+  GamePreparation
+} from '@scenes'
 import { TabBar } from '@components'
 import { HeaderWithUserData } from '@components/Header/WithUserData'
 import { HeaderWithBackButton } from '@components/Header/WithBackButton'
@@ -34,14 +44,14 @@ const ratingsStack = createStackNavigator({
 const chatStack = createStackNavigator({
   [SCENES_NAMES.CHAT]: Chat
 })
+
 const mainStack = createStackNavigator(
   {
     [SCENES_NAMES.MAIN]: Main,
     [SCENES_NAMES.ROOMS]: {
       screen: Rooms,
       navigationOptions: {
-        title: 'Rooms',
-        headerLeft: () => null
+        title: 'Rooms'
       }
     },
     [SCENES_NAMES.CREATE_GAME]: {
@@ -50,6 +60,12 @@ const mainStack = createStackNavigator(
         title: 'Создание игры',
         gestureEnabled: false,
         header: () => <HeaderWithBackButton title="Создание игры" />
+      }
+    },
+    [SCENES_NAMES.PREPARATION]: {
+      screen: GamePreparation,
+      navigationOptions: {
+        gestureEnabled: false
       }
     },
     [SCENES_NAMES.BELKA]: {
@@ -63,7 +79,8 @@ const mainStack = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      headerTitle: () => <HeaderWithUserData />
+      headerTitle: () => <HeaderWithUserData />,
+      headerLeft: () => null
     },
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: !noTabBarScenes.includes(
