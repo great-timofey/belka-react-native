@@ -1,15 +1,23 @@
 import { StyleSheet } from 'react-native'
 
-import { height, cardWidth, colors, fonts, squareSize, normalize, width } from '@global/styles'
+import {
+  deviceHeight,
+  cardWidth,
+  colors,
+  fonts,
+  squareSize,
+  normalize,
+  deviceWidth
+} from '@global/styles'
 
 export default StyleSheet.create({
   playerBoardContainer: {
-    width: width / 3
+    width: deviceWidth / 3
   },
   playerBoardContainerMy: {
     position: 'absolute',
     alignItems: 'center',
-    width,
+    width: deviceWidth,
     right: normalize(-cardWidth / 2),
     bottom: normalize(-60)
   },
@@ -22,22 +30,22 @@ export default StyleSheet.create({
     zIndex: 199
   },
   playerTimerContainerMy: {
-    top: -height / 6,
-    right: width * 0.035
+    top: -deviceHeight / 6,
+    right: deviceWidth * 0.035
   },
   'playerTimerContainer-0': {
     transform: [{ rotate: '-90deg' }],
-    top: -width * 0.16,
-    right: -width * 0.16
+    top: -deviceWidth * 0.16,
+    right: -deviceWidth * 0.16
   },
   'playerTimerContainer-1': {
-    top: -width * 0.13,
-    left: -width * 0.15
+    top: -deviceWidth * 0.13,
+    left: -deviceWidth * 0.15
   },
   'playerTimerContainer-2': {
     transform: [{ rotate: '180deg' }],
-    top: width * 0.06,
-    left: -width * 0.15
+    top: deviceWidth * 0.06,
+    left: -deviceWidth * 0.15
   },
   nameContainer: {
     position: 'absolute',
@@ -48,7 +56,7 @@ export default StyleSheet.create({
   },
   playerNameContainerCommon: {
     backgroundColor: 'black',
-    width: width / 3,
+    width: deviceWidth / 3,
     height: 40,
     zIndex: 20,
     borderWidth: 1,
@@ -61,14 +69,14 @@ export default StyleSheet.create({
     top: -10
   },
   'playerNameContainer-1': {
-    top: height * -0.08
+    top: deviceHeight * -0.08
   },
   'playerNameContainer-0': {
-    top: height * -0.08
+    top: deviceHeight * -0.08
   },
   'playerNameContainer-2': {
     transform: [{ rotate: '180deg' }],
-    top: height * 0.05
+    top: deviceHeight * 0.05
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
@@ -84,18 +92,18 @@ export default StyleSheet.create({
   },
   'playerCardsContainer-0': {
     transform: [{ rotate: '180deg' }],
-    marginRight: width * 0.1,
+    marginRight: deviceWidth * 0.1,
     alignItems: 'flex-start'
   },
   'playerCardsContainer-1': {
     transform: [{ rotate: '180deg' }],
-    marginRight: width * 0.1,
+    marginRight: deviceWidth * 0.1,
     alignItems: 'flex-start'
   },
   'playerCardsContainer-2': {
-    marginBottom: height * 0.11,
-    marginTop: height * 0.02,
-    marginLeft: width * 0.08,
+    marginBottom: deviceHeight * 0.11,
+    marginTop: deviceHeight * 0.02,
+    marginLeft: deviceWidth * 0.08,
     alignItems: 'flex-start'
   },
   trumpContainer: {
@@ -109,23 +117,23 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   trumpContainerMy: {
-    bottom: height / 4,
-    left: width * 0.01
+    bottom: deviceHeight / 4,
+    left: deviceWidth * 0.01
   },
   'playerTrumpContainer-0': {
-    bottom: -width / 20,
+    bottom: -deviceWidth / 20,
     alignSelf: 'center',
     transform: [{ rotate: '270deg' }],
     ...squareSize(normalize(90))
   },
   'playerTrumpContainer-1': {
-    bottom: -width / 20,
+    bottom: -deviceWidth / 20,
     alignSelf: 'center',
     transform: [{ rotate: '90deg' }],
     ...squareSize(normalize(90))
   },
   'playerTrumpContainer-2': {
-    bottom: height / 12,
+    bottom: deviceHeight / 12,
     alignSelf: 'center',
     transform: [{ rotate: '180deg' }],
     ...squareSize(normalize(90))

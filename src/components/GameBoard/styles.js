@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { width } from '@global/styles'
+import { deviceWidth } from '@global/styles'
 
 export default StyleSheet.create({
   gameBoardContainer: {
@@ -8,7 +8,7 @@ export default StyleSheet.create({
     ...StyleSheet.absoluteFillObject
   },
   myPlayerContainer: {
-    width,
+    width: deviceWidth,
     height: 100,
     position: 'absolute',
     bottom: 0

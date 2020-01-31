@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
 
-import { cardWidth, cardHeight, width, normalize } from '@global/styles'
+import { cardWidth, cardHeight, deviceWidth, normalize } from '@global/styles'
 
-const center = width / 2 - cardWidth / 2
+const center = deviceWidth / 2 - cardWidth / 2
 
 export default StyleSheet.create({
   commonContainer: {

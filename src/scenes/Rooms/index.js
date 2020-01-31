@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 
 import { useClientHook } from '@hooks/useClientHook'
-import { BELKA } from '@navigation/names'
+import { BELKA, CREATE_GAME } from '@navigation/names'
 import {
   GameOverModal,
   ContainerWithBackground,
@@ -61,7 +61,11 @@ export const Rooms = memo(function() {
           ) : (
             <Text>No rooms available</Text>
           )}
-          <BelkaButton additionalStyles={styles.createRoom} title="Создать игру" />
+          <BelkaButton
+            additionalStyles={styles.createRoom}
+            title="Создать игру"
+            onPress={() => navigate(CREATE_GAME)}
+          />
           {/* <Button */}
           {/*  title="update rooms" */}
           {/*  style={styles.updateRoomButton} */}
