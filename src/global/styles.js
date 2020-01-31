@@ -18,11 +18,11 @@ export const selectStyles = (ios, android) =>
 export const isIOS = Platform.OS === 'ios'
 export const isAndroid = Platform.OS === 'android'
 
-export const { width, height } = Dimensions.get('window')
+export const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window')
 
 const designWidth = 1080
 
-export const scale = width / designWidth
+export const scale = deviceWidth / designWidth
 export const normalize = value => parseInt(value * scale, 10)
 
 export const squareSize = size => ({ width: size, height: size })

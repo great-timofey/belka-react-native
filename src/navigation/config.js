@@ -5,23 +5,25 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 
 import {
-  chatActiveIcon,
-  shopActiveIcon,
-  settingsActiveIcon,
-  tournamentActiveIcon,
-  tournamentIcon,
-  shopIcon,
-  settingsIcon,
-  chatIcon,
-  gameActiveIcon,
-  gameIcon
+  iconChatActive,
+  iconShopActive,
+  iconSettingsActive,
+  iconRatingActive,
+  iconRating,
+  iconShop,
+  iconSettings,
+  iconChat,
+  iconGameActive,
+  iconGame
 } from '@global/images'
-import { Ratings, Chat, Main, Shop, Rooms, BelkaGame, Settings } from '@scenes'
-import { TabBar, Header } from '@components'
+import { Ratings, Chat, Main, Shop, Rooms, BelkaGame, Settings, CreateGame } from '@scenes'
+import { TabBar } from '@components'
+import { HeaderWithUserData } from '@components/Header/WithUserData'
+import { HeaderWithBackButton } from '@components/Header/WithBackButton'
 
 import * as SCENES_NAMES from './names'
 
-const noTabBarScenes = [SCENES_NAMES.BELKA]
+const noTabBarScenes = [SCENES_NAMES.BELKA, SCENES_NAMES.CREATE_GAME]
 
 const settingsStack = createStackNavigator({
   [SCENES_NAMES.SETTINGS]: Settings
@@ -42,6 +44,14 @@ const mainStack = createStackNavigator(
         headerLeft: () => null
       }
     },
+    [SCENES_NAMES.CREATE_GAME]: {
+      screen: CreateGame,
+      navigationOptions: {
+        title: 'Создание игры',
+        gestureEnabled: false,
+        header: () => <HeaderWithBackButton title="Создание игры" />
+      }
+    },
     [SCENES_NAMES.BELKA]: {
       screen: BelkaGame,
       navigationOptions: {
@@ -53,7 +63,7 @@ const mainStack = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      headerTitle: () => <Header />
+      headerTitle: () => <HeaderWithUserData />
     },
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: !noTabBarScenes.includes(
@@ -74,7 +84,7 @@ const rootStack = {
       tabBarIcon: ({ focused }) => (
         <Image
           style={{ width: 25, height: 30 }}
-          source={focused ? settingsActiveIcon : settingsIcon}
+          source={focused ? iconSettingsActive : iconSettings}
         />
       )
     }
@@ -83,10 +93,7 @@ const rootStack = {
     screen: ratingsStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image
-          style={{ width: 28, height: 28 }}
-          source={focused ? tournamentActiveIcon : tournamentIcon}
-        />
+        <Image style={{ width: 28, height: 28 }} source={focused ? iconRatingActive : iconRating} />
       )
     }
   },
@@ -94,7 +101,7 @@ const rootStack = {
     screen: mainStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image style={{ width: 80, height: 80 }} source={focused ? gameActiveIcon : gameIcon} />
+        <Image style={{ width: 80, height: 80 }} source={focused ? iconGameActive : iconGame} />
       )
     }
   },
@@ -102,7 +109,7 @@ const rootStack = {
     screen: chatStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image style={{ width: 28, height: 30 }} source={focused ? chatActiveIcon : chatIcon} />
+        <Image style={{ width: 28, height: 30 }} source={focused ? iconChatActive : iconChat} />
       )
     }
   },
@@ -110,7 +117,7 @@ const rootStack = {
     screen: shopStack,
     navigationOptions: {
       tabBarIcon: ({ focused }) => (
-        <Image style={{ width: 28, height: 28 }} source={focused ? shopActiveIcon : shopIcon} />
+        <Image style={{ width: 28, height: 28 }} source={focused ? iconShopActive : iconShop} />
       )
     }
   }
