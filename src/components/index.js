@@ -1,6 +1,7 @@
 export { BelkaButton } from './BelkaButton'
 export { BelkaSegmentedControl } from './BelkaSegmentedControl'
 export { BelkaInput } from './BelkaInput'
+export { BelkaToggler } from './BelkaToggler'
 export { Card } from './Card'
 export { ContainerWithBackground } from './ContainerWithBackground'
 export { DeckCards } from './DeckCards'

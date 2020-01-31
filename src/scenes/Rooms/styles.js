@@ -19,5 +19,8 @@ export default StyleSheet.create({
   },
   segmentedControl: {
     marginBottom: 10
+  },
+  createRoom: {
+    height: 50
   }
 })

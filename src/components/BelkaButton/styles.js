@@ -4,9 +4,11 @@ import { colors, fonts, selectStyles } from '@global/styles'
 
 export default StyleSheet.create({
   button: {
-    borderRadius: 25
+    borderRadius: 25,
+    height: 40
   },
   gradient: {
+    height: '100%',
     borderRadius: 25,
     padding: 10,
     alignItems: 'center',

@@ -19,6 +19,7 @@ export const BelkaSegmentedControl = memo(function({
           const active = activeTabIndex === index
           return (
             <TouchableOpacity
+              activeOpacity={1}
               key={id}
               style={[
                 styles.button,

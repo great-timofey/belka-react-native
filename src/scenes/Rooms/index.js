@@ -62,7 +62,7 @@ export const Rooms = memo(function() {
             <Text>No rooms available</Text>
           )}
           <BelkaButton
-            additionalStyles={styles.createRoom}
+            additionalStyles={[styles.createRoom]}
             title="Создать игру"
             onPress={() => navigate(CREATE_GAME)}
           />

@@ -2,22 +2,25 @@ import { StyleSheet } from 'react-native'
 
 import { colors } from '@global/styles'
 
+const INPUT_HEIGHT = 40
+
 export default StyleSheet.create({
   container: {
     width: '100%',
-    height: 30
+    height: INPUT_HEIGHT
   },
   gradient: {
     width: '100%',
-    height: 30,
-    borderRadius: 10
+    height: INPUT_HEIGHT,
+    borderRadius: 15
   },
   input: {
+    height: INPUT_HEIGHT,
     color: colors.white,
     paddingHorizontal: 20,
     paddingVertical: 5,
     fontSize: 14,
-    borderRadius: 10
+    borderRadius: 15
   },
   inputWithStartIcon: {
     paddingLeft: 45
@@ -27,7 +30,7 @@ export default StyleSheet.create({
   },
   icon: {
     width: 20,
-    top: 5,
+    top: INPUT_HEIGHT / 2 - 10,
     zIndex: 2,
     height: 20,
     position: 'absolute'

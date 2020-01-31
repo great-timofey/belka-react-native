@@ -76,6 +76,8 @@ export const iconGame = require('../../assets/images/game.png')
 export const iconGameActive = require('../../assets/images/game-active.png')
 
 export const iconArrowBack = require('../../assets/images/icon-button-back.png')
+export const progressThumb = require('../../assets/images/progress-thumb.png')
+export const toggleThumb = require('../../assets/images/toggle-thumb.png')
 
 export const iconChatTrueGold = require('../../assets/images/icon-chat-true-gold.png')
 export const iconChatTrueWhite = require('../../assets/images/icon-chat-true-white.png')

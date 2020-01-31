@@ -5,11 +5,15 @@ import { backgroundCenter, backgroundFullscreen } from '@global/images'
 
 import styles from './styles'
 
-export const ContainerWithBackground = memo(function({ children, size = 'center' }) {
+export const ContainerWithBackground = memo(function({
+  children,
+  size = 'center',
+  additionalStyles = []
+}) {
   return (
     <ImageBackground
       resizeMode="cover"
-      style={[styles.container, size === 'center' && styles.containerPadded]}
+      style={[styles.container, size === 'center' && styles.containerPadded, ...additionalStyles]}
       source={size === 'center' ? backgroundCenter : backgroundFullscreen}
     >
       {children}
