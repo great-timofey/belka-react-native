@@ -1,11 +1,11 @@
 import React, { memo } from 'react'
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { Bar } from 'react-native-progress'
 
-import { iconLevel, userDefaultAvatar } from '@global/images'
 import { colors } from '@global/styles'
 
 import { BelkaButton } from '../../BelkaButton'
+import { Avatar } from '../../Avatar'
 
 import styles from './styles'
 
@@ -16,11 +16,7 @@ export const HeaderWithUserData = memo(function() {
     <Header>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button}>
-          <ImageBackground style={styles.avatar} source={userDefaultAvatar}>
-            <ImageBackground style={styles.iconLevel} source={iconLevel}>
-              <Text style={styles.levelText}>8</Text>
-            </ImageBackground>
-          </ImageBackground>
+          <Avatar level />
           <View>
             <Text style={[styles.levelText, styles.nickname]}>Professional II</Text>
             <Bar

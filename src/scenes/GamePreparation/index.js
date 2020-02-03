@@ -2,9 +2,16 @@ import React, { memo } from 'react'
 import { View } from 'react-native'
 import * as Progress from 'react-native-progress'
 
-import { ContainerWithBackground, BelkaTypography, BelkaCard } from '@components'
+import {
+  ContainerWithBackground,
+  BelkaTypography,
+  BelkaCard,
+  PlayerPreparation,
+  BelkaButton,
+} from '@components'
 import { colors } from '@global/styles'
 
+import { PLAYERS } from './mocks'
 import styles from './styles'
 
 export const GamePreparation = memo(function() {
@@ -34,12 +41,12 @@ export const GamePreparation = memo(function() {
             </BelkaTypography>
           </View>
         </BelkaCard>
-        <BelkaCard additionalStyles={[styles.card]}>
-          {/* {players.map(player => <PlayerCard {...player} />)} */}
-          <BelkaTypography bold style={[styles.text]}>
-            hello
-          </BelkaTypography>
+        <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
+          {PLAYERS.map(player => (
+            <PlayerPreparation key={player.id} name={player.name} ready={player.ready} />
+          ))}
         </BelkaCard>
+        <BelkaButton title="Выход" additionalStyles={[styles.buttonExit]} />
       </View>
     </ContainerWithBackground>
   )

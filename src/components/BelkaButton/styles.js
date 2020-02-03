@@ -5,7 +5,7 @@ import { colors, fonts, selectStyles } from '@global/styles'
 export default StyleSheet.create({
   button: {
     borderRadius: 25,
-    height: 40
+    height: 40,
   },
   gradient: {
     height: '100%',
@@ -17,21 +17,21 @@ export default StyleSheet.create({
       {
         shadowRadius: 20,
         shadowColor: 'rgba(26, 26, 26, 0.36)',
-        shadowOffset: { width: -1, height: 5 }
+        shadowOffset: { width: -1, height: 5 },
       },
       {
-        elevation: 5
-      }
-    )
+        elevation: 5,
+      },
+    ),
   },
   primaryButton: {
-    backgroundColor: colors.semanticPrimary
+    backgroundColor: colors.semanticPrimary,
   },
   title: {
     textAlign: 'center',
-    fontFamily: fonts.ptsans.bold
+    fontFamily: fonts.ptsans.bold,
   },
   primaryTitle: {
-    color: colors.white
-  }
+    color: colors.white,
+  },
 })

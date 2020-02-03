@@ -11,7 +11,7 @@ export const BelkaButton = memo(function({
   title,
   onPress,
   children,
-  additionalStyles = []
+  additionalStyles = [],
 }) {
   return (
     <TouchableOpacity
