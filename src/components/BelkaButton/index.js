@@ -10,7 +10,8 @@ export const BelkaButton = memo(function({
   primary = true,
   title,
   onPress,
-  additionalStyles = []
+  children,
+  additionalStyles = [],
 }) {
   return (
     <TouchableOpacity
@@ -18,7 +19,11 @@ export const BelkaButton = memo(function({
       onPress={onPress}
     >
       <LinearGradient {...gradients.buttonPrimary} style={styles.gradient}>
-        <Text style={[styles.title, primary ? styles.primaryTitle : {}]}>{title}</Text>
+        {title ? (
+          <Text style={[styles.title, primary ? styles.primaryTitle : {}]}>{title}</Text>
+        ) : (
+          children
+        )}
       </LinearGradient>
     </TouchableOpacity>
   )

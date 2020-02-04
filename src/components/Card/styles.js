@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { cardHeight, cardWidth, width, height, colors, normalize } from '@global/styles'
+import { cardHeight, cardWidth, deviceWidth, deviceHeight, colors, normalize } from '@global/styles'
 
 export default StyleSheet.create({
   card: {
@@ -15,13 +15,13 @@ export default StyleSheet.create({
     backgroundColor: colors.trumpContainer
   },
   cover: {
-    width: width * 0.09,
-    height: height * 0.08
+    width: deviceWidth * 0.09,
+    height: deviceHeight * 0.08
   },
   cardDeck: {
     left: 0,
-    width: width * 0.12,
-    height: height * 0.1
+    width: deviceWidth * 0.12,
+    height: deviceHeight * 0.1
   },
   cardDeckOffseted: {
     transform: [{ translateX: normalize(150) }]

@@ -62,18 +62,23 @@ export const backgroundFullscreen = require('../../assets/images/background.png'
 export const cardsMainBackground = require('../../assets/images/main-cards.png')
 export const headerBackground = require('../../assets/images/background-top.png')
 export const userDefaultAvatar = require('../../assets/images/user-default.png')
-export const levelIcon = require('../../assets/images/level-icon.png')
+export const iconLevel = require('../../assets/images/level-icon.png')
 
-export const settingsIcon = require('../../assets/images/settings.png')
-export const settingsActiveIcon = require('../../assets/images/settings-active.png')
-export const tournamentIcon = require('../../assets/images/tournament.png')
-export const tournamentActiveIcon = require('../../assets/images/tournament-active.png')
-export const chatIcon = require('../../assets/images/chat.png')
-export const chatActiveIcon = require('../../assets/images/chat-active.png')
-export const shopIcon = require('../../assets/images/shop.png')
-export const shopActiveIcon = require('../../assets/images/shop-active.png')
-export const gameIcon = require('../../assets/images/game.png')
-export const gameActiveIcon = require('../../assets/images/game-active.png')
+export const iconSettings = require('../../assets/images/settings.png')
+export const iconSettingsActive = require('../../assets/images/settings-active.png')
+export const iconRating = require('../../assets/images/tournament.png')
+export const iconRatingActive = require('../../assets/images/tournament-active.png')
+export const iconChat = require('../../assets/images/chat.png')
+export const iconChatActive = require('../../assets/images/chat-active.png')
+export const iconShop = require('../../assets/images/shop.png')
+export const iconShopActive = require('../../assets/images/shop-active.png')
+export const iconGame = require('../../assets/images/game.png')
+export const iconGameActive = require('../../assets/images/game-active.png')
+
+export const iconArrowBack = require('../../assets/images/icon-button-back.png')
+export const progressThumb = require('../../assets/images/progress-thumb.png')
+export const toggleThumb = require('../../assets/images/toggle-thumb.png')
+export const iconPlayerReady = require('../../assets/images/icon-player-ready.png')
 
 export const iconChatTrueGold = require('../../assets/images/icon-chat-true-gold.png')
 export const iconChatTrueWhite = require('../../assets/images/icon-chat-true-white.png')
@@ -117,7 +122,7 @@ export const cards = {
     J: spadesJack,
     Q: spadesQueen,
     K: spadesKing,
-    A: spadesAce
+    A: spadesAce,
   },
 
   '1': {
@@ -133,7 +138,7 @@ export const cards = {
     J: clubsJack,
     Q: clubsQueen,
     K: clubsKing,
-    A: clubsAce
+    A: clubsAce,
   },
 
   '2': {
@@ -149,7 +154,7 @@ export const cards = {
     J: heartsJack,
     Q: heartsQueen,
     K: heartsKing,
-    A: heartsAce
+    A: heartsAce,
   },
 
   '3': {
@@ -165,7 +170,7 @@ export const cards = {
     J: diamondsJack,
     Q: diamondsQueen,
     K: diamondsKing,
-    A: diamondsAce
+    A: diamondsAce,
   },
-  cover
+  cover,
 }

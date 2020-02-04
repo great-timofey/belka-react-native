@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, squareSize, width } from '@global/styles'
+import { colors, squareSize, deviceWidth } from '@global/styles'
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     top: '20%',
-    width,
+    width: deviceWidth,
     height: '50%'
   },
   pressable: {
@@ -31,6 +31,6 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: '15%',
     width: '30%',
-    left: width / 2 - width * 0.15
+    left: deviceWidth / 2 - deviceWidth * 0.15
   }
 })

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, width } from '@global/styles'
+import { colors, deviceWidth } from '@global/styles'
 import * as SCENES_NAMES from '@navigation/names'
 
 export default StyleSheet.create({
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     width: 80,
     position: 'absolute',
     top: -30,
-    left: width / 2 - 40
+    left: deviceWidth / 2 - 40
   },
   [SCENES_NAMES.SETTINGS_STACK]: {
     alignItems: 'center',

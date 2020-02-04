@@ -7,5 +7,8 @@ export default StyleSheet.create({
     backgroundColor: colors.appBackground,
     flex: 1,
     width: '100%'
+  },
+  containerPadded: {
+    paddingBottom: 30
   }
 })
