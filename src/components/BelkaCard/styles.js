@@ -8,6 +8,6 @@ export default StyleSheet.create({
   gradient: {
     // width: '40%',
     padding: 10,
-    borderRadius: 20
-  }
+    borderRadius: 20,
+  },
 })

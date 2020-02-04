@@ -19,7 +19,7 @@ export const PlayerBoard = memo(function({ player, index }) {
   const me = useMemo(() => (room && objects[clients[room.sessionId]]) || {}, [
     room,
     objects,
-    clients
+    clients,
   ])
 
   const handlePlayCard = useCallback(
@@ -29,7 +29,7 @@ export const PlayerBoard = memo(function({ player, index }) {
         dispatch(roomAddAction(foundAction.id))
       }
     },
-    [actions, dispatch]
+    [actions, dispatch],
   )
 
   const renderPlayerCards = useCallback(() => {
@@ -62,7 +62,7 @@ export const PlayerBoard = memo(function({ player, index }) {
         <View
           style={[
             styles.playerTimerContainerCommon,
-            player === me ? styles.playerTimerContainerMy : styles[`playerTimerContainer-${index}`]
+            player === me ? styles.playerTimerContainerMy : styles[`playerTimerContainer-${index}`],
           ]}
         >
           <Progress.Circle
@@ -85,7 +85,7 @@ export const PlayerBoard = memo(function({ player, index }) {
         <View
           style={[
             styles.trumpContainer,
-            player === me ? styles.trumpContainerMy : styles[`playerTrumpContainer-${index}`]
+            player === me ? styles.trumpContainerMy : styles[`playerTrumpContainer-${index}`],
           ]}
         >
           <Text style={styles.commonTextStyles}>{getSuitCode(player.suit)}</Text>

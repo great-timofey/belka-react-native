@@ -10,14 +10,14 @@ import {
   CREATE_GAME,
   RATINGS_STACK,
   SETTINGS_STACK,
-  SHOP_STACK
+  SHOP_STACK,
 } from '@navigation/names'
 import {
   GameOverModal,
   ContainerWithBackground,
   BelkaSegmentedControl,
   RoomsList,
-  BelkaButton
+  BelkaButton,
 } from '@components'
 
 import styles from './styles'
@@ -51,7 +51,7 @@ export const Rooms = memo(function() {
 
       navigate(BELKA, { roomId, tabBarVisible: false })
     },
-    [navigate, client]
+    [navigate, client],
   )
 
   return (
@@ -66,8 +66,8 @@ export const Rooms = memo(function() {
             dispatch(StackActions.popToTop({ immediate: true }))
             dispatch(
               NavigationActions.navigate({
-                routeName
-              })
+                routeName,
+              }),
             )
           }
         }}

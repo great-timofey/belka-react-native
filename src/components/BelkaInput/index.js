@@ -14,7 +14,7 @@ export const BelkaInput = memo(function({
   placeholder,
   containerAdditionalStyles = [],
   inputAdditionalStyles = [],
-  inputAdditionalProps = {}
+  inputAdditionalProps = {},
 }) {
   return (
     <View style={[styles.container, ...containerAdditionalStyles]}>
@@ -27,7 +27,7 @@ export const BelkaInput = memo(function({
             styles.input,
             startIcon && styles.inputWithStartIcon,
             endIcon && styles.inputWithEndIcon,
-            ...inputAdditionalStyles
+            ...inputAdditionalStyles,
           ]}
           placeholderTextColor={colors.semanticSecondary}
           placeholderFont

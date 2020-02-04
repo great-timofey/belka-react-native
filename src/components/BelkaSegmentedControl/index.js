@@ -10,7 +10,7 @@ export const BelkaSegmentedControl = memo(function({
   tabs,
   additionalStyles = [],
   onChange,
-  activeTabIndex
+  activeTabIndex,
 }) {
   return (
     <View style={[styles.container, ...additionalStyles]}>
@@ -25,7 +25,7 @@ export const BelkaSegmentedControl = memo(function({
                 styles.button,
                 active && styles.buttonActive,
                 index === 0 && styles.buttonLeft,
-                index === tabs.length - 1 && styles.buttonRight
+                index === tabs.length - 1 && styles.buttonRight,
               ]}
               onPress={() => !active && onChange(index)}
             >

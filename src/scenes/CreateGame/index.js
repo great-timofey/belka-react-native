@@ -15,7 +15,7 @@ const initialState = {
   ace: false,
   spas30: false,
   chat: false,
-  fin120: false
+  fin120: false,
 }
 
 export const CreateGame = memo(function() {
@@ -35,7 +35,7 @@ export const CreateGame = memo(function() {
           value={password}
           endIcon={iconLockOff}
           inputAdditionalProps={{
-            autoCompleteType: 'off'
+            autoCompleteType: 'off',
           }}
         />
         <BelkaInput
@@ -44,7 +44,7 @@ export const CreateGame = memo(function() {
           placeholder="Сумма ставки"
           value={bet}
           inputAdditionalProps={{
-            placeholderTextColor: colors.semanticNegative
+            placeholderTextColor: colors.semanticNegative,
           }}
         />
         <Text style={styles.playersLevel}>Уровень игроков: {playersLevel}</Text>

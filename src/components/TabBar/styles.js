@@ -6,36 +6,36 @@ import * as SCENES_NAMES from '@navigation/names'
 export default StyleSheet.create({
   wrapper: {
     height: 80,
-    backgroundColor: colors.appBackground
+    backgroundColor: colors.appBackground,
   },
   container: {
     height: 80,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     width: '25%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   [SCENES_NAMES.MAIN_STACK]: {
     width: 80,
     position: 'absolute',
     top: -30,
-    left: deviceWidth / 2 - 40
+    left: deviceWidth / 2 - 40,
   },
   [SCENES_NAMES.SETTINGS_STACK]: {
     alignItems: 'center',
-    marginLeft: -20
+    marginLeft: -20,
   },
   [SCENES_NAMES.RATINGS_STACK]: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   [SCENES_NAMES.CHAT_STACK]: {
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   [SCENES_NAMES.SHOP_STACK]: {
     alignItems: 'center',
-    marginRight: -20
-  }
+    marginRight: -20,
+  },
 })

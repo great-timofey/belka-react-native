@@ -10,8 +10,8 @@ export const TabBar = memo(function(props) {
     renderIcon,
     navigation,
     navigation: {
-      state: { routes, index: activeRouteIndex }
-    }
+      state: { routes, index: activeRouteIndex },
+    },
   } = props
 
   return (

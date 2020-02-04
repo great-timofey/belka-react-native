@@ -16,7 +16,7 @@ export const GameBoard = memo(function() {
   const me = useMemo(
     () =>
       (room && room.sessionId && clients[room.sessionId] && objects[clients[room.sessionId]]) || {},
-    [clients, objects, room]
+    [clients, objects, room],
   )
 
   const renderEnemies = useCallback(() => {

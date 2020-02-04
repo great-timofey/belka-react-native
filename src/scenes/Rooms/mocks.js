@@ -10,7 +10,7 @@ export const ROOMS_MOCKS = [
     dropAce: true,
     spas30: true,
     chat: true,
-    fin120: true
+    fin120: true,
   },
   {
     roomId: 'RgDxmhrbk',
@@ -22,7 +22,7 @@ export const ROOMS_MOCKS = [
     dropAce: false,
     spas30: false,
     chat: false,
-    fin120: false
+    fin120: false,
   },
   {
     roomId: 'RgDxmhrb',
@@ -34,6 +34,6 @@ export const ROOMS_MOCKS = [
     dropAce: false,
     spas30: false,
     chat: false,
-    fin120: false
-  }
+    fin120: false,
+  },
 ]

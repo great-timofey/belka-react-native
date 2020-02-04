@@ -8,7 +8,7 @@ import styles from './styles'
 export const ContainerWithBackground = memo(function({
   children,
   size = 'center',
-  additionalStyles = []
+  additionalStyles = [],
 }) {
   return (
     <ImageBackground

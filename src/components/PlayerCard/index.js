@@ -11,12 +11,12 @@ export const PlayerCard = memo(function({ player, index }) {
 
   const cardSlot = useMemo(() => player && player.cardSlotId && objects[player.cardSlotId], [
     objects,
-    player
+    player,
   ])
 
   const playerCard = useMemo(
     () => (cardSlot && cardSlot.items && cardSlot.items.map(id => objects[id])) || [],
-    [cardSlot, objects]
+    [cardSlot, objects],
   )
 
   return (
