@@ -6,11 +6,11 @@ export const setMessageActions = actions => ({ type: TYPES.SET_MESSAGE_ACTIONS, 
 export const addObject = object => ({ type: TYPES.ADD_OBJECT, payload: object })
 export const updateObject = (object, key) => ({
   type: TYPES.UPDATE_OBJECT,
-  payload: { object, key }
+  payload: { object, key },
 })
 export const addClient = (playerId, sessionId) => ({
   type: TYPES.ADD_CLIENT,
-  payload: { playerId, sessionId }
+  payload: { playerId, sessionId },
 })
 export const removeClient = clientId => ({ type: TYPES.REMOVE_CLIENT, payload: clientId })
 export const addPlayer = player => ({ type: TYPES.ADD_PLAYER, payload: player })
@@ -18,3 +18,7 @@ export const removePlayer = index => ({ type: TYPES.REMOVE_PLAYER, payload: inde
 export const startChannel = roomId => ({ type: TYPES.START_CHANNEL, payload: roomId })
 export const roomAddBot = () => ({ type: TYPES.ROOM_ADD_BOT })
 export const roomAddAction = actionId => ({ type: TYPES.ROOM_ADD_ACTION, payload: actionId })
+export const createRoom = ({ name, password, eggsX4, dropAce, spas30, fin120 }) => ({
+  type: TYPES.CREATE_ROOM,
+  payload: { name, password, eggsX4, dropAce, spas30, fin120 },
+})

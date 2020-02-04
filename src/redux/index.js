@@ -17,9 +17,9 @@ const middleware = [sagaMiddleware]
 
 export const store = createStore(
   combineReducers({
-    belkaGame: belkaGameReducer
+    belkaGame: belkaGameReducer,
   }),
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeWithDevTools(applyMiddleware(...middleware)),
 )
 
 export const persistor = persistStore(store)
