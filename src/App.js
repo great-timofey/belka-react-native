@@ -1,12 +1,13 @@
+import { Buffer } from 'buffer'
+
 import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Provider } from 'react-redux'
-import { Buffer } from 'buffer'
 import RNBootSplash from 'react-native-bootsplash'
 
-import { configureStore } from './src/redux'
-import { AppNavigator } from './src/navigation'
+import { configureStore } from './redux'
+import { AppNavigator } from './navigation'
 
 // eslint-disable-next-line no-undef
 window.localStorage = AsyncStorage
@@ -14,7 +15,7 @@ global.Buffer = Buffer
 
 console.disableYellowBox = true
 
-const { store, persistor } = configureStore()
+const { store } = configureStore()
 
 const App = () => {
   useEffect(() => {
