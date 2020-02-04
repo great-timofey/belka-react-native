@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, YellowBox } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Provider } from 'react-redux'
 import { Buffer } from 'buffer'
@@ -10,6 +10,8 @@ import { AppNavigator } from './src/navigation'
 // eslint-disable-next-line no-undef
 window.localStorage = AsyncStorage
 global.Buffer = Buffer
+
+console.disableYellowBox = true
 
 const { store, persistor } = configureStore()
 
