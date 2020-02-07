@@ -15,7 +15,7 @@ export const BelkaToggler = memo(function({
   leftIconActive,
   leftIconInactive,
   rightIconActive,
-  rightIconInactive
+  rightIconInactive,
 }) {
   return (
     <View style={styles.item}>

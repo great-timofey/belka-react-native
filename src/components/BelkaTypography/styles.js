@@ -4,9 +4,9 @@ import { fonts } from '@global/styles'
 
 export default StyleSheet.create({
   text: {
-    fontFamily: fonts.ptsans.regular
+    fontFamily: fonts.ptsans.regular,
   },
   textBold: {
-    fontFamily: fonts.ptsans.bold
-  }
+    fontFamily: fonts.ptsans.bold,
+  },
 })

@@ -6,9 +6,9 @@ export default StyleSheet.create({
   container: {
     backgroundColor: colors.appBackground,
     flex: 1,
-    width: '100%'
+    width: '100%',
   },
   containerPadded: {
-    paddingBottom: 30
-  }
+    paddingBottom: 30,
+  },
 })

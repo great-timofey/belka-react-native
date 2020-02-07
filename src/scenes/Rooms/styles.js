@@ -5,22 +5,22 @@ import { fonts } from '@global/styles'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10
+    padding: 10,
   },
   joinRoomButton: {
     flex: 1,
     borderBottomColor: 'black',
     fontFamily: fonts.ptsans.bold,
     borderBottomWidth: 1,
-    marginBottom: 5
+    marginBottom: 5,
   },
   updateRoomButton: {
-    marginTop: 5
+    marginTop: 5,
   },
   segmentedControl: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   createRoom: {
-    height: 50
-  }
+    height: 50,
+  },
 })

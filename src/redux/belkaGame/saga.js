@@ -3,6 +3,9 @@ import { eventChannel } from 'redux-saga'
 // import AsyncStorage from '@react-native-community/async-storage'
 import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
+import * as NavigationService from '@navigation/navigationService'
+import { BELKA } from '@navigation/names'
+
 import * as TYPES from './types'
 import {
   initRoom,
@@ -13,7 +16,7 @@ import {
   addObject,
   updateObject,
   addPlayer,
-  removePlayer
+  removePlayer,
 } from './actions'
 
 const client = new Colyseus.Client('ws://belkagame.herokuapp.com')
@@ -122,12 +125,22 @@ const addActionSaga = function*({ payload }) {
   }
 }
 
+const createRoomSaga = function*({ payload }) {
+  try {
+    const { name, ...rest } = payload
+    const room = yield client.create('belka', { ...rest })
+    NavigationService.navigate(BELKA, { roomId: room.id, tabBarVisible: false })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const sendSagaWorker = function*() {
   yield takeEvery(TYPES.ROOM_ADD_BOT, addBotSaga)
   yield takeEvery(TYPES.ROOM_ADD_ACTION, addActionSaga)
 }
 
-const startStopChannel = function*() {
+const startStopChannelSaga = function*() {
   while (true) {
     try {
       const { payload } = yield take(TYPES.START_CHANNEL)
@@ -142,4 +155,9 @@ const startStopChannel = function*() {
   }
 }
 
-export default startStopChannel
+const rootSaga = function*() {
+  yield fork(startStopChannelSaga)
+  yield takeEvery(TYPES.CREATE_ROOM, createRoomSaga)
+}
+
+export default rootSaga

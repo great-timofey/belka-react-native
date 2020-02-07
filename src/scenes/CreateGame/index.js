@@ -1,11 +1,11 @@
-import React, { memo, useReducer, useState } from 'react'
+import React, { memo, useCallback, useReducer, useState } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useDispatch } from 'react-redux'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
 import { colors } from '@global/styles'
-import { PREPARATION } from '@navigation/names'
+import { createRoom } from '@redux/belkaGame/actions'
 
 import { NEW_GAME_DATA_ENTRIES, NEW_GAME_ICONS } from './constants'
 import styles from './styles'
@@ -15,15 +15,29 @@ const initialState = {
   ace: false,
   spas30: false,
   chat: false,
-  fin120: false
+  fin120: false,
 }
 
 export const CreateGame = memo(function() {
-  const { navigate } = useNavigation()
   const [password, setPassword] = useState(null)
   const [bet, setBet] = useState(null)
   const [playersLevel, setPlayersLevel] = useState(1)
   const [state, dispatch] = useReducer((s, a) => ({ ...s, ...a }), initialState)
+
+  const reduxDispatch = useDispatch()
+
+  const handleCreateRoom = useCallback(() => {
+    reduxDispatch(
+      createRoom({
+        name: 'test',
+        password: null,
+        eggsX4: state.eggsX4,
+        dropAce: state.ace,
+        spas30: state.spas30,
+        fin120: state.fin120,
+      }),
+    )
+  }, [state, reduxDispatch])
 
   return (
     <ContainerWithBackground additionalStyles={[styles.wrapper]}>
@@ -35,7 +49,7 @@ export const CreateGame = memo(function() {
           value={password}
           endIcon={iconLockOff}
           inputAdditionalProps={{
-            autoCompleteType: 'off'
+            autoCompleteType: 'off',
           }}
         />
         <BelkaInput
@@ -44,7 +58,7 @@ export const CreateGame = memo(function() {
           placeholder="Сумма ставки"
           value={bet}
           inputAdditionalProps={{
-            placeholderTextColor: colors.semanticNegative
+            placeholderTextColor: colors.semanticNegative,
           }}
         />
         <Text style={styles.playersLevel}>Уровень игроков: {playersLevel}</Text>
@@ -78,7 +92,7 @@ export const CreateGame = memo(function() {
         <BelkaButton
           additionalStyles={[styles.createGame]}
           title="Создать игру"
-          onPress={() => navigate(PREPARATION)}
+          onPress={handleCreateRoom}
         />
       </ScrollView>
     </ContainerWithBackground>

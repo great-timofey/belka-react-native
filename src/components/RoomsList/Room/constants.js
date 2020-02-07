@@ -8,28 +8,28 @@ import {
   iconChatTrueGold,
   iconEggX4TrueGold,
   iconWingsGold,
-  iconWingsWhite
+  iconWingsWhite,
 } from '@global/images'
 
 export const iconsMap = {
   eggsX4: {
     true: iconEggX4TrueGold,
-    false: iconEggX4FalseGold
+    false: iconEggX4FalseGold,
   },
   dropAce: {
     true: iconAceTrueGold,
-    false: iconAceFalseGold
+    false: iconAceFalseGold,
   },
   spas30: {
     true: iconWingsGold,
-    false: iconWingsWhite
+    false: iconWingsWhite,
   },
   chat: {
     true: iconChatTrueGold,
-    false: iconChatFalseGold
+    false: iconChatFalseGold,
   },
   fin120: {
     true: icon120TrueGold,
-    false: icon120FalseGold
-  }
+    false: icon120FalseGold,
+  },
 }

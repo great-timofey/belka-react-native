@@ -7,6 +7,6 @@ export default StyleSheet.create({
     height: 56,
     marginHorizontal: -16,
     padding: 10,
-    backgroundColor: colors.appBackground
-  }
+    backgroundColor: colors.appBackground,
+  },
 })

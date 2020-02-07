@@ -15,7 +15,7 @@ export const Card = memo(function({ data, onPress, my, index, deck }) {
           styles.card,
           styles.cover,
           styles.cardDeck,
-          index % 2 === 0 && styles.cardDeckOffseted
+          index % 2 === 0 && styles.cardDeckOffseted,
         ]}
         source={cards.cover}
       />

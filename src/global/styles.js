@@ -5,14 +5,14 @@ const ptSansPrefix = 'PTSans'
 export const fonts = {
   ptsans: {
     bold: `${ptSansPrefix}-Bold`,
-    regular: `${ptSansPrefix}-Regular`
-  }
+    regular: `${ptSansPrefix}-Regular`,
+  },
 }
 
 export const selectStyles = (ios, android) =>
   Platform.select({
     ios,
-    android
+    android,
   })
 
 export const isIOS = Platform.OS === 'ios'
@@ -41,7 +41,7 @@ export const colors = {
   semanticAttention: '#e7af43',
   semanticPositive: '#25bb15',
   semanticPrimary: '#e4a120',
-  semanticNegative: '#d31219'
+  semanticNegative: '#d31219',
 }
 
 export const gradients = {
@@ -49,12 +49,12 @@ export const gradients = {
     colors: ['rgb(235,197,122)', 'rgb(226,154,12)'],
     locations: [0, 1],
     useAngle: true,
-    angle: -96
+    angle: -96,
   },
   baseCard: {
     colors: ['rgb(27,28,33)', 'rgb(22,23,27)', 'rgb(16,17,20)'],
     locations: [0, 0.52, 1],
     useAngle: true,
-    angle: 6
-  }
+    angle: 6,
+  },
 }
