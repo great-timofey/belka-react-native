@@ -7,20 +7,20 @@ import { gradients } from '@global/styles'
 import styles from './styles'
 
 export const BelkaButton = memo(function({
-  primary = true,
   title,
   onPress,
   children,
+  appearance = 'Primary',
   additionalStyles = [],
 }) {
   return (
     <TouchableOpacity
-      style={[styles.button, primary ? styles.primaryButton : {}, ...additionalStyles]}
+      style={[styles.button, styles[`button${appearance}`], ...additionalStyles]}
       onPress={onPress}
     >
-      <LinearGradient {...gradients.buttonPrimary} style={styles.gradient}>
+      <LinearGradient {...gradients.buttons[appearance]} style={styles.gradient}>
         {title ? (
-          <Text style={[styles.title, primary ? styles.primaryTitle : {}]}>{title}</Text>
+          <Text style={[styles.title, styles[`title${appearance}`]]}>{title}</Text>
         ) : (
           children
         )}

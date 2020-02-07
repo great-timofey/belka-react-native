@@ -45,16 +45,24 @@ export const colors = {
 }
 
 export const gradients = {
-  buttonPrimary: {
-    colors: ['rgb(235,197,122)', 'rgb(226,154,12)'],
-    locations: [0, 1],
-    useAngle: true,
-    angle: -96,
+  buttons: {
+    Primary: {
+      colors: ['#ebc57a', '#e29a0c'],
+      locations: [0, 1],
+      useAngle: true,
+      angle: -174,
+    },
+    Negative: {
+      colors: ['#eb877a', '#e2350c'],
+      locations: [0, 1],
+      useAngle: true,
+      angle: -174,
+    },
   },
   baseCard: {
-    colors: ['rgb(27,28,33)', 'rgb(22,23,27)', 'rgb(16,17,20)'],
-    locations: [0, 0.52, 1],
+    colors: ['#1b1c21', '#101114'],
+    locations: [0, 1],
     useAngle: true,
-    angle: 6,
+    angle: 84,
   },
 }

@@ -15,23 +15,29 @@ export default StyleSheet.create({
     justifyContent: 'center',
     ...selectStyles(
       {
-        shadowRadius: 20,
         shadowColor: 'rgba(26, 26, 26, 0.36)',
-        shadowOffset: { width: -1, height: 5 },
+        shadowOffset: { width: 8, height: -1 },
+        shadowRadius: 40,
       },
       {
         elevation: 5,
       },
     ),
   },
-  primaryButton: {
+  buttonPrimary: {
     backgroundColor: colors.semanticPrimary,
+  },
+  buttonNegative: {
+    backgroundColor: colors.semanticNegative,
+  },
+  titlePrimary: {
+    color: colors.white,
+  },
+  titleNegative: {
+    color: colors.white,
   },
   title: {
     textAlign: 'center',
     fontFamily: fonts.ptsans.bold,
-  },
-  primaryTitle: {
-    color: colors.white,
   },
 })

@@ -74,11 +74,13 @@ export const iconShop = require('../../assets/images/shop.png')
 export const iconShopActive = require('../../assets/images/shop-active.png')
 export const iconGame = require('../../assets/images/game.png')
 export const iconGameActive = require('../../assets/images/game-active.png')
+export const iconMail = require('../../assets/images/mail-icon.png')
 
 export const iconArrowBack = require('../../assets/images/icon-button-back.png')
 export const progressThumb = require('../../assets/images/progress-thumb.png')
 export const toggleThumb = require('../../assets/images/toggle-thumb.png')
 export const iconPlayerReady = require('../../assets/images/icon-player-ready.png')
+export const bootsplashLogo = require('../../assets/images/bootsplash_logo.png')
 
 export const iconChatTrueGold = require('../../assets/images/icon-chat-true-gold.png')
 export const iconChatTrueWhite = require('../../assets/images/icon-chat-true-white.png')

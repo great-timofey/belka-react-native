@@ -14,7 +14,7 @@ export const BelkaSegmentedControl = memo(function({
 }) {
   return (
     <View style={[styles.container, ...additionalStyles]}>
-      <LinearGradient {...gradients.buttonPrimary} style={styles.gradient}>
+      <LinearGradient {...gradients.buttons.Primary} style={styles.gradient}>
         {tabs.map(({ id, title }, index) => {
           const active = activeTabIndex === index
           return (

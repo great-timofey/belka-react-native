@@ -30,7 +30,6 @@ export const BelkaInput = memo(function({
             ...inputAdditionalStyles,
           ]}
           placeholderTextColor={colors.semanticSecondary}
-          placeholderFont
           onChangeText={onChangeText}
           placeholder={placeholder}
           value={value}
