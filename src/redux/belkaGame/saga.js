@@ -1,3 +1,4 @@
+import env from 'react-native-config'
 import * as Colyseus from 'colyseus.js'
 import { eventChannel } from 'redux-saga'
 // import AsyncStorage from '@react-native-community/async-storage'
@@ -19,7 +20,7 @@ import {
   removePlayer,
 } from './actions'
 
-const client = new Colyseus.Client('ws://belkagame.herokuapp.com')
+const client = new Colyseus.Client(`ws://${env.API_HOST}`)
 let roomSend
 let roomLeave
 
@@ -27,27 +28,17 @@ function createRoomChannel(room) {
   return eventChannel(emit => {
     room.onMessage(message => {
       if (message.type === 'object') {
-        // emit({ type: ACTIONS.GET_MESSAGE_OBJECT, object: message.data })
         emit(setMessageObject(message.data))
       } else if (message.type === 'actions') {
-        // emit({ type: ACTIONS.GET_MESSAGE_ACTIONS, actions: message.data })
         emit(setMessageActions(message.data))
       }
     })
 
-    // room.state.objects.onAdd = obj => emit({ type: ACTIONS.ADD_OBJECT, obj })
     room.state.objects.onAdd = obj => emit(addObject(obj))
-    // room.state.objects.onChange = (obj, key) => emit({ type: ACTIONS.UPDATE_OBJECT, key, obj })
     room.state.objects.onChange = (obj, key) => emit(updateObject(obj, key))
-    // room.state.clients.onAdd = (playerId, sessionId) =>
-    //   emit({ type: ACTIONS.ADD_CLIENT, sessionId, playerId })
     room.state.clients.onAdd = (playerId, sessionId) => emit(addClient(playerId, sessionId))
-    // room.state.clients.onRemove = (player, sessionId) =>
-    //   emit({ type: ACTIONS.REMOVE_CLIENT, sessionId })
     room.state.clients.onRemove = (player, sessionId) => emit(removeClient(sessionId))
-    // room.state.players.onAdd = playerId => emit({ type: ACTIONS.ADD_PLAYER, playerId })
     room.state.players.onAdd = playerId => emit(addPlayer(playerId))
-    // room.state.players.onRemove = index => emit({ type: ACTIONS.REMOVE_PLAYER, index })
     room.state.players.onRemove = index => emit(removePlayer(index))
 
     roomSend = msg => room.send(msg)
