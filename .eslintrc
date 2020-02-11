@@ -45,6 +45,7 @@
         "newlines-between": "always"
       }
     ],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-wrap-multilines": "off"
   }
 }
