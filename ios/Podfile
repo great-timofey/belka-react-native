@@ -36,7 +36,6 @@ target 'Belka' do
 
 
 
-  pod 'react-native-config', :path => '../node_modules/react-native-config'
 
   target 'BelkaTests' do
     inherit! :search_paths
