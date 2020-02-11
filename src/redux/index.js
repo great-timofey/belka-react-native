@@ -5,7 +5,9 @@ import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import belkaGameReducer from './belkaGame/reducer'
-import startStopChannel from './belkaGame/saga'
+import belkaGameSaga from './belkaGame/saga'
+import commonReducer from './common/reducer'
+import authSaga from './auth/saga'
 
 // const persistConfig = {
 //   key: 'belkaGame',
@@ -18,6 +20,7 @@ const middleware = [sagaMiddleware]
 export const store = createStore(
   combineReducers({
     belkaGame: belkaGameReducer,
+    common: commonReducer,
   }),
   composeWithDevTools(applyMiddleware(...middleware)),
 )
@@ -25,6 +28,7 @@ export const store = createStore(
 export const persistor = persistStore(store)
 
 export function configureStore() {
-  sagaMiddleware.run(startStopChannel)
+  sagaMiddleware.run(belkaGameSaga)
+  sagaMiddleware.run(authSaga)
   return { store, persistor }
 }

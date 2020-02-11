@@ -12,9 +12,10 @@ module.exports = {
           '@redux': './src/redux',
           '@utils': './src/utils',
           '@global': './src/global',
-          '@assets': './assets'
-        }
-      }
-    ]
-  ]
+          '@assets': './assets',
+          '@services': './src/services',
+        },
+      },
+    ],
+  ],
 }

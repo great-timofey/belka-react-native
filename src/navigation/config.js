@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image } from 'react-native'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 
@@ -26,6 +26,10 @@ import {
   Settings,
   CreateGame,
   GamePreparation,
+  Login,
+  SignUp,
+  RestorePassword,
+  AuthLoading,
 } from '@scenes'
 import { TabBar } from '@components'
 import { HeaderWithUserData } from '@components/Header/WithUserData'
@@ -78,6 +82,7 @@ const mainStack = createStackNavigator(
     },
   },
   {
+    initialRouteName: SCENES_NAMES.MAIN,
     defaultNavigationOptions: {
       headerTitle: () => <HeaderWithUserData />,
       headerLeft: () => null,
@@ -140,7 +145,7 @@ const rootStack = {
   },
 }
 
-const RootNavigator = createBottomTabNavigator(rootStack, {
+const authorizedStack = createBottomTabNavigator(rootStack, {
   tabBarComponent: TabBar,
   tabBarPosition: 'bottom',
   animationEnabled: false,
@@ -150,4 +155,36 @@ const RootNavigator = createBottomTabNavigator(rootStack, {
     showLabel: false,
   },
 })
+
+const unathorizedStack = createStackNavigator(
+  {
+    [SCENES_NAMES.LOGIN]: {
+      screen: Login,
+    },
+    [SCENES_NAMES.SIGN_UP]: {
+      screen: SignUp,
+    },
+    [SCENES_NAMES.RESTORE_PASSWORD]: {
+      screen: RestorePassword,
+    },
+  },
+  {
+    initialRouteName: SCENES_NAMES.LOGIN,
+    defaultNavigationOptions: {
+      header: () => null,
+    },
+  },
+)
+
+const RootNavigator = createSwitchNavigator(
+  {
+    [SCENES_NAMES.UNATHORIZED_STACK]: unathorizedStack,
+    [SCENES_NAMES.AUTHORIZED_STACK]: authorizedStack,
+    [SCENES_NAMES.AUTH_LOADING]: AuthLoading,
+  },
+  {
+    initialRouteName: SCENES_NAMES.AUTH_LOADING,
+  },
+)
+
 export default createAppContainer(RootNavigator)

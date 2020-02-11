@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { colors } from '@global/styles'
+import { colors, fonts } from '@global/styles'
 
 const INPUT_HEIGHT = 40
 
@@ -21,12 +21,14 @@ export default StyleSheet.create({
     paddingVertical: 5,
     fontSize: 14,
     borderRadius: 15,
+    fontFamily: fonts.ptsans.regular,
+    fontWeight: '400',
   },
   inputWithStartIcon: {
-    paddingLeft: 45,
+    paddingLeft: 65,
   },
   inputWithEndIcon: {
-    paddingRight: 45,
+    paddingRight: 65,
   },
   icon: {
     width: 20,

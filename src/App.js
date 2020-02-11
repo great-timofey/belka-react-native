@@ -1,10 +1,9 @@
 import { Buffer } from 'buffer'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Provider } from 'react-redux'
-import RNBootSplash from 'react-native-bootsplash'
 
 import { configureStore } from './redux'
 import { AppNavigator } from './navigation'
@@ -18,10 +17,6 @@ console.disableYellowBox = true
 const { store } = configureStore()
 
 const App = () => {
-  useEffect(() => {
-    RNBootSplash.hide({ duration: 250 })
-  }, [])
-
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
