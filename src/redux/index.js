@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import belkaGameReducer from './belkaGame/reducer'
 import belkaGameSaga from './belkaGame/saga'
+import commonReducer from './common/reducer'
 import authSaga from './auth/saga'
 
 // const persistConfig = {
@@ -19,6 +20,7 @@ const middleware = [sagaMiddleware]
 export const store = createStore(
   combineReducers({
     belkaGame: belkaGameReducer,
+    common: commonReducer,
   }),
   composeWithDevTools(applyMiddleware(...middleware)),
 )

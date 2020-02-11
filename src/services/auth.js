@@ -5,7 +5,7 @@ export const signIn = ({ email, password }) => API.post('auth/login', { email, p
 export const signUp = ({ email, password, name }) =>
   API.post('auth/signup', { email, name, password })
 
-export const logout = token => API.post('auth/logout', { token })
+export const logout = () => API.post('auth/logout')
 
 export const setAuthToken = token => {
   API.defaults.headers.common.Authorization = `Bearer ${token}`

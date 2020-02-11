@@ -82,6 +82,7 @@ const mainStack = createStackNavigator(
     },
   },
   {
+    initialRouteName: SCENES_NAMES.MAIN,
     defaultNavigationOptions: {
       headerTitle: () => <HeaderWithUserData />,
       headerLeft: () => null,
@@ -168,6 +169,7 @@ const unathorizedStack = createStackNavigator(
     },
   },
   {
+    initialRouteName: SCENES_NAMES.LOGIN,
     defaultNavigationOptions: {
       header: () => null,
     },

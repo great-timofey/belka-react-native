@@ -102,6 +102,7 @@ export const iconWingsGold = require('../../assets/images/icon-wings-gold.png')
 export const iconWingsWhite = require('../../assets/images/icon-wings-white.png')
 export const iconLockOn = require('../../assets/images/icon-lock-on.png')
 export const iconLockOff = require('../../assets/images/icon-lock-off.png')
+export const iconUser = require('../../assets/images/icon-user.png')
 
 /*
 0 = spades

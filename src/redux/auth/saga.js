@@ -1,8 +1,12 @@
 import AsyncStorage from '@react-native-community/async-storage'
 //  eslint-disable-next-line
-import { takeEvery } from '@redux-saga/core/effects'
+import { takeEvery, put } from '@redux-saga/core/effects'
 
-import { signIn, signUp, setAuthToken, logout, clearAuthToken } from '@services/auth'
+import { signIn, signUp, setAuthToken, clearAuthToken } from '@services/auth'
+import * as NavigationService from '@navigation/navigationService'
+import { AUTHORIZED_STACK, UNATHORIZED_STACK } from '@navigation/names'
+
+import { setError } from '../common/actions'
 
 import * as TYPES from './types'
 
@@ -15,9 +19,11 @@ function* signInSaga({ payload }) {
       yield setAuthToken(token)
       yield AsyncStorage.setItem('token', token)
       console.log('authorization success')
+      NavigationService.navigate(AUTHORIZED_STACK)
     }
   } catch (err) {
     console.log(err)
+    yield put(setError(err))
   }
 }
 
@@ -27,19 +33,23 @@ function* signUpSaga({ payload }) {
     yield setAuthToken(token)
     yield AsyncStorage.setItem('token', token)
     console.log('signup success')
+    NavigationService.navigate(AUTHORIZED_STACK)
   } catch (err) {
     console.log(err)
+    yield put(setError(err))
   }
 }
 
 function* logoutSaga() {
   try {
-    yield logout()
+    // yield logout()
     yield clearAuthToken()
     yield AsyncStorage.removeItem('token')
+    NavigationService.navigate(UNATHORIZED_STACK)
     console.log('logout success')
   } catch (err) {
     console.log(err)
+    yield put(setError(err))
   }
 }
 
