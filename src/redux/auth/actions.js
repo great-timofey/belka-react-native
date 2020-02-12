@@ -5,7 +5,7 @@ export const signIn = ({ email, password }) => ({
   payload: { email, password },
 })
 
-export const signUp = (email, name, password) => ({
+export const signUp = ({ email, name, password }) => ({
   type: TYPES.SIGN_UP,
   payload: { email, password, name },
 })

@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 
-import { useCustomStateHook } from '@hooks/useCustomStateHook'
-
-import { useDebounceHook } from './useDebounceHook'
+import { useDebounceHook, useCustomStateHook } from '.'
 
 export function useFormHook({ refs, validationRules, initialState, onFocus, onUnfocus, onSubmit }) {
   const [state, dispatch] = useCustomStateHook(initialState)
