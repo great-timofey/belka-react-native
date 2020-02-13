@@ -5,6 +5,7 @@ import { takeEvery, put } from '@redux-saga/core/effects'
 import { signIn, signUp, setAuthToken, clearAuthToken } from '@services/auth'
 import * as NavigationService from '@navigation/navigationService'
 import { AUTHORIZED_STACK, UNATHORIZED_STACK } from '@navigation/names'
+import { processError } from '@utils'
 
 import { setError } from '../common/actions'
 
@@ -22,21 +23,33 @@ function* signInSaga({ payload }) {
       NavigationService.navigate(AUTHORIZED_STACK)
     }
   } catch (err) {
-    console.log(err)
-    yield put(setError(err))
+    console.dir(err)
+    const [status, message] = processError(err)
+    if (status === 400) {
+      yield put(setError('Неверный email или пароль'))
+    } else {
+      yield put(setError(message))
+    }
   }
 }
 
 function* signUpSaga({ payload }) {
   try {
-    const { token } = yield signUp(payload)
-    yield setAuthToken(token)
-    yield AsyncStorage.setItem('token', token)
-    console.log('signup success')
-    NavigationService.navigate(AUTHORIZED_STACK)
+    const { data } = yield signUp(payload)
+    if (data && data.token) {
+      const { token } = data
+      yield setAuthToken(token)
+      yield AsyncStorage.setItem('token', token)
+      console.log('signup success')
+      NavigationService.navigate(AUTHORIZED_STACK)
+    }
   } catch (err) {
-    console.log(err)
-    yield put(setError(err))
+    const [status, message] = processError(err)
+    if (status === 403) {
+      yield put(setError('Пользователь с таким email уже существует'))
+    } else {
+      yield put(setError(message))
+    }
   }
 }
 
@@ -48,8 +61,9 @@ function* logoutSaga() {
     NavigationService.navigate(UNATHORIZED_STACK)
     console.log('logout success')
   } catch (err) {
-    console.log(err)
-    yield put(setError(err))
+    console.dir(err)
+    const [, message] = processError(err)
+    yield put(setError(message))
   }
 }
 

@@ -95,7 +95,7 @@ export const Login = memo(function() {
           <BelkaButton additionalStyles={[styles.button]} title="Войти" />,
         ]}
       />
-      <ErrorModal open={!!error} closeCallback={closeModal} />
+      <ErrorModal open={!!error} closeCallback={closeModal} error={error} />
     </ContainerWithBackground>
   )
 })

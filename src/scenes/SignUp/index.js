@@ -71,7 +71,7 @@ export const SignUp = memo(function() {
         ]}
       />
 
-      <ErrorModal open={!!error} closeCallback={closeModal} />
+      <ErrorModal open={!!error} closeCallback={closeModal} error={error} />
     </ContainerWithBackground>
   )
 })
