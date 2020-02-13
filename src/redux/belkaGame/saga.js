@@ -1,7 +1,7 @@
 import env from 'react-native-config'
 import * as Colyseus from 'colyseus.js'
 import { eventChannel } from 'redux-saga'
-// import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
 import * as NavigationService from '@navigation/navigationService'
@@ -20,7 +20,7 @@ import {
   removePlayer,
 } from './actions'
 
-const client = new Colyseus.Client(`ws://${env.API_HOST}`)
+const client = new Colyseus.Client(`${env.API_WEBSOCKET_PROTOCOL}://${env.API_HOST}`)
 let roomSend
 let roomLeave
 
@@ -50,41 +50,18 @@ function createRoomChannel(room) {
   })
 }
 
-const connect = roomId => {
+const connect = (roomId, token) => {
   return new Promise(resolve => {
-    client.joinById(roomId).then(room => {
+    client.joinById(roomId, { token }).then(room => {
       resolve(room)
     })
   })
 }
 
-// const reconnect = (roomId, sessionId) => {
-//   return new Promise(resolve => {
-//     client.reconnect(roomId, sessionId).then(room => {
-//       resolve(room)
-//     })
-//   })
-// }
-
-// const reconnectSaga = function*(roomId) {
-//   try {
-//     const sessionId = yield AsyncStorage.getItem('sessionId')
-//     const room = yield call(reconnect, roomId, sessionId)
-//     const socketChannel = yield call(createRoomChannel, room)
-//
-//     for (let i = 0; i < 3; i += 1) {
-//       const payload = yield take(socketChannel)
-//       yield put(payload)
-//     }
-//   } catch (error) {
-//     console.log('reconnection error')
-//   }
-// }
-
 const listenServerSaga = function*(roomId) {
   try {
-    const room = yield call(connect, roomId)
-    // yield put({ type: ACTIONS.INIT_ROOM, room })
+    const token = yield AsyncStorage.getItem('token')
+    const room = yield call(connect, roomId, token)
     yield put(initRoom(room))
     const socketChannel = yield call(createRoomChannel, room)
 
@@ -119,8 +96,11 @@ const addActionSaga = function*({ payload }) {
 const createRoomSaga = function*({ payload }) {
   try {
     const { name, ...rest } = payload
-    const room = yield client.create('belka', { ...rest })
-    NavigationService.navigate(BELKA, { roomId: room.id, tabBarVisible: false })
+    const token = yield AsyncStorage.getItem('token')
+    const { id, sessionId } = yield client.create('belka', { token, ...rest })
+    yield AsyncStorage.setItem('roomId', id)
+    yield AsyncStorage.setItem('sessionId', sessionId)
+    NavigationService.navigate(BELKA, { roomId: id, tabBarVisible: false })
   } catch (e) {
     console.log(e)
   }
@@ -150,5 +130,28 @@ const rootSaga = function*() {
   yield fork(startStopChannelSaga)
   yield takeEvery(TYPES.CREATE_ROOM, createRoomSaga)
 }
+
+// const reconnect = (roomId, sessionId) => {
+//   return new Promise(resolve => {
+//     client.reconnect(roomId, sessionId).then(room => {
+//       resolve(room)
+//     })
+//   })
+// }
+
+// const reconnectSaga = function*(roomId) {
+//   try {
+//     const sessionId = yield AsyncStorage.getItem('sessionId')
+//     const room = yield call(reconnect, roomId, sessionId)
+//     const socketChannel = yield call(createRoomChannel, room)
+//
+//     for (let i = 0; i < 3; i += 1) {
+//       const payload = yield take(socketChannel)
+//       yield put(payload)
+//     }
+//   } catch (error) {
+//     console.log('reconnection error')
+//   }
+// }
 
 export default rootSaga

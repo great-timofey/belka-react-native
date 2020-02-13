@@ -9,29 +9,33 @@ import styles from './styles'
 export const ContainerWithBackground = memo(function({
   children,
   size = 'center',
+  needPersistTaps,
   additionalStyles = [],
 }) {
-  const Wrapper = isAndroid ? ScrollView : Fragment
+  const useWrapper = isAndroid && needPersistTaps
+  const Wrapper = useWrapper ? ScrollView : Fragment
+
+  const wrapperStyleProps = useMemo(
+    () => [styles.container, size === 'center' && styles.containerPadded, ...additionalStyles],
+    [additionalStyles, size],
+  )
+
   const scrollViewProps = useMemo(
     () =>
-      isAndroid
+      useWrapper
         ? {
-            contentContainerStyle: [
-              styles.container,
-              size === 'center' && styles.containerPadded,
-              ...additionalStyles,
-            ],
+            contentContainerStyle: [...wrapperStyleProps],
             keyboardShouldPersistTaps: 'handled',
           }
         : {},
-    [size, additionalStyles],
+    [useWrapper, wrapperStyleProps],
   )
 
   return (
     <Wrapper {...scrollViewProps}>
       <ImageBackground
         resizeMode="cover"
-        style={[styles.image, ...additionalStyles]}
+        style={useWrapper ? [styles.image, ...additionalStyles] : wrapperStyleProps}
         source={size === 'center' ? backgroundCenter : backgroundFullscreen}
       >
         {children}

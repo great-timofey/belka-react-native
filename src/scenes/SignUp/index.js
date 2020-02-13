@@ -49,7 +49,7 @@ export const SignUp = memo(function() {
   )
 
   return (
-    <ContainerWithBackground size="full" additionalStyles={[styles.container]}>
+    <ContainerWithBackground needPersistTaps size="full" additionalStyles={[styles.container]}>
       <Image source={bootsplashLogo} style={[styles.logo, minifyImage && styles.logoSmall]} />
 
       <BelkaTypography bold style={[styles.text, styles.title]}>

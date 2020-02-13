@@ -64,7 +64,7 @@ export const Login = memo(function() {
   }, [navigate])
 
   return (
-    <ContainerWithBackground size="full" additionalStyles={[styles.container]}>
+    <ContainerWithBackground needPersistTabs size="full" additionalStyles={[styles.container]}>
       <Image source={bootsplashLogo} style={[styles.logo, minifyImage && styles.logoSmall]} />
 
       <BelkaTypography bold style={[styles.text, styles.title]}>
