@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
 import * as NavigationService from '@navigation/navigationService'
-import { BELKA } from '@navigation/names'
+import { PREPARATION, ROOMS } from '@navigation/names'
 
 import * as TYPES from './types'
 import {
@@ -18,6 +18,7 @@ import {
   updateObject,
   addPlayer,
   removePlayer,
+  resetGame,
 } from './actions'
 
 const client = new Colyseus.Client(`${env.API_WEBSOCKET_PROTOCOL}://${env.API_HOST}`)
@@ -44,9 +45,7 @@ function createRoomChannel(room) {
     roomSend = msg => room.send(msg)
     roomLeave = () => room.leave()
 
-    return () => {
-      room.leave()
-    }
+    return () => {}
   })
 }
 
@@ -57,6 +56,14 @@ const connect = (roomId, token) => {
     })
   })
 }
+//
+// const reconnect = (roomId, sessionId) => {
+//   return new Promise(resolve => {
+//     client.reconnect(roomId, sessionId).then(room => {
+//       resolve(room)
+//     })
+//   })
+// }
 
 const listenServerSaga = function*(roomId) {
   try {
@@ -70,8 +77,9 @@ const listenServerSaga = function*(roomId) {
       yield put(payload)
     }
   } catch (error) {
+    console.log(error)
     if (roomLeave) {
-      console.log('leave')
+      console.log('error, leave room')
       yield call(roomLeave)
     }
   }
@@ -100,9 +108,21 @@ const createRoomSaga = function*({ payload }) {
     const { id, sessionId } = yield client.create('belka', { token, ...rest })
     yield AsyncStorage.setItem('roomId', id)
     yield AsyncStorage.setItem('sessionId', sessionId)
-    NavigationService.navigate(BELKA, { roomId: id, tabBarVisible: false })
+    NavigationService.navigate(PREPARATION, { roomId: id })
   } catch (e) {
     console.log(e)
+  }
+}
+
+function* leaveRoomWorker() {
+  try {
+    console.log('leaving room')
+    yield call(roomLeave)
+    yield put(resetGame())
+    NavigationService.navigate(ROOMS)
+  } catch (err) {
+    console.log(err)
+    console.log('cannot leave')
   }
 }
 
@@ -129,15 +149,8 @@ const startStopChannelSaga = function*() {
 const rootSaga = function*() {
   yield fork(startStopChannelSaga)
   yield takeEvery(TYPES.CREATE_ROOM, createRoomSaga)
+  yield takeEvery(TYPES.LEAVE_ROOM, leaveRoomWorker)
 }
-
-// const reconnect = (roomId, sessionId) => {
-//   return new Promise(resolve => {
-//     client.reconnect(roomId, sessionId).then(room => {
-//       resolve(room)
-//     })
-//   })
-// }
 
 // const reconnectSaga = function*(roomId) {
 //   try {

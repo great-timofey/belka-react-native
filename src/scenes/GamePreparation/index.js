@@ -1,7 +1,10 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import * as Progress from 'react-native-progress'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
 
+import { colors } from '@global/styles'
 import {
   ContainerWithBackground,
   BelkaTypography,
@@ -9,12 +12,38 @@ import {
   PlayerPreparation,
   BelkaButton,
 } from '@components'
-import { colors } from '@global/styles'
+import { leaveRoom, startChannel } from '@redux/belkaGame/actions'
+import { BELKA } from '@navigation/names'
 
-import { PLAYERS } from './mocks'
 import styles from './styles'
 
 export const GamePreparation = memo(function() {
+  const dispatch = useDispatch()
+  const { navigate } = useNavigation()
+  const { objects, clients } = useSelector(state => state.belkaGame)
+  const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
+
+  const roomId = useNavigationParam('roomId')
+
+  const players = useMemo(
+    () => Object.values(objects).filter(gameObject => gameObject.type === 'BelkaPlayer'),
+    [objects],
+  )
+
+  useEffect(() => {
+    if (!roomId) return
+
+    dispatch(startChannel(roomId))
+  }, [dispatch, roomId])
+
+  const handleLeaveRoom = useCallback(() => {
+    dispatch(leaveRoom())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (clientList.length === 4) navigate(BELKA, { tabBarVisible: false })
+  }, [navigate, clientList])
+
   return (
     <ContainerWithBackground>
       <View style={styles.container}>
@@ -42,11 +71,15 @@ export const GamePreparation = memo(function() {
           </View>
         </BelkaCard>
         <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
-          {PLAYERS.map(player => (
-            <PlayerPreparation key={player.id} name={player.name} ready={player.ready} />
+          {players.map(player => (
+            <PlayerPreparation key={player.id} name={player.name} ready />
           ))}
         </BelkaCard>
-        <BelkaButton title="Выход" additionalStyles={[styles.buttonExit]} />
+        <BelkaButton
+          title="Выход"
+          additionalStyles={[styles.buttonExit]}
+          onPress={handleLeaveRoom}
+        />
       </View>
     </ContainerWithBackground>
   )

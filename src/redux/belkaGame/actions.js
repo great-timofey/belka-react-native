@@ -22,3 +22,5 @@ export const createRoom = ({ name, password, eggsX4, dropAce, spas30, fin120 }) 
   type: TYPES.CREATE_ROOM,
   payload: { name, password, eggsX4, dropAce, spas30, fin120 },
 })
+export const leaveRoom = () => ({ type: TYPES.LEAVE_ROOM })
+export const resetGame = () => ({ type: TYPES.RESET_GAME })

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useReducer, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 
@@ -6,6 +6,7 @@ import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '
 import { iconLockOff } from '@global/images'
 import { colors } from '@global/styles'
 import { createRoom } from '@redux/belkaGame/actions'
+import { useCustomStateHook } from '@hooks'
 
 import { NEW_GAME_DATA_ENTRIES, NEW_GAME_ICONS } from './constants'
 import styles from './styles'
@@ -22,7 +23,7 @@ export const CreateGame = memo(function() {
   const [password, setPassword] = useState(null)
   const [bet, setBet] = useState(null)
   const [playersLevel, setPlayersLevel] = useState(1)
-  const [state, dispatch] = useReducer((s, a) => ({ ...s, ...a }), initialState)
+  const [state, dispatch] = useCustomStateHook(initialState)
 
   const reduxDispatch = useDispatch()
 

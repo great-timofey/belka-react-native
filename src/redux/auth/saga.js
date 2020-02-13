@@ -39,8 +39,8 @@ function* signUpSaga({ payload }) {
       const { token } = data
       yield setAuthToken(token)
       yield AsyncStorage.setItem('token', token)
-      console.log('signup success')
       NavigationService.navigate(AUTHORIZED_STACK)
+      console.log('signup success')
     }
   } catch (err) {
     const [status, message] = processError(err)
@@ -57,6 +57,8 @@ function* logoutSaga() {
     // yield logout()
     yield clearAuthToken()
     yield AsyncStorage.removeItem('token')
+    yield AsyncStorage.removeItem('sessionId')
+    yield AsyncStorage.removeItem('roomId')
     NavigationService.navigate(UNATHORIZED_STACK)
     console.log('logout success')
   } catch (err) {

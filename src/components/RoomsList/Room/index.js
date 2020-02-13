@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react'
+import React, { memo, useCallback } from 'react'
 import { TouchableOpacity, Image, View, Text } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -9,10 +9,9 @@ import { icons, styles } from './styles'
 import { iconsMap } from './constants'
 
 export const Room = memo(function(props) {
-  const { password = '', bet, clients, maxClients, name, roomId, onPress, ...rest } = props
+  const { bet, locked, clients, name, roomId, onPress, options } = props
 
   const handlePress = useCallback(() => onPress(roomId), [onPress, roomId])
-  const locked = useMemo(() => !!password.trim(), [password])
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
@@ -28,14 +27,15 @@ export const Room = memo(function(props) {
             />
           </View>
           <View style={styles.metainfo}>
-            <Text style={styles.metainfoText}>Игрока: {clients}</Text>
+            <Text style={styles.metainfoText}>Игрока: {clients.length}</Text>
             <Text style={styles.metainfoText}>Ставка: {bet}₽</Text>
           </View>
         </View>
         <View style={styles.icons}>
-          {Object.entries(rest).map(([key, value]) => (
-            <Image key={key} style={[icons[key]]} source={iconsMap[key][value]} />
-          ))}
+          {options &&
+            Object.entries(options).map(([key, value]) => (
+              <Image key={key} style={[icons[key]]} source={iconsMap[key][value]} />
+            ))}
         </View>
       </LinearGradient>
     </TouchableOpacity>

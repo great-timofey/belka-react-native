@@ -38,6 +38,7 @@ const removePlayerHandler = (state, playerIndex) => ({
   ...state,
   players: state.players.filter((_, index) => index !== playerIndex),
 })
+const resetGameHandler = () => ({ ...initState })
 
 const handlersMap = {
   [TYPES.INIT_ROOM]: initRoomHandler,
@@ -49,6 +50,7 @@ const handlersMap = {
   [TYPES.REMOVE_CLIENT]: removeClientHandler,
   [TYPES.ADD_PLAYER]: addPlayerHandler,
   [TYPES.REMOVE_PLAYER]: removePlayerHandler,
+  [TYPES.RESET_GAME]: resetGameHandler,
 }
 
 export default createReducer(initState, handlersMap)

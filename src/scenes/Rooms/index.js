@@ -3,11 +3,11 @@ import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
 
-import { useClientHook } from '@hooks/useClientHook'
+import { useClientHook } from '@hooks'
 import {
-  BELKA,
   CHAT_STACK,
   CREATE_GAME,
+  PREPARATION,
   RATINGS_STACK,
   SETTINGS_STACK,
   SHOP_STACK,
@@ -22,7 +22,6 @@ import {
 
 import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
-import { ROOMS_MOCKS } from './mocks'
 
 export const Rooms = memo(function() {
   const client = useClientHook()
@@ -39,46 +38,42 @@ export const Rooms = memo(function() {
       const newRooms = await client.getAvailableRooms()
       if (newRooms && newRooms.length) {
         setRooms(
-          newRooms.map(({ clients, maxClients, name, roomId }) => ({
-            bet: 100,
-            clients,
-            maxClients,
-            name,
-            roomId,
-            eggsX4: true,
-            dropAce: false,
-            spas30: true,
-            chat: false,
-            fin120: true,
-          })),
+          newRooms.map(
+            ({ clients, clientsData, locked, maxClients, name, roomId, options, ...rest }) => ({
+              bet: 100,
+              clients: clientsData || clients,
+              maxClients,
+              name,
+              roomId,
+              locked,
+              options,
+              ...rest,
+            }),
+          ),
         )
       }
     }
-
-    /*
-    roomId: 'RgDxmhrka',
-    name: 'belka',
-    clients: 1,
-    maxClients: 4,
-    password: '123',
-    bet: 100,
-    eggsX4: true,
-    dropAce: true,
-    spas30: true,
-    chat: true,
-    fin120: true,
-    */
 
     getRooms()
   }, [client])
 
   useEffect(updateRooms, [])
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      updateRooms()
+    }, 5000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [updateRooms])
+
   const joinRoom = useCallback(
     roomId => {
       if (!client) return
 
-      navigate(BELKA, { roomId, tabBarVisible: false })
+      navigate(PREPARATION, { roomId })
     },
     [navigate, client],
   )
@@ -109,7 +104,7 @@ export const Rooms = memo(function() {
           activeTabIndex={activeTab}
         />
         <>
-          {ROOMS_MOCKS.length ? (
+          {rooms.length ? (
             <RoomsList onItemPress={joinRoom} rooms={rooms} />
           ) : (
             <Text>No rooms available</Text>
@@ -119,17 +114,6 @@ export const Rooms = memo(function() {
             title="Создать игру"
             onPress={() => navigate(CREATE_GAME)}
           />
-          {/* <Button */}
-          {/*  title="update rooms" */}
-          {/*  style={styles.updateRoomButton} */}
-          {/*  color="red" */}
-          {/*  // onPress={updateRooms} */}
-          {/* /> */}
-          {/* <Button */}
-          {/*  title="show modal" */}
-          {/*  style={styles.updateRoomButton} */}
-          {/*  onPress={() => setShowModal(true)} */}
-          {/* /> */}
           <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
         </>
       </View>
