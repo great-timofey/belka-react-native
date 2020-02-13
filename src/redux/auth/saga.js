@@ -10,15 +10,16 @@ import { processError } from '@utils'
 import { setError } from '../common/actions'
 
 import * as TYPES from './types'
+import { signInSuccess, signUpSuccess } from './actions'
 
 function* signInSaga({ payload }) {
   try {
     const { data } = yield signIn(payload)
-    if (data && data.token) {
-      const { token } = data
+    if (data && data.token && data.user) {
+      const { token, user } = data
       yield setAuthToken(token)
       yield AsyncStorage.setItem('token', token)
-      console.log('authorization success')
+      yield put(signInSuccess({ ...user }))
       NavigationService.navigate(AUTHORIZED_STACK)
     }
   } catch (err) {
@@ -36,11 +37,11 @@ function* signUpSaga({ payload }) {
   try {
     const { data } = yield signUp(payload)
     if (data && data.token) {
-      const { token } = data
+      const { token, user } = data
       yield setAuthToken(token)
       yield AsyncStorage.setItem('token', token)
+      yield put(signUpSuccess({ ...user }))
       NavigationService.navigate(AUTHORIZED_STACK)
-      console.log('signup success')
     }
   } catch (err) {
     const [status, message] = processError(err)
@@ -69,8 +70,8 @@ function* logoutSaga() {
 }
 
 function* rootSaga() {
-  yield takeEvery(TYPES.SIGN_IN, signInSaga)
-  yield takeEvery(TYPES.SIGN_UP, signUpSaga)
+  yield takeEvery(TYPES.SIGN_IN_REQUEST, signInSaga)
+  yield takeEvery(TYPES.SIGN_UP_REQUEST, signUpSaga)
   yield takeEvery(TYPES.LOGOUT, logoutSaga)
 }
 

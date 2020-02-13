@@ -8,6 +8,7 @@ import belkaGameReducer from './belkaGame/reducer'
 import belkaGameSaga from './belkaGame/saga'
 import commonReducer from './common/reducer'
 import authSaga from './auth/saga'
+import authReducer from './auth/reducer'
 
 // const persistConfig = {
 //   key: 'belkaGame',
@@ -21,6 +22,7 @@ export const store = createStore(
   combineReducers({
     belkaGame: belkaGameReducer,
     common: commonReducer,
+    auth: authReducer,
   }),
   composeWithDevTools(applyMiddleware(...middleware)),
 )
