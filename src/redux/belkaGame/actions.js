@@ -18,9 +18,9 @@ export const removePlayer = index => ({ type: TYPES.REMOVE_PLAYER, payload: inde
 export const startChannel = roomId => ({ type: TYPES.START_CHANNEL, payload: roomId })
 export const roomAddBot = () => ({ type: TYPES.ROOM_ADD_BOT })
 export const roomAddAction = actionId => ({ type: TYPES.ROOM_ADD_ACTION, payload: actionId })
-export const createRoom = ({ name, password, eggsX4, dropAce, spas30, fin120 }) => ({
+export const createRoom = ({ name, password, bet, eggsX4, dropAce, spas30, fin120 }) => ({
   type: TYPES.CREATE_ROOM,
-  payload: { name, password, eggsX4, dropAce, spas30, fin120 },
+  payload: { name, password, eggsX4, dropAce, spas30, bet, fin120 },
 })
 export const leaveRoom = () => ({ type: TYPES.LEAVE_ROOM })
 export const resetGame = () => ({ type: TYPES.RESET_GAME })

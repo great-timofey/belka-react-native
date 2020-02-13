@@ -1,5 +1,5 @@
-import { persistStore } from 'redux-persist'
-// import AsyncStorage from '@react-native-community/async-storage'
+import { persistStore, persistReducer } from 'redux-persist'
+import AsyncStorage from '@react-native-community/async-storage'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -10,10 +10,10 @@ import commonReducer from './common/reducer'
 import authSaga from './auth/saga'
 import authReducer from './auth/reducer'
 
-// const persistConfig = {
-//   key: 'belkaGame',
-//   storage: AsyncStorage
-// }
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+}
 
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [sagaMiddleware]
@@ -22,7 +22,7 @@ export const store = createStore(
   combineReducers({
     belkaGame: belkaGameReducer,
     common: commonReducer,
-    auth: authReducer,
+    auth: persistReducer(authPersistConfig, authReducer),
   }),
   composeWithDevTools(applyMiddleware(...middleware)),
 )

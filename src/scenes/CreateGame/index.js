@@ -30,6 +30,7 @@ export const CreateGame = memo(function() {
   const handleCreateRoom = useCallback(() => {
     reduxDispatch(
       createRoom({
+        bet: +bet,
         name: 'test',
         password: null,
         eggsX4: state.eggsX4,
@@ -38,7 +39,7 @@ export const CreateGame = memo(function() {
         fin120: state.fin120,
       }),
     )
-  }, [state, reduxDispatch])
+  }, [state, reduxDispatch, bet])
 
   return (
     <ContainerWithBackground additionalStyles={[styles.wrapper]}>
