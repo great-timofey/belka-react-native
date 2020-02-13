@@ -14,7 +14,6 @@ import * as TYPES from './types'
 function* signInSaga({ payload }) {
   try {
     const { data } = yield signIn(payload)
-    // console.log(JSON.stringify(response, null, 2))
     if (data && data.token) {
       const { token } = data
       yield setAuthToken(token)

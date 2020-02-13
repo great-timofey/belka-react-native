@@ -8,7 +8,7 @@ export function useFormHook({ refs, validationRules, initialState, onFocus, onUn
   const [state, dispatch] = useCustomStateHook(initialState)
   const [editing, setEditing] = useState(false)
   const [valid, setValid] = useState(false)
-  const editingDebounced = useDebounceHook(editing, 100)
+  const editingDebounced = useDebounceHook(editing, 10)
 
   const onFieldChange = useCallback(fieldName => value => dispatch({ [fieldName]: value }), [
     dispatch,
