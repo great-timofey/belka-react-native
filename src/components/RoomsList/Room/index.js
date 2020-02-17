@@ -8,8 +8,10 @@ import { iconLockOff, iconLockOn } from '@global/images'
 import { icons, styles } from './styles'
 import { iconsMap } from './constants'
 
+const iconsProps = ['fin120', 'eggsX4', 'spas30', 'dropAce']
+
 export const Room = memo(function(props) {
-  const { bet, locked, clients, name, roomId, onPress, options } = props
+  const { locked, clientsData, name, roomId, onPress, options } = props
 
   const handlePress = useCallback(() => onPress(roomId), [onPress, roomId])
 
@@ -27,15 +29,20 @@ export const Room = memo(function(props) {
             />
           </View>
           <View style={styles.metainfo}>
-            <Text style={styles.metainfoText}>Игрока: {clients.length}</Text>
-            <Text style={styles.metainfoText}>Ставка: {bet}₽</Text>
+            <Text style={styles.metainfoText}>
+              Игрока: {(clientsData && clientsData.length) || 0}
+            </Text>
+            <Text style={styles.metainfoText}>Ставка: {(options && options.bet) || 0}₽</Text>
           </View>
         </View>
         <View style={styles.icons}>
           {options &&
-            Object.entries(options).map(([key, value]) => (
-              <Image key={key} style={[icons[key]]} source={iconsMap[key][value]} />
-            ))}
+            Object.entries(options).map(
+              ([key, value]) =>
+                iconsProps.includes(key) && (
+                  <Image key={key} style={[icons[key]]} source={iconsMap[key][value]} />
+                ),
+            )}
         </View>
       </LinearGradient>
     </TouchableOpacity>

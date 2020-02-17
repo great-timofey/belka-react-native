@@ -2,12 +2,12 @@ import React, { memo, useCallback, useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
+import { useDispatch } from 'react-redux'
 
 import { useClientHook } from '@hooks'
 import {
   CHAT_STACK,
   CREATE_GAME,
-  PREPARATION,
   RATINGS_STACK,
   SETTINGS_STACK,
   SHOP_STACK,
@@ -19,13 +19,15 @@ import {
   RoomsList,
   BelkaButton,
 } from '@components'
+import { joinRoom } from '@redux/belkaGame/actions'
 
 import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
 
 export const Rooms = memo(function() {
   const client = useClientHook()
-  const { navigate, dispatch } = useNavigation()
+  const { navigate } = useNavigation()
+  const dispatch = useDispatch()
 
   const [showModal, setShowModal] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
@@ -37,20 +39,7 @@ export const Rooms = memo(function() {
     async function getRooms() {
       const newRooms = await client.getAvailableRooms()
       if (newRooms && newRooms.length) {
-        setRooms(
-          newRooms.map(
-            ({ clients, clientsData, locked, maxClients, name, roomId, options, ...rest }) => ({
-              bet: 100,
-              clients: clientsData || clients,
-              maxClients,
-              name,
-              roomId,
-              locked,
-              options,
-              ...rest,
-            }),
-          ),
-        )
+        setRooms(newRooms)
       }
     }
 
@@ -69,13 +58,13 @@ export const Rooms = memo(function() {
     }
   }, [updateRooms])
 
-  const joinRoom = useCallback(
+  const onJoinRoom = useCallback(
     roomId => {
       if (!client) return
 
-      navigate(PREPARATION, { roomId })
+      dispatch(joinRoom({ roomId }))
     },
-    [navigate, client],
+    [client, dispatch],
   )
 
   return (
@@ -105,7 +94,7 @@ export const Rooms = memo(function() {
         />
         <>
           {rooms.length ? (
-            <RoomsList onItemPress={joinRoom} rooms={rooms} />
+            <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
           ) : (
             <Text>No rooms available</Text>
           )}

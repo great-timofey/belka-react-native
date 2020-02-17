@@ -11,7 +11,7 @@ export const InfoBoard = memo(function() {
 
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
-    [objects]
+    [objects],
   )
   const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
   const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])

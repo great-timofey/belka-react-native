@@ -1,4 +1,5 @@
 export const INIT_ROOM = 'INIT_ROOM'
+export const JOIN_ROOM = 'JOIN_ROOM'
 export const SET_MESSAGE_OBJECT = 'SET_MESSAGE_OBJECT'
 export const SET_MESSAGE_ACTIONS = 'SET_MESSAGE_ACTIONS'
 export const ADD_OBJECT = 'ADD_OBJECT'

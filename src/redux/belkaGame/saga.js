@@ -45,30 +45,42 @@ function createRoomChannel(room) {
     roomSend = msg => room.send(msg)
     roomLeave = () => room.leave()
 
-    return () => {}
+    return () => {
+      room.leave()
+    }
   })
 }
 
-const connect = (roomId, token) => {
+const joinRoom = (roomId, token) => {
   return new Promise(resolve => {
-    client.joinById(roomId, { token }).then(room => {
-      resolve(room)
-    })
+    client
+      .joinById(roomId, { token })
+      .then(room => {
+        resolve(room)
+      })
+      .catch(err => console.log('error in joinRoom', err))
   })
 }
-//
-// const reconnect = (roomId, sessionId) => {
-//   return new Promise(resolve => {
-//     client.reconnect(roomId, sessionId).then(room => {
-//       resolve(room)
-//     })
-//   })
-// }
 
-const listenServerSaga = function*(roomId) {
+function* leaveRoomWorker() {
   try {
-    const token = yield AsyncStorage.getItem('token')
-    const room = yield call(connect, roomId, token)
+    console.log('leaving room')
+    if (roomLeave) {
+      console.log('roomLeave is set, leaving...')
+      yield call(roomLeave)
+    } else {
+      console.log('roomLeave isnt set!')
+    }
+  } catch (err) {
+    console.log('error in leaveRoomWorker', err)
+  } finally {
+    yield put(resetGame())
+    NavigationService.navigate(ROOMS)
+  }
+}
+
+function* socketWorker(room) {
+  try {
     yield put(initRoom(room))
     const socketChannel = yield call(createRoomChannel, room)
 
@@ -77,11 +89,8 @@ const listenServerSaga = function*(roomId) {
       yield put(payload)
     }
   } catch (error) {
-    console.log(error)
-    if (roomLeave) {
-      console.log('error, leave room')
-      yield call(roomLeave)
-    }
+    console.log('error in socketWorker', error)
+    yield* leaveRoomWorker()
   }
 }
 
@@ -101,70 +110,44 @@ const addActionSaga = function*({ payload }) {
   }
 }
 
-const createRoomSaga = function*({ payload }) {
-  try {
-    const { name, ...rest } = payload
-    const token = yield AsyncStorage.getItem('token')
-    const { id, sessionId } = yield client.create('belka', { token, ...rest })
-    yield AsyncStorage.setItem('roomId', id)
-    yield AsyncStorage.setItem('sessionId', sessionId)
-    NavigationService.navigate(PREPARATION, { roomId: id })
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-function* leaveRoomWorker() {
-  try {
-    console.log('leaving room')
-    yield call(roomLeave)
-    yield put(resetGame())
-    NavigationService.navigate(ROOMS)
-  } catch (err) {
-    console.log(err)
-    console.log('cannot leave')
-  }
-}
-
 const sendSagaWorker = function*() {
   yield takeEvery(TYPES.ROOM_ADD_BOT, addBotSaga)
   yield takeEvery(TYPES.ROOM_ADD_ACTION, addActionSaga)
 }
 
-const startStopChannelSaga = function*() {
-  while (true) {
-    try {
-      const { payload } = yield take(TYPES.START_CHANNEL)
-      yield fork(sendSagaWorker)
-      yield call(listenServerSaga, payload)
-    } catch (e) {
-      if (roomLeave) {
-        console.log('leave')
-        yield call(roomLeave)
-      }
-    }
+const createRoomSaga = function*({ payload }) {
+  try {
+    const token = yield AsyncStorage.getItem('token')
+    yield fork(sendSagaWorker)
+    const createdRoom = yield client.create('belka', { token, room: { ...payload } })
+    yield AsyncStorage.setItem('roomId', createdRoom.id)
+    yield AsyncStorage.setItem('sessionId', createdRoom.sessionId)
+    NavigationService.navigate(PREPARATION)
+    yield* socketWorker(createdRoom)
+  } catch (e) {
+    console.log('error in createRoomSaga', e)
+    yield* leaveRoomWorker()
+  }
+}
+
+function* joinRoomSaga({ payload }) {
+  try {
+    const { roomId } = payload
+    const token = yield AsyncStorage.getItem('token')
+    yield fork(sendSagaWorker)
+    const room = yield call(joinRoom, roomId, token)
+    NavigationService.navigate(PREPARATION)
+    yield* socketWorker(room)
+  } catch (e) {
+    console.log('error in joinRoomSaga', e)
+    yield* leaveRoomWorker()
   }
 }
 
 const rootSaga = function*() {
-  yield fork(startStopChannelSaga)
+  yield takeEvery(TYPES.JOIN_ROOM, joinRoomSaga)
   yield takeEvery(TYPES.CREATE_ROOM, createRoomSaga)
   yield takeEvery(TYPES.LEAVE_ROOM, leaveRoomWorker)
 }
-
-// const reconnectSaga = function*(roomId) {
-//   try {
-//     const sessionId = yield AsyncStorage.getItem('sessionId')
-//     const room = yield call(reconnect, roomId, sessionId)
-//     const socketChannel = yield call(createRoomChannel, room)
-//
-//     for (let i = 0; i < 3; i += 1) {
-//       const payload = yield take(socketChannel)
-//       yield put(payload)
-//     }
-//   } catch (error) {
-//     console.log('reconnection error')
-//   }
-// }
 
 export default rootSaga

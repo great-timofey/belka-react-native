@@ -41,6 +41,7 @@ export const CreateGame = memo(function() {
     )
   }, [state, reduxDispatch, bet])
 
+  //  TODO: add name input
   return (
     <ContainerWithBackground additionalStyles={[styles.wrapper]}>
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 20 }}>

@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import * as Progress from 'react-native-progress'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
+import { useNavigation } from 'react-navigation-hooks'
 
 import { colors } from '@global/styles'
 import {
@@ -12,8 +12,9 @@ import {
   PlayerPreparation,
   BelkaButton,
 } from '@components'
-import { leaveRoom, startChannel } from '@redux/belkaGame/actions'
+import { leaveRoom } from '@redux/belkaGame/actions'
 import { BELKA } from '@navigation/names'
+import { useBackHandlerHook } from '@hooks'
 
 import styles from './styles'
 
@@ -23,23 +24,18 @@ export const GamePreparation = memo(function() {
   const { objects, clients } = useSelector(state => state.belkaGame)
   const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
 
-  const roomId = useNavigationParam('roomId')
-
   const players = useMemo(
     () => Object.values(objects).filter(gameObject => gameObject.type === 'BelkaPlayer'),
     [objects],
   )
 
-  useEffect(() => {
-    if (!roomId) return
-
-    dispatch(startChannel(roomId))
-  }, [dispatch, roomId])
-
   const handleLeaveRoom = useCallback(() => {
     dispatch(leaveRoom())
   }, [dispatch])
 
+  useBackHandlerHook(handleLeaveRoom)
+
+  //  TODO: add timer on game preparation
   useEffect(() => {
     if (clientList.length === 4) navigate(BELKA, { tabBarVisible: false })
   }, [navigate, clientList])
