@@ -21,8 +21,17 @@ import styles from './styles'
 export const GamePreparation = memo(function() {
   const dispatch = useDispatch()
   const { navigate } = useNavigation()
-  const { objects, clients } = useSelector(state => state.belkaGame)
-  const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
+  const { objects } = useSelector(state => state.belkaGame)
+
+  const boardId = useMemo(
+    () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
+    [objects],
+  )
+
+  const timer = useMemo(
+    () => boardId && objects[boardId].timerId && objects[objects[boardId].timerId],
+    [objects, boardId],
+  )
 
   const players = useMemo(
     () => Object.values(objects).filter(gameObject => gameObject.type === 'BelkaPlayer'),
@@ -35,10 +44,9 @@ export const GamePreparation = memo(function() {
 
   useBackHandlerHook(handleLeaveRoom)
 
-  //  TODO: add timer on game preparation
   useEffect(() => {
-    if (clientList.length === 4) navigate(BELKA, { tabBarVisible: false })
-  }, [navigate, clientList])
+    if (timer && timer.value === 0) navigate(BELKA, { tabBarVisible: false })
+  }, [navigate, timer])
 
   return (
     <ContainerWithBackground>
@@ -49,11 +57,11 @@ export const GamePreparation = memo(function() {
               Готовность игроков
             </BelkaTypography>
             <Progress.Circle
-              progress={1}
+              formatText={progress => `${Math.round(progress * 10)}`}
+              progress={timer && timer.value && timer.value * 0.1}
               showsText
               borderWidth={0}
               textStyle={styles.text}
-              formatText={progress => `${progress}`}
               color={colors.semanticAttention}
             />
           </View>
@@ -68,7 +76,7 @@ export const GamePreparation = memo(function() {
         </BelkaCard>
         <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
           {players.map(player => (
-            <PlayerPreparation key={player.id} name={player.name} ready />
+            <PlayerPreparation key={player.id} name={player.name} ready={player.connected} />
           ))}
         </BelkaCard>
         <BelkaButton
