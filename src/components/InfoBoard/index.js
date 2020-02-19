@@ -13,21 +13,24 @@ export const InfoBoard = memo(function() {
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
     [objects],
   )
+
   const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
-  const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
+  const team1 = useMemo(() => (clients && objects[board.team1Id]) || {}, [clients, board, objects])
+  const team2 = useMemo(() => (clients && objects[board.team2Id]) || {}, [clients, board, objects])
 
   return (
-    clientList.length === 4 &&
     board && (
       <View style={styles.infoBoard}>
         <ImageBackground source={scoreContainer} style={styles.scoreContainerImage}>
-          <Text style={styles.scoreText}>{board.team1}</Text>
+          <Text style={styles.scoreText}>{(team1 && team1.gameScore) || 0}</Text>
         </ImageBackground>
         <ImageBackground
           source={scoreContainer}
           style={[styles.scoreContainerImage, styles.scoreContainerImageRight]}
         >
-          <Text style={[styles.scoreText, styles.scoreTextRight]}>{board.team2}</Text>
+          <Text style={[styles.scoreText, styles.scoreTextRight]}>
+            {(team2 && team2.gameScore) || 0}
+          </Text>
         </ImageBackground>
       </View>
     )

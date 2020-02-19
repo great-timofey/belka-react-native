@@ -2,6 +2,8 @@ import React, { Fragment, memo, useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
+import { useSessionId } from '@hooks/useSessionId'
+
 import { Player } from '../Player'
 import { PlayerBoard } from '../PlayerBoard'
 import { DeckCards } from '../DeckCards'
@@ -11,43 +13,37 @@ import styles from './styles'
 import { getPlayersDataForGameBoard } from './utils'
 
 export const GameBoard = memo(function() {
-  const { players, objects, clients, room } = useSelector(state => state.belkaGame)
+  const { players, objects, clients } = useSelector(state => state.belkaGame)
+  const sessionId = useSessionId()
 
-  const me = useMemo(
-    () =>
-      (room && room.sessionId && clients[room.sessionId] && objects[clients[room.sessionId]]) || {},
-    [clients, objects, room],
-  )
+  const me = useMemo(() => (clients[sessionId] && objects[clients[sessionId]]) || {}, [
+    clients,
+    sessionId,
+    objects,
+  ])
 
   const renderEnemies = useCallback(() => {
-    const playersList = []
+    let playersList
+
     if (players.length === 4) {
       const list = [...players]
       const index = list.findIndex(id => me.id === id)
       if (index > 0) {
-        list.push(list.splice(0, index))
+        list.push(...list.splice(0, index))
       }
-      list.forEach(id => {
-        if (objects[id]) {
-          playersList.push(objects[id])
-        }
-      })
+      playersList = list.map(id => objects[id])
     } else {
-      Object.values(clients).forEach(id => {
-        if (objects[id]) {
-          playersList.push(objects[id])
-        }
-      })
+      playersList = Object.values(clients).map(id => objects[id])
     }
 
     const { enemies, enemiesMap } = getPlayersDataForGameBoard({ playersList, me })
 
-    return enemies.map((player, index) => {
+    return enemies.map(player => {
       const localIndex = enemiesMap[player.id]
       return (
         <Fragment key={`${localIndex}-fragment`}>
           <Player key={`${localIndex}-view`} index={localIndex}>
-            <PlayerBoard index={index} key={`${player.id}-board`} player={player} />
+            <PlayerBoard index={localIndex} key={`${player.id}-board`} player={player} />
           </Player>
           <PlayerCard index={localIndex} key={`${localIndex}-card`} player={player} />
         </Fragment>

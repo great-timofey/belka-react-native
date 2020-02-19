@@ -1,10 +1,6 @@
-import { useMemo } from 'react'
-import AsyncStorage from '@react-native-community/async-storage'
+import { useSelector } from 'react-redux'
 
 export function useSessionId() {
-  return useMemo(async () => {
-    const id = await AsyncStorage.getItem('sessionId')
-    return id
-    // return 'ziJ60Q-zB'
-  }, [])
+  const { room } = useSelector(state => state.belkaGame)
+  return room && room.sessionId
 }

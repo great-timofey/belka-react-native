@@ -15,6 +15,7 @@ import {
 import { leaveRoom } from '@redux/belkaGame/actions'
 import { BELKA } from '@navigation/names'
 import { useBackHandlerHook } from '@hooks'
+import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import styles from './styles'
 
@@ -38,6 +39,11 @@ export const GamePreparation = memo(function() {
     [objects],
   )
 
+  const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
+    objects,
+    boardId,
+  ])
+
   const handleLeaveRoom = useCallback(() => {
     dispatch(leaveRoom())
   }, [dispatch])
@@ -45,8 +51,9 @@ export const GamePreparation = memo(function() {
   useBackHandlerHook(handleLeaveRoom)
 
   useEffect(() => {
-    if (timer && timer.value === 0) navigate(BELKA, { tabBarVisible: false })
-  }, [navigate, timer])
+    if (boardScene && boardScene === BOARD_SCENE_NAMES.GAME_IN_PROGRESS)
+      navigate(BELKA, { tabBarVisible: false })
+  }, [navigate, boardScene])
 
   return (
     <ContainerWithBackground>

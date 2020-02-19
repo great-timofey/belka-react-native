@@ -8,17 +8,17 @@ export default StyleSheet.create({
   commonContainer: {
     position: 'absolute',
   },
-  first: {
+  First: {
     bottom: 310 + cardHeight / 2,
     left: center,
     zIndex: 3,
   },
-  second: {
+  Second: {
     bottom: 310,
     zIndex: 4,
     left: center - normalize(110),
   },
-  third: {
+  Third: {
     bottom: 310,
     zIndex: 2,
     left: center + normalize(110),

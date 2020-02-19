@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native'
 
-import { normalize } from '@global/styles'
+import { deviceWidth } from '@global/styles'
 
 export default StyleSheet.create({
   deck: {
     position: 'absolute',
-    top: normalize(350),
-    left: normalize(50)
-  }
+    top: 10,
+    right: deviceWidth * 0.08 * 2 + deviceWidth * 0.04,
+  },
 })

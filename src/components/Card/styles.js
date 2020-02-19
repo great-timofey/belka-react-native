@@ -20,46 +20,46 @@ export default StyleSheet.create({
   },
   cardDeck: {
     left: 0,
-    width: deviceWidth * 0.12,
-    height: deviceHeight * 0.1,
+    width: deviceWidth * 0.08,
+    height: deviceHeight * 0.07,
   },
   cardDeckOffseted: {
-    transform: [{ translateX: normalize(150) }],
+    transform: [{ translateX: deviceWidth * 0.08 + 5 }],
   },
   myCard: {
     position: 'relative',
     marginLeft: normalize(-cardWidth),
   },
   'card-0': {
-    transform: [{ rotate: '-45deg' }, { translateY: -45 }, { translateX: -30 }],
+    transform: [{ rotate: '-45deg' }, { translateY: -35 }, { translateX: -30 }],
     zIndex: 11,
   },
   'card-1': {
-    transform: [{ rotate: '-30deg' }, { translateY: -45 }, { translateX: -30 }],
+    transform: [{ rotate: '-30deg' }, { translateY: -30 }, { translateX: -25 }],
     zIndex: 10,
   },
   'card-2': {
-    transform: [{ rotate: '-15deg' }, { translateY: -40 }, { translateX: -30 }],
+    transform: [{ rotate: '-15deg' }, { translateY: -30 }, { translateX: -20 }],
     zIndex: 9,
   },
   'card-3': {
-    transform: [{ rotate: '0deg' }, { translateY: -35 }, { translateX: -25 }],
+    transform: [{ rotate: '0deg' }, { translateY: -30 }, { translateX: -15 }],
     zIndex: 8,
   },
   'card-4': {
-    transform: [{ rotate: '15deg' }, { translateY: -30 }, { translateX: -15 }],
+    transform: [{ rotate: '15deg' }, { translateY: -30 }, { translateX: -10 }],
     zIndex: 7,
   },
   'card-5': {
-    transform: [{ rotate: '25deg' }, { translateY: -25 }, { translateX: -0 }],
+    transform: [{ rotate: '30deg' }, { translateY: -30 }, { translateX: 0 }],
     zIndex: 6,
   },
   'card-6': {
-    transform: [{ rotate: '40deg' }, { translateY: -25 }, { translateX: 5 }],
+    transform: [{ rotate: '45deg' }, { translateY: -30 }, { translateX: 10 }],
     zIndex: 5,
   },
   'card-7': {
-    transform: [{ rotate: '45deg' }, { translateY: -25 }, { translateX: 20 }],
+    transform: [{ rotate: '60deg' }, { translateY: -30 }, { translateX: 20 }],
     zIndex: 4,
   },
 })

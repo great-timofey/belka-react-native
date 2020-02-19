@@ -1,15 +1,22 @@
 import { createReducer } from '@utils/createReducer'
 
 import * as TYPES from './types'
+import { mockState } from './mockState'
 
-const initState = {
-  objects: {},
-  clients: {},
-  players: [],
-  hand: {},
-  actions: [],
-  room: null,
-}
+const useMocks = false
+
+const initState = useMocks
+  ? {
+      ...mockState,
+    }
+  : {
+      objects: {},
+      clients: {},
+      players: [],
+      hand: {},
+      actions: [],
+      room: null,
+    }
 
 const initRoomHandler = (state, room) => ({ ...state, room })
 const setMessageObjectHandler = (state, object) => ({

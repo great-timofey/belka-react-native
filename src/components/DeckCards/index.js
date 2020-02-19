@@ -11,16 +11,16 @@ export const DeckCards = memo(function() {
 
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
-    [objects]
+    [objects],
   )
   const board = useMemo(() => boardId && objects[boardId], [boardId, objects])
   const deckItems = useMemo(() => board && objects[board.deckId] && objects[board.deckId].items, [
     board,
-    objects
+    objects,
   ])
   const deck = useMemo(() => (deckItems && deckItems.map(id => objects[id])) || [], [
     deckItems,
-    objects
+    objects,
   ])
 
   return (

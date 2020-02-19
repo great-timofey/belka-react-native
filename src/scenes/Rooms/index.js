@@ -49,12 +49,12 @@ export const Rooms = memo(function() {
   useEffect(updateRooms, [])
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const interval = setInterval(() => {
       updateRooms()
     }, 5000)
 
     return () => {
-      clearTimeout(timeout)
+      clearInterval(interval)
     }
   }, [updateRooms])
 
@@ -71,6 +71,7 @@ export const Rooms = memo(function() {
     <ContainerWithBackground>
       <NavigationEvents
         onDidBlur={payload => {
+          //  TODO: stack doesn't reset anymore
           const route = payload.action.routeName
           const otherStacks = [RATINGS_STACK, SETTINGS_STACK, CHAT_STACK, SHOP_STACK]
 

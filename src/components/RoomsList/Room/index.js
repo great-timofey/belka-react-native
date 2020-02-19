@@ -21,7 +21,7 @@ export const Room = memo(function(props) {
         <View style={styles.info}>
           <View style={styles.name}>
             <Text style={styles.nameText}>
-              {name} - {roomId}
+              {(options && options.name) || name} - {roomId}
             </Text>
             <Image
               style={[styles.lockIcon, locked && styles.lockIconOn]}

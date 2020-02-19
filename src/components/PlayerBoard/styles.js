@@ -13,39 +13,35 @@ import {
 export default StyleSheet.create({
   playerBoardContainer: {
     width: deviceWidth / 3,
+    height: 50,
   },
   playerBoardContainerMy: {
     position: 'absolute',
     alignItems: 'center',
     width: deviceWidth,
-    right: normalize(-cardWidth / 2),
-    bottom: normalize(-60),
+    right: normalize(-cardWidth),
+    paddingRight: cardWidth / 3,
+    bottom: normalize(-0),
   },
   playerTimerContainerCommon: {
     position: 'absolute',
-    bottom: 120,
-    width: 50,
-    height: 50,
+    ...squareSize(40),
     top: 0,
-    zIndex: 199,
   },
   playerTimerContainerMy: {
     top: -deviceHeight / 6,
-    right: deviceWidth * 0.035,
+    right: cardWidth / 2,
   },
-  'playerTimerContainer-0': {
+  playerTimerContainerFirst: {
     transform: [{ rotate: '-90deg' }],
-    top: -deviceWidth * 0.16,
     right: -deviceWidth * 0.16,
   },
-  'playerTimerContainer-1': {
-    top: -deviceWidth * 0.13,
-    left: -deviceWidth * 0.15,
+  playerTimerContainerSecond: {
+    right: -deviceWidth * 0.13,
   },
-  'playerTimerContainer-2': {
-    transform: [{ rotate: '180deg' }],
-    top: deviceWidth * 0.06,
-    left: -deviceWidth * 0.15,
+  playerTimerContainerThird: {
+    transform: [{ rotate: '270deg' }],
+    left: -deviceWidth * 0.16,
   },
   nameContainer: {
     position: 'absolute',
@@ -56,7 +52,7 @@ export default StyleSheet.create({
   },
   playerNameContainerCommon: {
     backgroundColor: 'black',
-    width: deviceWidth / 3,
+    width: '100%',
     height: 40,
     zIndex: 20,
     borderWidth: 1,
@@ -65,18 +61,7 @@ export default StyleSheet.create({
     borderColor: colors.semanticHighlight,
     borderRadius: 40,
     position: 'absolute',
-    alignSelf: 'center',
-    top: -10,
-  },
-  'playerNameContainer-1': {
-    top: deviceHeight * -0.08,
-  },
-  'playerNameContainer-0': {
-    top: deviceHeight * -0.08,
-  },
-  'playerNameContainer-2': {
-    transform: [{ rotate: '180deg' }],
-    top: deviceHeight * 0.05,
+    top: 0,
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
@@ -90,21 +75,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  'playerCardsContainer-0': {
+  playerCardsContainerFirst: {
+    marginTop: 40,
     transform: [{ rotate: '180deg' }],
-    marginRight: deviceWidth * 0.1,
-    alignItems: 'flex-start',
   },
-  'playerCardsContainer-1': {
+  playerCardsContainerSecond: {
+    marginTop: 40,
     transform: [{ rotate: '180deg' }],
-    marginRight: deviceWidth * 0.1,
-    alignItems: 'flex-start',
   },
-  'playerCardsContainer-2': {
-    marginBottom: deviceHeight * 0.11,
-    marginTop: deviceHeight * 0.02,
-    marginLeft: deviceWidth * 0.08,
-    alignItems: 'flex-start',
+  playerCardsContainerThird: {
+    marginTop: 40,
+    transform: [{ rotate: '180deg' }],
   },
   trumpContainer: {
     position: 'absolute',
@@ -117,25 +98,25 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   trumpContainerMy: {
-    bottom: deviceHeight / 4,
-    left: deviceWidth * 0.01,
+    top: -deviceHeight / 6,
+    left: -15,
   },
-  'playerTrumpContainer-0': {
-    bottom: -deviceWidth / 20,
-    alignSelf: 'center',
-    transform: [{ rotate: '270deg' }],
-    ...squareSize(normalize(90)),
-  },
-  'playerTrumpContainer-1': {
+  playerTrumpContainerFirst: {
     bottom: -deviceWidth / 20,
     alignSelf: 'center',
     transform: [{ rotate: '90deg' }],
     ...squareSize(normalize(90)),
   },
-  'playerTrumpContainer-2': {
-    bottom: deviceHeight / 12,
+  playerTrumpContainerSecond: {
+    bottom: -deviceWidth / 20,
     alignSelf: 'center',
-    transform: [{ rotate: '180deg' }],
+    transform: [{ rotate: '0deg' }],
+    ...squareSize(normalize(90)),
+  },
+  playerTrumpContainerThird: {
+    bottom: -deviceHeight / 30,
+    alignSelf: 'center',
+    transform: [{ rotate: '-90deg' }],
     ...squareSize(normalize(90)),
   },
 })

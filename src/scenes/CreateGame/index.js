@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
@@ -25,10 +25,12 @@ export const CreateGame = memo(function() {
   const [playersLevel, setPlayersLevel] = useState(1)
   const [state, dispatch] = useCustomStateHook(initialState)
 
-  const reduxDispatch = useDispatch()
+  // const reduxDispatch = useDispatch()
 
   const handleCreateRoom = useCallback(() => {
-    reduxDispatch(
+    //  TODO: update creation variables
+    // reduxDispatch(
+    console.log(
       createRoom({
         bet: +bet,
         name: 'test',
@@ -39,7 +41,8 @@ export const CreateGame = memo(function() {
         fin120: state.fin120,
       }),
     )
-  }, [state, reduxDispatch, bet])
+    // )
+  }, [state, bet])
 
   //  TODO: add name input
   return (

@@ -120,8 +120,6 @@ const createRoomSaga = function*({ payload }) {
     const token = yield AsyncStorage.getItem('token')
     yield fork(sendSagaWorker)
     const createdRoom = yield client.create('belka', { token, room: { ...payload } })
-    yield AsyncStorage.setItem('roomId', createdRoom.id)
-    yield AsyncStorage.setItem('sessionId', createdRoom.sessionId)
     NavigationService.navigate(PREPARATION)
     yield* socketWorker(createdRoom)
   } catch (e) {
