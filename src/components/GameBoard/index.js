@@ -2,7 +2,7 @@ import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import { useBelkaGameBoard, useSessionId } from '@hooks'
+import { useSessionId } from '@hooks'
 import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import { Player } from '../Player'
@@ -10,15 +10,27 @@ import { PlayerBoard } from '../PlayerBoard'
 import { DeckCards } from '../DeckCards'
 import { PlayerCard } from '../PlayerCard'
 import { Card } from '../Card'
+import { GameOverModal } from '../GameOverModal'
 
 import styles from './styles'
 import { getPlayersDataForGameBoard } from './utils'
 
-export const GameBoard = memo(function() {
+export const GameBoard = memo(function({ onRoomLeave }) {
   const { players, objects, clients } = useSelector(state => state.belkaGame)
   const sessionId = useSessionId()
-  const gameBoard = useBelkaGameBoard()
+  const boardId = useMemo(
+    () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
+    [objects],
+  )
+
+  const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
   const [showRoundResults, setShowRoundResults] = useState(false)
+  const [showGameResults, setShowGameResults] = useState(false)
+
+  const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
+    objects,
+    boardId,
+  ])
 
   const me = useMemo(() => (clients[sessionId] && objects[clients[sessionId]]) || {}, [
     clients,
@@ -26,8 +38,8 @@ export const GameBoard = memo(function() {
     objects,
   ])
 
-  const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
-  const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])
+  const team1 = useMemo(() => (board && objects[board.team1Id]) || {}, [board, objects])
+  const team2 = useMemo(() => (board && objects[board.team2Id]) || {}, [board, objects])
 
   const renderEnemies = useCallback(() => {
     let playersList
@@ -59,14 +71,21 @@ export const GameBoard = memo(function() {
   }, [clients, me, objects, players])
 
   useEffect(() => {
-    const roundEnded =
-      gameBoard && gameBoard.scene && gameBoard.scene === BOARD_SCENE_NAMES.END_ROUND
+    const roundEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_ROUND
+
     if (!showRoundResults && roundEnded) {
       setShowRoundResults(true)
     } else if (showRoundResults && !roundEnded) {
       setShowRoundResults(false)
     }
-  }, [showRoundResults, gameBoard])
+  }, [showRoundResults, boardScene])
+
+  useEffect(() => {
+    const gameEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_GAME
+    if (gameEnded) {
+      setShowGameResults(true)
+    }
+  }, [boardScene])
 
   return (
     <View style={styles.gameBoardContainer}>
@@ -92,6 +111,7 @@ export const GameBoard = memo(function() {
           />
         </View>
       )}
+      <GameOverModal me={me} open={showGameResults} closeCallback={onRoomLeave} />
     </View>
   )
 })

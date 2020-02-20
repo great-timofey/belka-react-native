@@ -142,6 +142,8 @@ function* joinRoomSaga({ payload }) {
   }
 }
 
+//  TODO: reconnect on session id
+
 const rootSaga = function*() {
   yield takeEvery(TYPES.JOIN_ROOM, joinRoomSaga)
   yield takeEvery(TYPES.CREATE_ROOM, createRoomSaga)

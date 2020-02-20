@@ -12,13 +12,7 @@ import {
   SETTINGS_STACK,
   SHOP_STACK,
 } from '@navigation/names'
-import {
-  GameOverModal,
-  ContainerWithBackground,
-  BelkaSegmentedControl,
-  RoomsList,
-  BelkaButton,
-} from '@components'
+import { ContainerWithBackground, BelkaSegmentedControl, RoomsList, BelkaButton } from '@components'
 import { joinRoom } from '@redux/belkaGame/actions'
 
 import styles from './styles'
@@ -29,7 +23,6 @@ export const Rooms = memo(function() {
   const { navigate } = useNavigation()
   const dispatch = useDispatch()
 
-  const [showModal, setShowModal] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [rooms, setRooms] = useState([])
 
@@ -67,6 +60,7 @@ export const Rooms = memo(function() {
     [client, dispatch],
   )
 
+  //  TODO: add password modal
   return (
     <ContainerWithBackground>
       <NavigationEvents
@@ -104,7 +98,6 @@ export const Rooms = memo(function() {
             title="Создать игру"
             onPress={() => navigate(CREATE_GAME)}
           />
-          <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
         </>
       </View>
     </ContainerWithBackground>

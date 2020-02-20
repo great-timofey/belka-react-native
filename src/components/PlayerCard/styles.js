@@ -9,14 +9,14 @@ export default StyleSheet.create({
     position: 'absolute',
   },
   First: {
-    bottom: 250 + cardHeight / 2,
-    left: center,
-    zIndex: 3,
-  },
-  Second: {
     bottom: 250,
     zIndex: 4,
     left: center - normalize(110),
+  },
+  Second: {
+    bottom: 250 + cardHeight / 2,
+    left: center,
+    zIndex: 3,
   },
   Third: {
     bottom: 250,

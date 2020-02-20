@@ -3,13 +3,17 @@ import { Image, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { iconBelkaChat, scoreContainer } from '@global/images'
-import { useBelkaGameBoard } from '@hooks'
 
 import styles from './styles'
 
 export const InfoBoard = memo(function() {
   const { objects } = useSelector(state => state.belkaGame)
-  const gameBoard = useBelkaGameBoard()
+  const boardId = useMemo(
+    () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
+    [objects],
+  )
+
+  const gameBoard = useMemo(() => boardId && objects[boardId], [objects, boardId])
 
   const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
   const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])

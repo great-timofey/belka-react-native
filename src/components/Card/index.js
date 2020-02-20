@@ -15,6 +15,7 @@ export const Card = memo(function({
   team,
   additionalStyles = [],
 }) {
+  //  TODO: press on full card
   if (team) {
     return (
       <ImageBackground

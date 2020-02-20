@@ -17,7 +17,7 @@ export const BelkaGame = memo(function() {
   return (
     <ContainerWithBackground size="full">
       <InfoBoard />
-      <GameBoard />
+      <GameBoard onRoomLeave={onLeaveRoom} />
     </ContainerWithBackground>
   )
 })

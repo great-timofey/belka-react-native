@@ -635,7 +635,7 @@ export const mockState = {
             type: 'BelkaTeam',
             ownerId: 'vfexcme0',
             index: 0,
-            gameScore: 0,
+            gameScore: 100,
             roundScore: 0,
           },
           '3ym42qux': {
@@ -643,7 +643,7 @@ export const mockState = {
             type: 'BelkaTeam',
             ownerId: 'vfexcme0',
             index: 0,
-            gameScore: 0,
+            gameScore: 110,
             roundScore: 0,
           },
           xbmmc8xn: {
