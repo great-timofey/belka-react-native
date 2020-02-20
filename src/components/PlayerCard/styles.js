@@ -9,22 +9,22 @@ export default StyleSheet.create({
     position: 'absolute',
   },
   First: {
-    bottom: 310 + cardHeight / 2,
+    bottom: 250 + cardHeight / 2,
     left: center,
     zIndex: 3,
   },
   Second: {
-    bottom: 310,
+    bottom: 250,
     zIndex: 4,
     left: center - normalize(110),
   },
   Third: {
-    bottom: 310,
+    bottom: 250,
     zIndex: 2,
     left: center + normalize(110),
   },
   player: {
-    bottom: 270,
+    bottom: 210,
     zIndex: 1,
     left: center,
   },

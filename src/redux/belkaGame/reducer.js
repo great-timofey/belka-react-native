@@ -3,7 +3,7 @@ import { createReducer } from '@utils/createReducer'
 import * as TYPES from './types'
 import { mockState } from './mockState'
 
-const useMocks = false
+const useMocks = true
 
 const initState = useMocks
   ? {

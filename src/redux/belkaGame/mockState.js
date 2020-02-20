@@ -395,7 +395,7 @@ export const mockState = {
       team1Id: '6o4alasc',
       team2Id: '3ym42qux',
       eggsId: 'xbmmc8xn',
-      scene: 'gameRounds',
+      scene: 'endRound',
       timerId: 'vut3srkp',
     },
     apqsioq7: {
@@ -986,7 +986,7 @@ export const mockState = {
             team1Id: '6o4alasc',
             team2Id: '3ym42qux',
             eggsId: 'xbmmc8xn',
-            scene: 'gameRounds',
+            scene: 'endRound',
             timerId: 'vut3srkp',
           },
           apqsioq7: {
@@ -1557,7 +1557,7 @@ export const mockState = {
             id: 'u1h1322s',
             type: 'Cards',
             ownerId: 'v19g6c1q',
-            items: [],
+            items: ['hhqoukdz'],
             cardsSide: 'face',
           },
           ux190wm1: {

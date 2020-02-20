@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { View } from 'react-native'
 
-import { useFormHook } from '@hooks'
+import { useForm } from '@hooks'
 
 import { BelkaInput } from '../BelkaInput'
 
@@ -25,7 +25,7 @@ export const Form = memo(function({
     onSubmitFormHandler,
     onFocusHandler,
     onBlurHandler,
-  } = useFormHook({
+  } = useForm({
     refs,
     validationRules,
     initialState,

@@ -76,15 +76,15 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   playerCardsContainerFirst: {
-    marginTop: 40,
+    marginTop: 20,
     transform: [{ rotate: '180deg' }],
   },
   playerCardsContainerSecond: {
-    marginTop: 40,
+    marginTop: 20,
     transform: [{ rotate: '180deg' }],
   },
   playerCardsContainerThird: {
-    marginTop: 40,
+    marginTop: 20,
     transform: [{ rotate: '180deg' }],
   },
   trumpContainer: {

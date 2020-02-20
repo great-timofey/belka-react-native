@@ -13,4 +13,16 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  roundResultsContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  },
+  resultsBlack: {
+    transform: [{ translateX: -40 }],
+  },
+  resultsRed: {
+    transform: [{ translateX: 40 }],
+  },
 })

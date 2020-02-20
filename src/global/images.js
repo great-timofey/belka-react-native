@@ -52,6 +52,8 @@ const diamondsQueen = require('../../assets/cards/Qd.png')
 const diamondsKing = require('../../assets/cards/Kd.png')
 const diamondsAce = require('../../assets/cards/Ad.png')
 const cover = require('../../assets/cards/cover.png')
+export const roundResultsRed = require('../../assets/cards/roundResultsRed.png')
+export const roundResultsBlack = require('../../assets/cards/roundResultsBlack.png')
 
 export const scoreContainer = require('../../assets/images/score-container.png')
 
@@ -103,6 +105,7 @@ export const iconWingsWhite = require('../../assets/images/icon-wings-white.png'
 export const iconLockOn = require('../../assets/images/icon-lock-on.png')
 export const iconLockOff = require('../../assets/images/icon-lock-off.png')
 export const iconUser = require('../../assets/images/icon-user.png')
+export const iconBelkaChat = require('../../assets/images/chat-icon-game.png')
 
 /*
 0 = spades

@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import * as Progress from 'react-native-progress'
+import { Circle } from 'react-native-progress'
 
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
@@ -46,7 +46,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
             my ? styles.playerTimerContainerMy : styles[`playerTimerContainer${index}`],
           ]}
         >
-          <Progress.Circle
+          <Circle
             direction="counter-clockwise"
             color={colors.semanticHighlight}
             thickness={1}

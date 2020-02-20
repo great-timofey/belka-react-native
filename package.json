@@ -5,8 +5,8 @@
   "scripts": {
     "android": "ENVFILE=.env.v2 react-native run-android",
     "android old": "ENVFILE=.env.v1 react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "ios": "ENVFILE=.env.v2 react-native run-ios",
+    "start": "ENVFILE=.env.v2 react-native start",
     "test": "jest",
     "lint": "eslint .",
     "clean-deps": "watchman watch-del-all && rm -rf /tmp/metro-*",

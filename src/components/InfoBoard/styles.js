@@ -1,27 +1,37 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, fonts, normalize } from '@global/styles'
+import { colors, fonts, normalize, deviceWidth, squareSize } from '@global/styles'
 
 export default StyleSheet.create({
   infoBoard: {
     position: 'absolute',
-    top: 10,
-    left: 10,
+    top: 40,
+    right: 10,
     flex: 1,
-    width: normalize(230),
-    height: normalize(145),
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    height: normalize(104),
   },
-  scoreContainerImage: {
-    width: normalize(105),
-    height: normalize(145),
+  scoreContainer: {
+    height: normalize(104),
+    width: deviceWidth * 0.075,
+    alignItems: 'center',
     justifyContent: 'center',
   },
+  chatButton: {
+    ...squareSize(normalize(52)),
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
+  scoreContainerImage: {
+    top: 0,
+    position: 'absolute',
+    width: normalize(84),
+    height: normalize(104),
+  },
   scoreText: {
-    alignSelf: 'center',
     fontFamily: fonts.ptsans.regular,
-    fontSize: normalize(48),
+    fontSize: normalize(40),
     color: colors.black,
   },
 })

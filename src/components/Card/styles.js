@@ -1,6 +1,14 @@
 import { StyleSheet } from 'react-native'
 
-import { cardHeight, cardWidth, deviceWidth, deviceHeight, colors, normalize } from '@global/styles'
+import {
+  cardHeight,
+  cardWidth,
+  deviceWidth,
+  deviceHeight,
+  colors,
+  normalize,
+  fonts,
+} from '@global/styles'
 
 export default StyleSheet.create({
   card: {
@@ -18,13 +26,32 @@ export default StyleSheet.create({
     width: deviceWidth * 0.09,
     height: deviceHeight * 0.08,
   },
+  gameRoundCard: {
+    position: 'absolute',
+    top: deviceHeight / 3.5,
+    alignSelf: 'center',
+  },
+  gameRoundTextContainer: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#ede7dc',
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+    paddingBottom: 20,
+    justifyContent: 'flex-end',
+  },
+  gameRoundText: {
+    fontSize: 20,
+    fontFamily: fonts.ptsans.regular,
+  },
   cardDeck: {
     left: 0,
-    width: deviceWidth * 0.08,
-    height: deviceHeight * 0.07,
+    width: cardWidth * 0.6,
+    height: cardHeight * 0.6,
   },
   cardDeckOffseted: {
-    transform: [{ translateX: deviceWidth * 0.08 + 5 }],
+    transform: [{ translateX: cardWidth * 0.6 + 5 }],
   },
   myCard: {
     position: 'relative',

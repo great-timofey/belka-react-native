@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
-import * as Progress from 'react-native-progress'
+import { Circle } from 'react-native-progress'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from 'react-navigation-hooks'
 
@@ -14,7 +14,7 @@ import {
 } from '@components'
 import { leaveRoom } from '@redux/belkaGame/actions'
 import { BELKA } from '@navigation/names'
-import { useBackHandlerHook } from '@hooks'
+import { useBackHandler, useBelkaGameBoard } from '@hooks'
 import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import styles from './styles'
@@ -22,6 +22,7 @@ import styles from './styles'
 export const GamePreparation = memo(function() {
   const dispatch = useDispatch()
   const { navigate } = useNavigation()
+  const gameBoard = useBelkaGameBoard()
   const { objects } = useSelector(state => state.belkaGame)
 
   const boardId = useMemo(
@@ -39,21 +40,16 @@ export const GamePreparation = memo(function() {
     [objects],
   )
 
-  const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
-    objects,
-    boardId,
-  ])
-
   const handleLeaveRoom = useCallback(() => {
     dispatch(leaveRoom())
   }, [dispatch])
 
-  useBackHandlerHook(handleLeaveRoom)
+  useBackHandler(handleLeaveRoom)
 
   useEffect(() => {
-    if (boardScene && boardScene === BOARD_SCENE_NAMES.GAME_IN_PROGRESS)
+    if (gameBoard && gameBoard.scene && gameBoard.scene === BOARD_SCENE_NAMES.GAME_IN_PROGRESS)
       navigate(BELKA, { tabBarVisible: false })
-  }, [navigate, boardScene])
+  }, [navigate, gameBoard])
 
   return (
     <ContainerWithBackground>
@@ -63,7 +59,7 @@ export const GamePreparation = memo(function() {
             <BelkaTypography bold style={[styles.text, styles.readiness]}>
               Готовность игроков
             </BelkaTypography>
-            <Progress.Circle
+            <Circle
               formatText={progress => `${Math.round(progress * 10)}`}
               progress={timer && timer.value && timer.value * 0.1}
               showsText

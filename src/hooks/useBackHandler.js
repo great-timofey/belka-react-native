@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { isIOS } from '@global/styles'
 
-export function useBackHandlerHook(action) {
+export function useBackHandler(action) {
   useEffect(() => {
     if (isIOS) return
 

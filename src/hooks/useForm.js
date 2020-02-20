@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 
-import { useDebounceHook } from './useDebounceHook'
-import { useCustomStateHook } from './useCustomStateHook'
+import { useDebounce } from './useDebounce'
+import { useCustomState } from './useCustomState'
 
-export function useFormHook({ refs, validationRules, initialState, onFocus, onUnfocus, onSubmit }) {
-  const [state, dispatch] = useCustomStateHook(initialState)
+export function useForm({ refs, validationRules, initialState, onFocus, onUnfocus, onSubmit }) {
+  const [state, dispatch] = useCustomState(initialState)
   const [editing, setEditing] = useState(false)
   const [valid, setValid] = useState(false)
-  const editingDebounced = useDebounceHook(editing, 10)
+  const editingDebounced = useDebounce(editing, 10)
 
   const onFieldChange = useCallback(fieldName => value => dispatch({ [fieldName]: value }), [
     dispatch,

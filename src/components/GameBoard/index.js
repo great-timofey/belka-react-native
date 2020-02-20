@@ -1,13 +1,15 @@
-import React, { Fragment, memo, useCallback, useMemo } from 'react'
+import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import { useSessionId } from '@hooks/useSessionId'
+import { useBelkaGameBoard, useSessionId } from '@hooks'
+import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import { Player } from '../Player'
 import { PlayerBoard } from '../PlayerBoard'
 import { DeckCards } from '../DeckCards'
 import { PlayerCard } from '../PlayerCard'
+import { Card } from '../Card'
 
 import styles from './styles'
 import { getPlayersDataForGameBoard } from './utils'
@@ -15,12 +17,17 @@ import { getPlayersDataForGameBoard } from './utils'
 export const GameBoard = memo(function() {
   const { players, objects, clients } = useSelector(state => state.belkaGame)
   const sessionId = useSessionId()
+  const gameBoard = useBelkaGameBoard()
+  const [showRoundResults, setShowRoundResults] = useState(false)
 
   const me = useMemo(() => (clients[sessionId] && objects[clients[sessionId]]) || {}, [
     clients,
     sessionId,
     objects,
   ])
+
+  const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
+  const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])
 
   const renderEnemies = useCallback(() => {
     let playersList
@@ -51,6 +58,16 @@ export const GameBoard = memo(function() {
     })
   }, [clients, me, objects, players])
 
+  useEffect(() => {
+    const roundEnded =
+      gameBoard && gameBoard.scene && gameBoard.scene === BOARD_SCENE_NAMES.END_ROUND
+    if (!showRoundResults && roundEnded) {
+      setShowRoundResults(true)
+    } else if (showRoundResults && !roundEnded) {
+      setShowRoundResults(false)
+    }
+  }, [showRoundResults, gameBoard])
+
   return (
     <View style={styles.gameBoardContainer}>
       <DeckCards />
@@ -61,6 +78,20 @@ export const GameBoard = memo(function() {
         </View>
         <PlayerCard key={`${me.id}-card`} player={me} />
       </>
+      {showRoundResults && (
+        <View style={styles.roundResultsContainer}>
+          <Card
+            team="black"
+            additionalStyles={[styles.resultsBlack]}
+            score={team1 ? team1.roundScore : 0}
+          />
+          <Card
+            team="red"
+            additionalStyles={[styles.resultsRed]}
+            score={team2 ? team2.roundScore : 0}
+          />
+        </View>
+      )}
     </View>
   )
 })

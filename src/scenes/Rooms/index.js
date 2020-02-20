@@ -4,7 +4,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
 import { useDispatch } from 'react-redux'
 
-import { useClientHook } from '@hooks'
+import { useColyseusClient } from '@hooks'
 import {
   CHAT_STACK,
   CREATE_GAME,
@@ -25,7 +25,7 @@ import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
 
 export const Rooms = memo(function() {
-  const client = useClientHook()
+  const client = useColyseusClient()
   const { navigate } = useNavigation()
   const dispatch = useDispatch()
 
