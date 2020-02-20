@@ -1,35 +1,23 @@
-import React, { memo, useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigationParam } from 'react-navigation-hooks'
+import React, { memo, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { startChannel } from '@redux/belkaGame/actions'
 import { InfoBoard, GameBoard, ContainerWithBackground } from '@components'
+import { useBackHandler } from '@hooks'
+import { leaveRoom } from '@redux/belkaGame/actions'
 
 export const BelkaGame = memo(function() {
   const dispatch = useDispatch()
-  const { clients } = useSelector(state => state.belkaGame)
-  const clientList = useMemo(() => (clients && Object.keys(clients)) || [], [clients])
 
-  const roomId = useNavigationParam('roomId')
-  // const { gameOver } = useSelector(state => state.belkaGame)
-  // const [showGameOverModal, setShowGameOverModal] = useState(false)
+  const onLeaveRoom = useCallback(() => {
+    dispatch(leaveRoom())
+  }, [dispatch])
 
-  useEffect(() => {
-    if (!roomId) return
+  useBackHandler(onLeaveRoom)
 
-    dispatch(startChannel(roomId))
-  }, [dispatch, roomId])
-
-  // useEffect(() => {
-  //   if (gameOver) {
-  //     setShowGameOverModal(true)
-  //   }
-  // }, [gameOver])
-  //
   return (
     <ContainerWithBackground size="full">
       <InfoBoard />
-      {clientList.length === 4 && <GameBoard />}
+      <GameBoard onRoomLeave={onLeaveRoom} />
     </ContainerWithBackground>
   )
 })

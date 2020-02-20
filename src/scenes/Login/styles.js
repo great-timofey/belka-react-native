@@ -11,8 +11,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     width: deviceWidth * 0.73,
     height: deviceHeight * 0.41,
-    // width: 'auto',
-    // height: 'auto',
   },
   logoSmall: {
     width: deviceWidth * 0.24,

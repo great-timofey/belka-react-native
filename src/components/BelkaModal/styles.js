@@ -11,7 +11,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     left: 0,
     right: 0,
-    height: deviceHeight * 0.45,
+    height: deviceHeight * 0.4,
     backgroundColor: colors.appBackground,
   },
   modalHeader: {
@@ -19,5 +19,8 @@ export default StyleSheet.create({
     fontFamily: fonts.ptsans.bold,
     color: colors.semanticPositive,
     fontSize: 30,
+  },
+  modalHeaderNegative: {
+    color: colors.semanticNegative,
   },
 })

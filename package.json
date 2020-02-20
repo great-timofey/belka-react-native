@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "android": "ENVFILE=.env.v2 react-native run-android",
+    "android old": "ENVFILE=.env.v1 react-native run-android",
+    "ios": "ENVFILE=.env.v2 react-native run-ios",
+    "start": "ENVFILE=.env.v2 react-native start",
     "test": "jest",
     "lint": "eslint .",
     "clean-deps": "watchman watch-del-all && rm -rf /tmp/metro-*",
@@ -77,8 +78,8 @@
   },
   "lint-staged": {
     "./src/**/*.{js,jsx}": [
-      "npx prettier --write",
-      "npx eslint --fix"
+      "npx eslint --fix",
+      "npx prettier --write"
     ]
   }
 }

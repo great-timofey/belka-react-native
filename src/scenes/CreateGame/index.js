@@ -1,11 +1,12 @@
-import React, { memo, useCallback, useReducer, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
 import { colors } from '@global/styles'
 import { createRoom } from '@redux/belkaGame/actions'
+import { useCustomState } from '@hooks'
 
 import { NEW_GAME_DATA_ENTRIES, NEW_GAME_ICONS } from './constants'
 import styles from './styles'
@@ -22,13 +23,16 @@ export const CreateGame = memo(function() {
   const [password, setPassword] = useState(null)
   const [bet, setBet] = useState(null)
   const [playersLevel, setPlayersLevel] = useState(1)
-  const [state, dispatch] = useReducer((s, a) => ({ ...s, ...a }), initialState)
+  const [state, dispatch] = useCustomState(initialState)
 
-  const reduxDispatch = useDispatch()
+  // const reduxDispatch = useDispatch()
 
   const handleCreateRoom = useCallback(() => {
-    reduxDispatch(
+    //  TODO: update creation variables
+    // reduxDispatch(
+    console.log(
       createRoom({
+        bet: +bet,
         name: 'test',
         password: null,
         eggsX4: state.eggsX4,
@@ -37,8 +41,10 @@ export const CreateGame = memo(function() {
         fin120: state.fin120,
       }),
     )
-  }, [state, reduxDispatch])
+    // )
+  }, [state, bet])
 
+  //  TODO: add name input
   return (
     <ContainerWithBackground additionalStyles={[styles.wrapper]}>
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 20 }}>

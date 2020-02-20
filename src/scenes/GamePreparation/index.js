@@ -1,7 +1,10 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
-import * as Progress from 'react-native-progress'
+import { Circle } from 'react-native-progress'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from 'react-navigation-hooks'
 
+import { colors } from '@global/styles'
 import {
   ContainerWithBackground,
   BelkaTypography,
@@ -9,12 +12,49 @@ import {
   PlayerPreparation,
   BelkaButton,
 } from '@components'
-import { colors } from '@global/styles'
+import { leaveRoom } from '@redux/belkaGame/actions'
+import { BELKA } from '@navigation/names'
+import { useBackHandler } from '@hooks'
+import { BOARD_SCENE_NAMES } from '@global/constants'
 
-import { PLAYERS } from './mocks'
 import styles from './styles'
 
 export const GamePreparation = memo(function() {
+  const dispatch = useDispatch()
+  const { navigate } = useNavigation()
+  const { objects } = useSelector(state => state.belkaGame)
+
+  const boardId = useMemo(
+    () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
+    [objects],
+  )
+
+  const timer = useMemo(
+    () => boardId && objects[boardId].timerId && objects[objects[boardId].timerId],
+    [objects, boardId],
+  )
+
+  const players = useMemo(
+    () => Object.values(objects).filter(gameObject => gameObject.type === 'BelkaPlayer'),
+    [objects],
+  )
+
+  const handleLeaveRoom = useCallback(() => {
+    dispatch(leaveRoom())
+  }, [dispatch])
+
+  useBackHandler(handleLeaveRoom)
+
+  const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
+    objects,
+    boardId,
+  ])
+
+  useEffect(() => {
+    if (boardScene && boardScene === BOARD_SCENE_NAMES.GAME_IN_PROGRESS)
+      navigate(BELKA, { tabBarVisible: false })
+  }, [navigate, boardScene])
+
   return (
     <ContainerWithBackground>
       <View style={styles.container}>
@@ -23,12 +63,12 @@ export const GamePreparation = memo(function() {
             <BelkaTypography bold style={[styles.text, styles.readiness]}>
               Готовность игроков
             </BelkaTypography>
-            <Progress.Circle
-              progress={1}
+            <Circle
+              formatText={progress => `${Math.round(progress * 10)}`}
+              progress={timer && timer.value && timer.value * 0.1}
               showsText
               borderWidth={0}
               textStyle={styles.text}
-              formatText={progress => `${progress}`}
               color={colors.semanticAttention}
             />
           </View>
@@ -42,11 +82,15 @@ export const GamePreparation = memo(function() {
           </View>
         </BelkaCard>
         <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
-          {PLAYERS.map(player => (
-            <PlayerPreparation key={player.id} name={player.name} ready={player.ready} />
+          {players.map(player => (
+            <PlayerPreparation key={player.id} name={player.name} ready={player.connected} />
           ))}
         </BelkaCard>
-        <BelkaButton title="Выход" additionalStyles={[styles.buttonExit]} />
+        <BelkaButton
+          title="Выход"
+          additionalStyles={[styles.buttonExit]}
+          onPress={handleLeaveRoom}
+        />
       </View>
     </ContainerWithBackground>
   )

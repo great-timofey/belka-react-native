@@ -6,7 +6,7 @@ const initState = {
   error: null,
 }
 
-const setErrorHandler = (state, error) => ({ error })
+const setErrorHandler = (state, error) => ({ ...state, ...error })
 const clearErrorHandler = () => ({ ...initState })
 
 const handlersMap = {

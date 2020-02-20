@@ -1,11 +1,34 @@
 import React, { memo } from 'react'
-import { Image, ImageBackground, TouchableOpacity } from 'react-native'
+import { Image, Text, ImageBackground, View, TouchableOpacity } from 'react-native'
 
-import { cards } from '@global/images'
+import { cards, roundResultsBlack, roundResultsRed } from '@global/images'
 
 import styles from './styles'
 
-export const Card = memo(function({ data, onPress, my, index, deck }) {
+export const Card = memo(function({
+  data,
+  onPress,
+  my,
+  index,
+  deck,
+  score,
+  team,
+  additionalStyles = [],
+}) {
+  //  TODO: press on full card
+  if (team) {
+    return (
+      <ImageBackground
+        style={[styles.card, styles.gameRoundCard, ...additionalStyles]}
+        source={team === 'red' ? roundResultsRed : roundResultsBlack}
+      >
+        <View style={styles.gameRoundTextContainer}>
+          <Text style={styles.gameRoundText}>{score}</Text>
+        </View>
+      </ImageBackground>
+    )
+  }
+
   const face = (data && (data.face || data.data)) || { value: '' }
 
   if (deck) {
@@ -16,6 +39,7 @@ export const Card = memo(function({ data, onPress, my, index, deck }) {
           styles.cover,
           styles.cardDeck,
           index % 2 === 0 && styles.cardDeckOffseted,
+          ...additionalStyles,
         ]}
         source={cards.cover}
       />
@@ -35,7 +59,7 @@ export const Card = memo(function({ data, onPress, my, index, deck }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <ImageBackground
-        style={[styles.card, my ? styles.myCard : styles[`card-${index}`]]}
+        style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
         source={cardSuit[cardValue]}
       />
     </TouchableOpacity>

@@ -13,8 +13,8 @@ import {
 
 export const iconsMap = {
   eggsX4: {
-    true: iconEggX4TrueGold,
-    false: iconEggX4FalseGold,
+    true: iconEggX4FalseGold,
+    false: iconEggX4TrueGold,
   },
   dropAce: {
     true: iconAceTrueGold,

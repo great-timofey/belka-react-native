@@ -8,6 +8,9 @@ export default StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+  },
   containerPadded: {
     paddingBottom: 30,
   },

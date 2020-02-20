@@ -39,4 +39,8 @@ export default StyleSheet.create({
     color: colors.white,
     marginLeft: 'auto',
   },
+  closeButton: {
+    width: '50%',
+    alignSelf: 'center',
+  },
 })

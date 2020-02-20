@@ -2,33 +2,27 @@ import React, { memo, useCallback, useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
+import { useDispatch } from 'react-redux'
 
-import { useClientHook } from '@hooks/useClientHook'
+import { useColyseusClient } from '@hooks'
 import {
-  BELKA,
   CHAT_STACK,
   CREATE_GAME,
   RATINGS_STACK,
   SETTINGS_STACK,
   SHOP_STACK,
 } from '@navigation/names'
-import {
-  GameOverModal,
-  ContainerWithBackground,
-  BelkaSegmentedControl,
-  RoomsList,
-  BelkaButton,
-} from '@components'
+import { ContainerWithBackground, BelkaSegmentedControl, RoomsList, BelkaButton } from '@components'
+import { joinRoom } from '@redux/belkaGame/actions'
 
 import styles from './styles'
 import { ROOMS_GAMES_TYPES } from './constants'
-import { ROOMS_MOCKS } from './mocks'
 
 export const Rooms = memo(function() {
-  const client = useClientHook()
-  const { navigate, dispatch } = useNavigation()
+  const client = useColyseusClient()
+  const { navigate } = useNavigation()
+  const dispatch = useDispatch()
 
-  const [showModal, setShowModal] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [rooms, setRooms] = useState([])
 
@@ -38,55 +32,40 @@ export const Rooms = memo(function() {
     async function getRooms() {
       const newRooms = await client.getAvailableRooms()
       if (newRooms && newRooms.length) {
-        setRooms(
-          newRooms.map(({ clients, maxClients, name, roomId }) => ({
-            bet: 100,
-            clients,
-            maxClients,
-            name,
-            roomId,
-            eggsX4: true,
-            dropAce: false,
-            spas30: true,
-            chat: false,
-            fin120: true,
-          })),
-        )
+        setRooms(newRooms)
       }
     }
-
-    /*
-    roomId: 'RgDxmhrka',
-    name: 'belka',
-    clients: 1,
-    maxClients: 4,
-    password: '123',
-    bet: 100,
-    eggsX4: true,
-    dropAce: true,
-    spas30: true,
-    chat: true,
-    fin120: true,
-    */
 
     getRooms()
   }, [client])
 
   useEffect(updateRooms, [])
 
-  const joinRoom = useCallback(
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateRooms()
+    }, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [updateRooms])
+
+  const onJoinRoom = useCallback(
     roomId => {
       if (!client) return
 
-      navigate(BELKA, { roomId, tabBarVisible: false })
+      dispatch(joinRoom({ roomId }))
     },
-    [navigate, client],
+    [client, dispatch],
   )
 
+  //  TODO: add password modal
   return (
     <ContainerWithBackground>
       <NavigationEvents
         onDidBlur={payload => {
+          //  TODO: stack doesn't reset anymore
           const route = payload.action.routeName
           const otherStacks = [RATINGS_STACK, SETTINGS_STACK, CHAT_STACK, SHOP_STACK]
 
@@ -109,8 +88,8 @@ export const Rooms = memo(function() {
           activeTabIndex={activeTab}
         />
         <>
-          {ROOMS_MOCKS.length ? (
-            <RoomsList onItemPress={joinRoom} rooms={rooms} />
+          {rooms.length ? (
+            <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
           ) : (
             <Text>No rooms available</Text>
           )}
@@ -119,18 +98,6 @@ export const Rooms = memo(function() {
             title="Создать игру"
             onPress={() => navigate(CREATE_GAME)}
           />
-          {/* <Button */}
-          {/*  title="update rooms" */}
-          {/*  style={styles.updateRoomButton} */}
-          {/*  color="red" */}
-          {/*  // onPress={updateRooms} */}
-          {/* /> */}
-          {/* <Button */}
-          {/*  title="show modal" */}
-          {/*  style={styles.updateRoomButton} */}
-          {/*  onPress={() => setShowModal(true)} */}
-          {/* /> */}
-          <GameOverModal open={showModal} closeCallback={() => setShowModal(false)} />
         </>
       </View>
     </ContainerWithBackground>

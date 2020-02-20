@@ -8,23 +8,23 @@ export default StyleSheet.create({
   commonContainer: {
     position: 'absolute',
   },
-  first: {
-    bottom: 310 + cardHeight / 2,
-    left: center,
-    zIndex: 3,
-  },
-  second: {
-    bottom: 310,
+  First: {
+    bottom: 250,
     zIndex: 4,
     left: center - normalize(110),
   },
-  third: {
-    bottom: 310,
+  Second: {
+    bottom: 250 + cardHeight / 2,
+    left: center,
+    zIndex: 3,
+  },
+  Third: {
+    bottom: 250,
     zIndex: 2,
     left: center + normalize(110),
   },
   player: {
-    bottom: 270,
+    bottom: 210,
     zIndex: 1,
     left: center,
   },

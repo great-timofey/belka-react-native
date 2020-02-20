@@ -21,6 +21,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   createRoom: {
+    marginTop: 'auto',
     height: 50,
   },
 })

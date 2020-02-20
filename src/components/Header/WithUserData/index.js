@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { Bar } from 'react-native-progress'
+import { useSelector } from 'react-redux'
 
 import { colors } from '@global/styles'
 
@@ -12,13 +13,15 @@ import styles from './styles'
 import { Header } from '..'
 
 export const HeaderWithUserData = memo(function() {
+  const { name } = useSelector(state => state.auth)
+
   return (
     <Header>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button}>
           <Avatar level />
           <View>
-            <Text style={[styles.levelText, styles.nickname]}>Professional II</Text>
+            <Text style={[styles.levelText, styles.nickname]}>{name || 'Professional II'}</Text>
             <Bar
               style={styles.expBar}
               progress={0.5}

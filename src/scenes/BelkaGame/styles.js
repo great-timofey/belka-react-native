@@ -6,6 +6,6 @@ export default StyleSheet.create({
   container: {
     backgroundColor: colors.appBackground,
     flex: 1,
-    ...squareSize('100%')
-  }
+    ...squareSize('100%'),
+  },
 })

@@ -1,59 +1,91 @@
-import React, { Fragment, memo, useCallback, useMemo } from 'react'
+import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
+
+import { useSessionId } from '@hooks'
+import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import { Player } from '../Player'
 import { PlayerBoard } from '../PlayerBoard'
 import { DeckCards } from '../DeckCards'
 import { PlayerCard } from '../PlayerCard'
+import { Card } from '../Card'
+import { GameOverModal } from '../GameOverModal'
 
 import styles from './styles'
 import { getPlayersDataForGameBoard } from './utils'
 
-export const GameBoard = memo(function() {
-  const { players, objects, clients, room } = useSelector(state => state.belkaGame)
-
-  const me = useMemo(
-    () =>
-      (room && room.sessionId && clients[room.sessionId] && objects[clients[room.sessionId]]) || {},
-    [clients, objects, room],
+export const GameBoard = memo(function({ onRoomLeave }) {
+  const { players, objects, clients } = useSelector(state => state.belkaGame)
+  const sessionId = useSessionId()
+  const boardId = useMemo(
+    () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
+    [objects],
   )
 
+  const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
+  const [showRoundResults, setShowRoundResults] = useState(false)
+  const [showGameResults, setShowGameResults] = useState(false)
+
+  const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
+    objects,
+    boardId,
+  ])
+
+  const me = useMemo(() => (clients[sessionId] && objects[clients[sessionId]]) || {}, [
+    clients,
+    sessionId,
+    objects,
+  ])
+
+  const team1 = useMemo(() => (board && objects[board.team1Id]) || {}, [board, objects])
+  const team2 = useMemo(() => (board && objects[board.team2Id]) || {}, [board, objects])
+
   const renderEnemies = useCallback(() => {
-    const playersList = []
+    let playersList
+
     if (players.length === 4) {
       const list = [...players]
       const index = list.findIndex(id => me.id === id)
       if (index > 0) {
-        list.push(list.splice(0, index))
+        list.push(...list.splice(0, index))
       }
-      list.forEach(id => {
-        if (objects[id]) {
-          playersList.push(objects[id])
-        }
-      })
+      playersList = list.map(id => objects[id])
     } else {
-      Object.values(clients).forEach(id => {
-        if (objects[id]) {
-          playersList.push(objects[id])
-        }
-      })
+      playersList = Object.values(clients).map(id => objects[id])
     }
 
     const { enemies, enemiesMap } = getPlayersDataForGameBoard({ playersList, me })
 
-    return enemies.map((player, index) => {
+    return enemies.map(player => {
       const localIndex = enemiesMap[player.id]
       return (
         <Fragment key={`${localIndex}-fragment`}>
           <Player key={`${localIndex}-view`} index={localIndex}>
-            <PlayerBoard index={index} key={`${player.id}-board`} player={player} />
+            <PlayerBoard index={localIndex} key={`${player.id}-board`} player={player} />
           </Player>
           <PlayerCard index={localIndex} key={`${localIndex}-card`} player={player} />
         </Fragment>
       )
     })
   }, [clients, me, objects, players])
+
+  useEffect(() => {
+    const roundEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_ROUND
+
+    if (!showRoundResults && roundEnded) {
+      setShowRoundResults(true)
+    } else if (showRoundResults && !roundEnded) {
+      setShowRoundResults(false)
+    }
+  }, [showRoundResults, boardScene])
+
+  useEffect(() => {
+    const gameEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_GAME
+    if (gameEnded) {
+      setShowGameResults(true)
+    }
+  }, [boardScene])
 
   return (
     <View style={styles.gameBoardContainer}>
@@ -65,6 +97,21 @@ export const GameBoard = memo(function() {
         </View>
         <PlayerCard key={`${me.id}-card`} player={me} />
       </>
+      {showRoundResults && (
+        <View style={styles.roundResultsContainer}>
+          <Card
+            team="black"
+            additionalStyles={[styles.resultsBlack]}
+            score={team1 ? team1.roundScore : 0}
+          />
+          <Card
+            team="red"
+            additionalStyles={[styles.resultsRed]}
+            score={team2 ? team2.roundScore : 0}
+          />
+        </View>
+      )}
+      <GameOverModal me={me} open={showGameResults} closeCallback={onRoomLeave} />
     </View>
   )
 })

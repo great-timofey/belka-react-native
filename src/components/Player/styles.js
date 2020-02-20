@@ -1,23 +1,27 @@
 import { StatusBar, StyleSheet } from 'react-native'
 
-import { deviceHeight } from '@global/styles'
+import { deviceHeight, squareSize } from '@global/styles'
+
+const topPlayerOffset = 0.25
 
 export default StyleSheet.create({
   common: {
     position: 'absolute',
-  },
-  first: {
-    top: deviceHeight * 0.4 + StatusBar.currentHeight,
-    left: 0,
-    transform: [{ rotate: '270deg' }],
-  },
-  second: {
     alignSelf: 'center',
-    transform: [{ rotate: '180deg' }],
+    alignItems: 'center',
+    ...squareSize(100),
   },
-  third: {
-    top: deviceHeight * 0.4 + StatusBar.currentHeight,
-    right: 0,
+  First: {
+    top: deviceHeight * topPlayerOffset + StatusBar.currentHeight,
+    left: 10,
+    transform: [{ rotate: '-90deg' }],
+  },
+  Second: {
+    top: 10,
+  },
+  Third: {
+    top: deviceHeight * topPlayerOffset + StatusBar.currentHeight,
+    right: 10,
     transform: [{ rotate: '90deg' }],
   },
 })

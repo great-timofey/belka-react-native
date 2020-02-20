@@ -1,5 +1,5 @@
 export function getPlayersDataForGameBoard({ playersList, me }) {
-  const indices = ['first', 'second', 'third']
+  const indices = ['First', 'Second', 'Third']
   let playersSorted = playersList.sort((a, b) => +a.id[1] - +b.id[1])
 
   const enemiesMap = {}
