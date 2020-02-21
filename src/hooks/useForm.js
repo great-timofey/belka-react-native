@@ -4,10 +4,18 @@ import { Keyboard } from 'react-native'
 import { useDebounce } from './useDebounce'
 import { useCustomState } from './useCustomState'
 
-export function useForm({ refs, validationRules, initialState, onFocus, onUnfocus, onSubmit }) {
+export function useForm({
+  refs,
+  validationRules,
+  initialErrorState,
+  initialState,
+  onFocus,
+  onUnfocus,
+  onSubmit,
+}) {
+  const [errorState, errorDispatch] = useCustomState(initialErrorState)
   const [state, dispatch] = useCustomState(initialState)
   const [editing, setEditing] = useState(false)
-  const [valid, setValid] = useState(false)
   const editingDebounced = useDebounce(editing, 10)
 
   const onFieldChange = useCallback(fieldName => value => dispatch({ [fieldName]: value }), [
@@ -45,19 +53,31 @@ export function useForm({ refs, validationRules, initialState, onFocus, onUnfocu
     }
   }, [editingDebounced, onUnfocus])
 
-  useEffect(() => {
-    const validForm = validationRules.every(([ruleKey, ruleFunc]) => ruleFunc(state[ruleKey]))
-    setValid(validForm)
+  const validate = useCallback(() => {
+    return Object.keys(validationRules).reduce((newErrorState, validatorKey) => {
+      newErrorState[validatorKey] = !validationRules[validatorKey](state[validatorKey])
+      return newErrorState
+    }, {})
   }, [state, validationRules])
+
+  const checkFormValidity = useCallback(
+    newErrorState => !Object.values(newErrorState).find(error => error),
+    [],
+  )
 
   const onSubmitFormHandler = useCallback(() => {
     setEditing(false)
     Keyboard.dismiss()
 
-    if (valid) {
+    const newErrorState = validate()
+
+    if (checkFormValidity(newErrorState)) {
+      errorDispatch(initialErrorState)
       onSubmit({ ...state })
+    } else {
+      errorDispatch(newErrorState)
     }
-  }, [valid, onSubmit, state])
+  }, [validate, checkFormValidity, initialErrorState, errorDispatch, onSubmit, state])
 
   return {
     onInputsChangeHandler,
@@ -66,5 +86,6 @@ export function useForm({ refs, validationRules, initialState, onFocus, onUnfocu
     onFocusHandler,
     onBlurHandler,
     state,
+    errorState,
   }
 }

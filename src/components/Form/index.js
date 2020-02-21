@@ -17,9 +17,11 @@ export const Form = memo(function({
   refs,
   validationRules,
   initialState,
+  initialErrorState,
 }) {
   const {
     state,
+    errorState,
     onInputsChangeHandler,
     onSubmitEditingHandler,
     onSubmitFormHandler,
@@ -29,6 +31,7 @@ export const Form = memo(function({
     refs,
     validationRules,
     initialState,
+    initialErrorState,
     onFocus,
     onUnfocus,
     onSubmit,
@@ -43,7 +46,10 @@ export const Form = memo(function({
           startIcon={input.startIcon}
           placeholder={input.placeholder}
           onChangeText={onInputsChangeHandler[index]}
+          errorText={input.errorText}
+          error={errorState[input.name]}
           value={state[input.name]}
+          passwordWithToggleIcon={input.passwordWithToggleIcon}
           inputAdditionalProps={{
             ...input.additionalProps,
             ...{

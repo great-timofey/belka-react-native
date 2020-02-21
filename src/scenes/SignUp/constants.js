@@ -1,4 +1,5 @@
 import { iconLockOn, iconMail, iconUser } from '@global/images'
+import { validateEmail } from '@utils'
 
 import styles from './styles'
 
@@ -9,7 +10,8 @@ export const inputsData = [
     styles: [styles.input],
     placeholder: 'Введите логин',
     name: 'name',
-    validate: fieldValue => fieldValue && fieldValue.trim().length > 1,
+    errorText: 'Минимальное количество символов: 3',
+    validate: fieldValue => fieldValue && fieldValue.trim().length > 2,
     additionalProps: {
       returnKeyType: 'next',
       blurOnSubmit: false,
@@ -21,7 +23,8 @@ export const inputsData = [
     styles: [styles.input],
     placeholder: 'Введите e-mail',
     name: 'email',
-    validate: fieldValue => fieldValue && fieldValue.trim().length > 1,
+    errorText: 'Неправильный e-mail',
+    validate: fieldValue => fieldValue && fieldValue.trim().length > 0 && validateEmail(fieldValue),
     additionalProps: {
       returnKeyType: 'next',
       keyboardType: 'email-address',
@@ -34,9 +37,10 @@ export const inputsData = [
     startIcon: iconLockOn,
     placeholder: 'Введите пароль',
     name: 'password',
-    validate: fieldValue => fieldValue && fieldValue.trim().length > 3,
+    errorText: 'Минимальное количество символов: 8',
+    passwordWithToggleIcon: true,
+    validate: fieldValue => fieldValue && fieldValue.trim().length > 7,
     additionalProps: {
-      secureTextEntry: true,
       returnKeyType: 'send',
       blurOnSubmit: false,
     },

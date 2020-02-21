@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
-import { Image } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from 'react-navigation-hooks'
 
@@ -7,7 +7,6 @@ import {
   BelkaTypography,
   ContainerWithBackground,
   BelkaSwitch,
-  ErrorModal,
   BelkaButton,
   Form,
 } from '@components'
@@ -25,6 +24,7 @@ const formState = getInitialFormState(inputsData)
 export const Login = memo(function() {
   const reduxDispatch = useDispatch()
   const { navigate } = useNavigation()
+  const { error } = useSelector(state => state.common)
 
   const passwordRef = useRef(null)
   const mailRef = useRef(null)
@@ -35,8 +35,9 @@ export const Login = memo(function() {
   const [rememberPassword, setRememberPassword] = useState(false)
 
   const onFocus = useCallback(() => {
+    if (error) reduxDispatch(clearError())
     setMinifyImage(true)
-  }, [])
+  }, [reduxDispatch, error])
 
   const onUnfocus = useCallback(() => {
     setMinifyImage(false)
@@ -48,12 +49,6 @@ export const Login = memo(function() {
     },
     [reduxDispatch],
   )
-
-  const { error } = useSelector(state => state.common)
-
-  const closeModal = useCallback(() => {
-    reduxDispatch(clearError())
-  }, [reduxDispatch])
 
   const handleRememberPasswordChange = useCallback(() => {
     setRememberPassword(!rememberPassword)
@@ -78,12 +73,18 @@ export const Login = memo(function() {
         refs={refs}
         validationRules={formState.rules}
         initialState={formState.initialState}
+        initialErrorState={formState.initialErrorState}
         onSubmit={onSubmit}
         additionalElements={
-          <>
+          <View style={styles.additionalElementsContainer}>
             <BelkaTypography style={[styles.text]}>Запомнить пароль</BelkaTypography>
-            <BelkaSwitch onChange={handleRememberPasswordChange} value={rememberPassword} />
-          </>
+            <BelkaSwitch
+              style={[styles.switch]}
+              onChange={handleRememberPasswordChange}
+              value={rememberPassword}
+            />
+            {error && <BelkaTypography style={[styles.error]}>{error}</BelkaTypography>}
+          </View>
         }
         formControls={[
           <BelkaButton
@@ -95,7 +96,16 @@ export const Login = memo(function() {
           <BelkaButton additionalStyles={[styles.button]} title="Войти" />,
         ]}
       />
-      <ErrorModal open={!!error} closeCallback={closeModal} error={error} />
+
+      <TouchableOpacity
+        onPress={() => console.log(1)}
+        style={[styles.forgetPassword]}
+        hitSlop={{ top: 10, bottom: 10, left: 70, right: 70 }}
+      >
+        <BelkaTypography bold style={[styles.text, styles.title, styles.forgetPasswordText]}>
+          Забыли пароль?
+        </BelkaTypography>
+      </TouchableOpacity>
     </ContainerWithBackground>
   )
 })

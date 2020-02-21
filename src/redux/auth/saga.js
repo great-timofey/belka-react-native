@@ -7,13 +7,14 @@ import * as NavigationService from '@navigation/navigationService'
 import { AUTHORIZED_STACK, UNATHORIZED_STACK } from '@navigation/names'
 import { processError } from '@utils'
 
-import { setError } from '../common/actions'
+import { clearError, setError } from '../common/actions'
 
 import * as TYPES from './types'
 import { signInSuccess, signUpSuccess } from './actions'
 
 function* signInSaga({ payload }) {
   try {
+    yield clearError()
     const { data } = yield signIn(payload)
     if (data && data.token && data.user) {
       const { token, user } = data
@@ -23,12 +24,12 @@ function* signInSaga({ payload }) {
       NavigationService.navigate(AUTHORIZED_STACK)
     }
   } catch (err) {
-    console.dir(err)
-    const [status, message] = processError(err)
-    if (status === 400) {
-      yield put(setError('Неверный email или пароль'))
+    console.log(err)
+    const [status, defaultErrorMessage] = processError(err)
+    if (status === 401) {
+      yield put(setError('Неправильный логин или пароль!'))
     } else {
-      yield put(setError(message))
+      yield put(setError(defaultErrorMessage))
     }
   }
 }
@@ -44,11 +45,11 @@ function* signUpSaga({ payload }) {
       NavigationService.navigate(AUTHORIZED_STACK)
     }
   } catch (err) {
-    const [status, message] = processError(err)
+    const [status, defaultErrorMessage] = processError(err)
     if (status === 403) {
       yield put(setError('Пользователь с таким email уже существует'))
     } else {
-      yield put(setError(message))
+      yield put(setError(defaultErrorMessage))
     }
   }
 }

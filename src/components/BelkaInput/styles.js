@@ -39,16 +39,25 @@ export default StyleSheet.create({
   },
   icon: {
     width: 20,
+    height: 20,
     top: INPUT_HEIGHT / 2 - 10,
     zIndex: 2,
-    height: 20,
     position: 'absolute',
   },
   startIcon: {
     left: 20,
   },
   endIcon: {
+    top: INPUT_HEIGHT / 2 - 10,
+    zIndex: 2,
+    width: 20,
+    height: 20,
+    position: 'absolute',
     right: 20,
+  },
+  eyeIcon: {
+    width: 20,
+    height: 20,
   },
   error: {
     position: 'absolute',

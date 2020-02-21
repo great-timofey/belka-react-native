@@ -106,6 +106,8 @@ export const iconLockOn = require('../../assets/images/icon-lock-on.png')
 export const iconLockOff = require('../../assets/images/icon-lock-off.png')
 export const iconUser = require('../../assets/images/icon-user.png')
 export const iconBelkaChat = require('../../assets/images/chat-icon-game.png')
+export const iconToggleOpen = require('../../assets/images/toggle-icon-open.png')
+export const iconToggleClose = require('../../assets/images/toggle-icon-close.png')
 
 /*
 0 = spades
