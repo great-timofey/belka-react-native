@@ -22,9 +22,9 @@ export const startChannel = ({ roomId, needJoin }) => ({
 })
 export const roomAddBot = () => ({ type: TYPES.ROOM_ADD_BOT })
 export const roomAddAction = actionId => ({ type: TYPES.ROOM_ADD_ACTION, payload: actionId })
-export const createRoom = ({ name, password, bet, eggsX4, dropAce, spas30, fin120 }) => ({
+export const createRoom = ({ ...params }) => ({
   type: TYPES.CREATE_ROOM,
-  payload: { name, password, eggsX4, dropAce, spas30, bet, fin120 },
+  payload: { ...params },
 })
 export const leaveRoom = () => ({ type: TYPES.LEAVE_ROOM })
 export const resetGame = () => ({ type: TYPES.RESET_GAME })

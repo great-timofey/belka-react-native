@@ -82,3 +82,37 @@ export const NEW_GAME_ICONS = {
     },
   },
 }
+
+export const STATE_KEYS = {
+  roomName: 'roomName',
+  password: 'password',
+  bet: 'bet',
+  rank: 'rank',
+  eggsX4: 'eggsX4',
+  ace: 'ace',
+  spas30: 'spas30',
+  chat: 'chat',
+  fin120: 'fin120',
+}
+
+export const initialState = {
+  [STATE_KEYS.roomName]: '',
+  [STATE_KEYS.password]: '',
+  [STATE_KEYS.bet]: '',
+  [STATE_KEYS.rank]: 1,
+  [STATE_KEYS.eggsX4]: false,
+  [STATE_KEYS.ace]: false,
+  [STATE_KEYS.spas30]: false,
+  [STATE_KEYS.chat]: false,
+  [STATE_KEYS.fin120]: false,
+}
+
+export const validator = {
+  [STATE_KEYS.roomName]: value => value && value.length >= 3,
+  [STATE_KEYS.bet]: value => +value >= 99,
+}
+
+export const errorInitialState = {
+  [STATE_KEYS.roomName]: false,
+  [STATE_KEYS.bet]: false,
+}

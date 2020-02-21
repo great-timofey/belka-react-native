@@ -64,7 +64,7 @@ export const Form = memo(function({
         ]}
       >
         {React.Children.map(formControls, item => {
-          if (!item.props.onPress) {
+          if (!item.props.onPress && onSubmitFormHandler) {
             return React.cloneElement(item, {
               onPress: onSubmitFormHandler,
             })
