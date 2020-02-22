@@ -17,11 +17,11 @@ export default StyleSheet.create({
   },
   playerBoardContainerMy: {
     position: 'absolute',
-    alignItems: 'center',
     width: deviceWidth,
-    right: normalize(-cardWidth),
-    paddingRight: cardWidth / 3,
-    bottom: normalize(-0),
+    height: 60,
+    paddingLeft: 25 * 7,
+    flex: 1,
+    bottom: 0,
   },
   playerTimerContainerCommon: {
     position: 'absolute',

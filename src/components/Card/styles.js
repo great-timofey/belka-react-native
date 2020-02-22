@@ -55,7 +55,6 @@ export default StyleSheet.create({
   },
   myCard: {
     position: 'relative',
-    marginLeft: normalize(-cardWidth),
   },
   'card-0': {
     transform: [{ rotate: '-45deg' }, { translateY: -35 }, { translateX: -30 }],

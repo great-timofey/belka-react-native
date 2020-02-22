@@ -15,7 +15,6 @@ export const Card = memo(function({
   team,
   additionalStyles = [],
 }) {
-  //  TODO: press on full card
   if (team) {
     return (
       <ImageBackground
@@ -57,7 +56,10 @@ export const Card = memo(function({
   const cardValue = face.value.toString()
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      style={[my && { transform: [{ translateX: index * -25 }] }]}
+      onPress={onPress}
+    >
       <ImageBackground
         style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
         source={cardSuit[cardValue]}

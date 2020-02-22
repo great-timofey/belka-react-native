@@ -62,6 +62,17 @@ const joinRoom = (roomId, token) => {
   })
 }
 
+// const reconnectRoom = (roomId, sessionId, token) => {
+//   return new Promise(resolve => {
+//     client
+//       .reconnect(roomId, sessionId)
+//       .then(room => {
+//         resolve(room)
+//       })
+//       .catch(err => console.log('error while reconnecting', err) || joinRoom(roomId, token))
+//   })
+// }
+//
 function* leaveRoomWorker() {
   try {
     console.log('leaving room')
@@ -120,6 +131,7 @@ const createRoomSaga = function*({ payload }) {
     const token = yield AsyncStorage.getItem('token')
     yield fork(sendSagaWorker)
     const createdRoom = yield client.create('belka', { token, room: { ...payload } })
+    // yield AsyncStorage.setItem('sessionId', createdRoom.sessionId)
     NavigationService.navigate(PREPARATION)
     yield* socketWorker(createdRoom)
   } catch (e) {
@@ -133,7 +145,13 @@ function* joinRoomSaga({ payload }) {
     const { roomId } = payload
     const token = yield AsyncStorage.getItem('token')
     yield fork(sendSagaWorker)
+    // const existedSessionId = yield AsyncStorage.getItem('sessionId')
+    // let room
+    // if (existedSessionId) {
+    //   room = yield call(reconnectRoom, roomId, existedSessionId)
+    // } else {
     const room = yield call(joinRoom, roomId, token)
+    // }
     NavigationService.navigate(PREPARATION)
     yield* socketWorker(room)
   } catch (e) {

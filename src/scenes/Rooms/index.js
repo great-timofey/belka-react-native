@@ -60,7 +60,6 @@ export const Rooms = memo(function() {
     [client, dispatch],
   )
 
-  //  TODO: add password modal
   return (
     <ContainerWithBackground>
       <NavigationEvents
