@@ -22,15 +22,14 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
     [objects],
   )
-
   const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
-  const [showRoundResults, setShowRoundResults] = useState(false)
-  const [showGameResults, setShowGameResults] = useState(false)
-
   const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
     objects,
     boardId,
   ])
+
+  const [showRoundResults, setShowRoundResults] = useState(false)
+  const [showGameResults, setShowGameResults] = useState(false)
 
   const me = useMemo(() => {
     const clientMe = clients[sessionId]
@@ -46,7 +45,6 @@ export const GameBoard = memo(function({ onRoomLeave }) {
   const renderEnemies = useCallback(() => {
     if (players.length !== 4 || !me || !me.id) return
 
-    // return <></>
     const list = [...players]
     const index = list.findIndex(id => me.id === id)
     if (index > 0) {

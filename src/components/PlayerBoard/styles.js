@@ -19,7 +19,7 @@ export default StyleSheet.create({
     position: 'absolute',
     width: deviceWidth,
     height: 60,
-    paddingLeft: 25 * 7,
+    paddingLeft: normalize(cardWidth),
     flex: 1,
     bottom: 0,
   },
@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   playerTimerContainerMy: {
     top: -deviceHeight / 6,
-    right: cardWidth / 2,
+    right: 10,
   },
   playerTimerContainerFirst: {
     transform: [{ rotate: '90deg' }],
@@ -99,7 +99,7 @@ export default StyleSheet.create({
   },
   trumpContainerMy: {
     top: -deviceHeight / 6,
-    left: -15,
+    left: 10,
   },
   playerTrumpContainerFirst: {
     bottom: -deviceWidth / 20,
