@@ -30,6 +30,11 @@ export const squareSize = size => ({ width: size, height: size })
 export const cardWidth = normalize(182)
 export const cardHeight = normalize(269)
 
+export const hex2rgba = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16))
+  return `rgba(${r},${g},${b},${alpha})`
+}
+
 export const colors = {
   black: '#000000',
   white: '#ffffff',

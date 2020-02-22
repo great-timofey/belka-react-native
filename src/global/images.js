@@ -92,10 +92,10 @@ export const iconAceTrueGold = require('../../assets/images/icon-ace-true-gold.p
 export const iconAceTrueWhite = require('../../assets/images/icon-ace-true-white.png')
 export const iconAceFalseGold = require('../../assets/images/icon-ace-false-gold.png')
 export const iconAceFalseWhite = require('../../assets/images/icon-ace-false-white.png')
-export const iconEggX4TrueGold = require('../../assets/images/icon-egg-x4-true-gold.png')
-export const iconEggX4TrueWhite = require('../../assets/images/icon-egg-x4-true-white.png')
-export const iconEggX4FalseGold = require('../../assets/images/icon-egg-x4-false-gold.png')
-export const iconEggX4FalseWhite = require('../../assets/images/icon-egg-x4-false-white.png')
+export const iconEggX4FalseGold = require('../../assets/images/icon-egg-x4-true-gold.png')
+export const iconEggX4FalseWhite = require('../../assets/images/icon-egg-x4-true-white.png')
+export const iconEggX4TrueGold = require('../../assets/images/icon-egg-x4-false-gold.png')
+export const iconEggX4TrueWhite = require('../../assets/images/icon-egg-x4-false-white.png')
 export const icon120TrueGold = require('../../assets/images/icon-120-true-gold.png')
 export const icon120TrueWhite = require('../../assets/images/icon-120-true-white.png')
 export const icon120FalseGold = require('../../assets/images/icon-120-false-gold.png')
@@ -106,6 +106,8 @@ export const iconLockOn = require('../../assets/images/icon-lock-on.png')
 export const iconLockOff = require('../../assets/images/icon-lock-off.png')
 export const iconUser = require('../../assets/images/icon-user.png')
 export const iconBelkaChat = require('../../assets/images/chat-icon-game.png')
+export const iconToggleOpen = require('../../assets/images/toggle-icon-open.png')
+export const iconToggleClose = require('../../assets/images/toggle-icon-close.png')
 
 /*
 0 = spades

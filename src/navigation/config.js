@@ -84,7 +84,7 @@ const mainStack = createStackNavigator(
   {
     initialRouteName: SCENES_NAMES.MAIN,
     defaultNavigationOptions: {
-      headerTitle: () => <HeaderWithUserData />,
+      header: () => <HeaderWithUserData />,
       headerLeft: () => null,
     },
     navigationOptions: ({ navigation }) => ({

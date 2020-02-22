@@ -1,20 +1,15 @@
-export const FALLBACK_ERROR_MESSAGE = 'Попробуйте позднее'
+export const FALLBACK_ERROR_MESSAGE = 'Произошла неизвестная ошибка. Попробуйте позднее'
 export const FALLBACK_ERROR_CODE = 0
 
 export function processError(error) {
   if (
-    error &&
-    error.response &&
-    error.response.data &&
-    error.response.data.status &&
-    error.response.data.message
+    (error && error.response && error.response.status) ||
+    (error.response.data && error.response.data.status)
   ) {
     const {
-      response: {
-        data: { status, message },
-      },
+      response: { status },
     } = error
-    return [status, message]
+    return [status, FALLBACK_ERROR_MESSAGE]
   }
 
   return [FALLBACK_ERROR_CODE, FALLBACK_ERROR_MESSAGE]

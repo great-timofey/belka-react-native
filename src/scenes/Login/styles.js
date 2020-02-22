@@ -43,4 +43,27 @@ export default StyleSheet.create({
   buttonRegister: {
     backgroundColor: colors.semanticNegative,
   },
+  switch: {
+    marginTop: -30,
+  },
+  additionalElementsContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  error: {
+    color: colors.semanticNegative,
+    position: 'absolute',
+    bottom: -25,
+    left: 0,
+    fontSize: 15,
+  },
+  forgetPassword: {
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center',
+  },
+  forgetPasswordText: {
+    marginBottom: 0,
+    fontSize: 16,
+  },
 })

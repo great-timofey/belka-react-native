@@ -3,9 +3,10 @@ export function getInitialFormState(inputsData) {
     (acc, field) => {
       const { name, validate } = field
       acc.initialState[name] = ''
-      acc.rules.push([name, validate])
+      acc.initialErrorState[name] = false
+      acc.rules[name] = validate
       return acc
     },
-    { initialState: {}, rules: [] },
+    { initialState: {}, initialErrorState: {}, rules: {} },
   )
 }

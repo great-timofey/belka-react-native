@@ -11,7 +11,8 @@ export default StyleSheet.create({
   button: {
     height: '100%',
     width: '25%',
-    alignItems: 'center',
+    paddingLeft: 20,
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
   backImage: {

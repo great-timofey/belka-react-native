@@ -43,6 +43,16 @@ export default StyleSheet.create({
     height: 50,
   },
   buttonRegister: {
+    marginTop: 10,
     backgroundColor: colors.semanticNegative,
+  },
+  forgetPassword: {
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center',
+  },
+  forgetPasswordText: {
+    marginBottom: 0,
+    fontSize: 16,
   },
 })

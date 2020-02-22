@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useRef } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
@@ -8,73 +8,104 @@ import { colors } from '@global/styles'
 import { createRoom } from '@redux/belkaGame/actions'
 import { useCustomState } from '@hooks'
 
-import { NEW_GAME_DATA_ENTRIES, NEW_GAME_ICONS } from './constants'
+import {
+  NEW_GAME_DATA_ENTRIES,
+  NEW_GAME_ICONS,
+  errorInitialState,
+  initialState,
+  validator,
+} from './constants'
 import styles from './styles'
 
-const initialState = {
-  eggsX4: false,
-  ace: false,
-  spas30: false,
-  chat: false,
-  fin120: false,
-}
-
 export const CreateGame = memo(function() {
-  const [password, setPassword] = useState(null)
-  const [bet, setBet] = useState(null)
-  const [playersLevel, setPlayersLevel] = useState(1)
   const [state, dispatch] = useCustomState(initialState)
+  const [errorState, errorDispatch] = useCustomState(errorInitialState)
 
-  // const reduxDispatch = useDispatch()
+  const containerRef = useRef(null)
+  const reduxDispatch = useDispatch()
+
+  const validate = useCallback(
+    () =>
+      Object.keys(validator).reduce((newErrorState, validatorKey) => {
+        newErrorState[validatorKey] = !validator[validatorKey](state[validatorKey])
+        return newErrorState
+      }, {}),
+    [state],
+  )
 
   const handleCreateRoom = useCallback(() => {
-    //  TODO: update creation variables
-    // reduxDispatch(
-    console.log(
-      createRoom({
-        bet: +bet,
-        name: 'test',
-        password: null,
-        eggsX4: state.eggsX4,
-        dropAce: state.ace,
-        spas30: state.spas30,
-        fin120: state.fin120,
-      }),
-    )
-    // )
-  }, [state, bet])
+    const newErrorState = validate()
+    if (!Object.values(newErrorState).find(error => error)) {
+      errorDispatch(errorInitialState)
+      reduxDispatch(
+        createRoom({
+          bet: +state.bet,
+          rank: state.rank,
+          name: state.roomName,
+          password: state.password,
+          eggsX4: state.eggsX4,
+          dropAce: state.ace,
+          spas30: state.spas30,
+          fin120: state.fin120,
+        }),
+      )
+    } else {
+      if (containerRef && containerRef.current) {
+        containerRef.current.scrollTo({ y: 0 })
+      }
+      errorDispatch(newErrorState)
+    }
+  }, [reduxDispatch, errorDispatch, containerRef, state, validate])
 
-  //  TODO: add name input
   return (
     <ContainerWithBackground additionalStyles={[styles.wrapper]}>
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 20 }}>
+      <ScrollView
+        ref={containerRef}
+        style={styles.container}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         <BelkaInput
           containerAdditionalStyles={[styles.input]}
-          onChangeText={setPassword}
-          placeholder="Введите пароль для игры"
-          value={password}
-          endIcon={iconLockOff}
+          onChangeText={value => dispatch({ roomName: value })}
+          placeholder="Название игры"
+          value={state.roomName}
+          error={errorState.roomName}
+          errorText="Минимальное количество символов: 3"
           inputAdditionalProps={{
             autoCompleteType: 'off',
           }}
         />
         <BelkaInput
           containerAdditionalStyles={[styles.input]}
-          onChangeText={setBet}
-          placeholder="Сумма ставки"
-          value={bet}
+          onChangeText={value => dispatch({ password: value })}
+          placeholder="Введите пароль для игры"
+          value={state.password}
+          endIcon={iconLockOff}
           inputAdditionalProps={{
-            placeholderTextColor: colors.semanticNegative,
+            autoCompleteType: 'off',
+            secureTextEntry: true,
           }}
         />
-        <Text style={styles.playersLevel}>Уровень игроков: {playersLevel}</Text>
+        <BelkaInput
+          containerAdditionalStyles={[styles.input]}
+          onChangeText={value => dispatch({ bet: value })}
+          placeholder="Сумма ставки"
+          value={state.bet}
+          error={errorState.bet}
+          errorText="Минимальная сумма: 99 тенге"
+          inputAdditionalProps={{
+            autoCompleteType: 'off',
+            keyboardType: 'number-pad',
+          }}
+        />
+        <Text style={styles.playersLevel}>Уровень игроков: {state.rank}</Text>
         <Slider
           style={styles.slider}
           minimumValue={1}
-          initialValue={playersLevel}
           maximumValue={100}
+          initialValue={state.rank}
           step={1}
-          onValueChange={setPlayersLevel}
+          onValueChange={value => dispatch({ rank: value })}
           minimumTrackTintColor="#25272d"
           maximumTrackTintColor="#25272d"
           thumbTintColor={colors.semanticPrimary}

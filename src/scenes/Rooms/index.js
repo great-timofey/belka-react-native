@@ -31,7 +31,7 @@ export const Rooms = memo(function() {
 
     async function getRooms() {
       const newRooms = await client.getAvailableRooms()
-      if (newRooms && newRooms.length) {
+      if (newRooms) {
         setRooms(newRooms)
       }
     }

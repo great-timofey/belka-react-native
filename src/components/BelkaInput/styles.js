@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, fonts } from '@global/styles'
+import { colors, fonts, hex2rgba } from '@global/styles'
 
 const INPUT_HEIGHT = 40
 
@@ -9,10 +9,13 @@ export default StyleSheet.create({
     width: '100%',
     height: INPUT_HEIGHT,
   },
+  containerError: {
+    marginBottom: 20,
+  },
   gradient: {
     width: '100%',
     height: INPUT_HEIGHT,
-    borderRadius: 15,
+    borderRadius: 17,
   },
   input: {
     height: INPUT_HEIGHT,
@@ -20,9 +23,13 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     fontSize: 14,
-    borderRadius: 15,
+    borderRadius: 17,
     fontFamily: fonts.ptsans.regular,
     fontWeight: '400',
+  },
+  inputError: {
+    borderWidth: 1,
+    borderColor: hex2rgba(colors.semanticNegative, 0.5),
   },
   inputWithStartIcon: {
     paddingLeft: 65,
@@ -32,15 +39,34 @@ export default StyleSheet.create({
   },
   icon: {
     width: 20,
+    height: 20,
     top: INPUT_HEIGHT / 2 - 10,
     zIndex: 2,
-    height: 20,
     position: 'absolute',
   },
   startIcon: {
     left: 20,
   },
   endIcon: {
+    top: INPUT_HEIGHT / 2 - 10,
+    zIndex: 2,
+    width: 20,
+    height: 20,
+    position: 'absolute',
     right: 20,
+  },
+  eyeIcon: {
+    width: 20,
+    height: 20,
+  },
+  error: {
+    position: 'absolute',
+    bottom: -15,
+    left: 20,
+  },
+  errorText: {
+    fontFamily: fonts.ptsans.regular,
+    color: colors.semanticNegative,
+    fontSize: 11,
   },
 })
