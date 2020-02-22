@@ -12,10 +12,13 @@ import { Card } from '../Card'
 import styles from './styles'
 
 export const PlayerBoard = memo(function({ player, my, index }) {
-  const { actions, hand, objects } = useSelector(state => state.belkaGame)
+  const { actions, hand, objects, clients } = useSelector(state => state.belkaGame)
   const dispatch = useDispatch()
 
-  const timer = useMemo(() => objects[player.timerId], [player, objects])
+  const timer = useMemo(() => player && player.timerId && objects[player.timerId], [
+    player,
+    objects,
+  ])
 
   const handlePlayCard = useCallback(
     cardId => () => {
@@ -36,6 +39,14 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       <Card index={i} data={card} key={`${card.id}`} my={my} onPress={handlePlayCard(card.id)} />
     ))
   }, [hand, my, objects, player, handlePlayCard])
+
+  const playerClient = useMemo(
+    () =>
+      Object.values(clients).find(
+        client => client && client.objectId && client.objectId === player.id,
+      ),
+    [clients, player],
+  )
 
   return (
     <View style={[styles.playerBoardContainer, my && styles.playerBoardContainerMy]}>
@@ -59,7 +70,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       )}
       {!my && (
         <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer${index}`]]}>
-          <Text style={styles.commonTextStyles}>{player.name}</Text>
+          <Text style={styles.commonTextStyles}>{(playerClient && playerClient.name) || ''}</Text>
         </View>
       )}
       {player.suit >= 0 && (

@@ -53,9 +53,9 @@ export const GameOverModal = memo(function({ open, me, closeCallback }) {
 
   const currentPlayerIsWinner = useMemo(() => {
     if (!team1Players) return
-    const playerInFirstTeam = team1Players.find(player => player.id === me.id)
+    const playerInFirstTeam = team1Players.find(player => player.id === me.objectId)
     return playerInFirstTeam ? team1Score > team2Score : team2Score > team1Score
-  }, [team1Players, team1Score, team2Score, me.id])
+  }, [team1Players, team1Score, team2Score, me.objectId])
 
   const sum = useMemo(() => 24000, [])
 

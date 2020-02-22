@@ -15,6 +15,7 @@ export const Room = memo(function(props) {
 
   const handlePress = useCallback(() => onPress(roomId), [onPress, roomId])
 
+  //  TODO: update icons view
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <LinearGradient {...gradients.baseCard} style={styles.gradient}>

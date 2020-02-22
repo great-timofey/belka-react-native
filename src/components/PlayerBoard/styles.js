@@ -33,7 +33,7 @@ export default StyleSheet.create({
     right: cardWidth / 2,
   },
   playerTimerContainerFirst: {
-    transform: [{ rotate: '-90deg' }],
+    transform: [{ rotate: '90deg' }],
     right: -deviceWidth * 0.16,
   },
   playerTimerContainerSecond: {

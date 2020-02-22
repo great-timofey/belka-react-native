@@ -22,7 +22,7 @@ import styles from './styles'
 export const GamePreparation = memo(function() {
   const dispatch = useDispatch()
   const { navigate } = useNavigation()
-  const { objects } = useSelector(state => state.belkaGame)
+  const { objects, clients } = useSelector(state => state.belkaGame)
 
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
@@ -34,14 +34,16 @@ export const GamePreparation = memo(function() {
     [objects, boardId],
   )
 
-  const players = useMemo(
-    () => Object.values(objects).filter(gameObject => gameObject.type === 'BelkaPlayer'),
-    [objects],
-  )
-
   const handleLeaveRoom = useCallback(() => {
     dispatch(leaveRoom())
   }, [dispatch])
+
+  const roomRank = useMemo(
+    () =>
+      clients &&
+      Object.values(clients).reduce((acc, client) => acc + ((client && client.rank) || 0), 0),
+    [clients],
+  )
 
   useBackHandler(handleLeaveRoom)
 
@@ -74,7 +76,7 @@ export const GamePreparation = memo(function() {
           </View>
           <View style={styles.textContainer}>
             <BelkaTypography bold style={[styles.text]}>
-              Ранг комнаты: {80}
+              Ранг комнаты: {roomRank || 0}
             </BelkaTypography>
             <BelkaTypography bold style={[styles.text]}>
               Общая сумма: {10000}
@@ -82,9 +84,14 @@ export const GamePreparation = memo(function() {
           </View>
         </BelkaCard>
         <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
-          {players.map(player => (
-            <PlayerPreparation key={player.id} name={player.name} ready={player.connected} />
-          ))}
+          {clients &&
+            Object.values(clients).map(player => (
+              <PlayerPreparation
+                key={player.objectId}
+                name={player.name}
+                ready={player.connected}
+              />
+            ))}
         </BelkaCard>
         <BelkaButton
           title="Выход"

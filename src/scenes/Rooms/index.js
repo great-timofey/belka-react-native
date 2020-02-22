@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState, useEffect } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
 import { useDispatch } from 'react-redux'
@@ -88,11 +88,7 @@ export const Rooms = memo(function() {
           activeTabIndex={activeTab}
         />
         <>
-          {rooms.length ? (
-            <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
-          ) : (
-            <Text>No rooms available</Text>
-          )}
+          <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
           <BelkaButton
             additionalStyles={[styles.createRoom]}
             title="Создать игру"
