@@ -17,11 +17,11 @@ export default StyleSheet.create({
   },
   playerBoardContainerMy: {
     position: 'absolute',
-    alignItems: 'center',
     width: deviceWidth,
-    right: normalize(-cardWidth),
-    paddingRight: cardWidth / 3,
-    bottom: normalize(-0),
+    height: 60,
+    paddingLeft: normalize(cardWidth),
+    flex: 1,
+    bottom: 0,
   },
   playerTimerContainerCommon: {
     position: 'absolute',
@@ -30,10 +30,10 @@ export default StyleSheet.create({
   },
   playerTimerContainerMy: {
     top: -deviceHeight / 6,
-    right: cardWidth / 2,
+    right: 10,
   },
   playerTimerContainerFirst: {
-    transform: [{ rotate: '-90deg' }],
+    transform: [{ rotate: '90deg' }],
     right: -deviceWidth * 0.16,
   },
   playerTimerContainerSecond: {
@@ -99,7 +99,7 @@ export default StyleSheet.create({
   },
   trumpContainerMy: {
     top: -deviceHeight / 6,
-    left: -15,
+    left: 10,
   },
   playerTrumpContainerFirst: {
     bottom: -deviceWidth / 20,

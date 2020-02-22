@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState, useEffect } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation'
 import { useDispatch } from 'react-redux'
@@ -20,8 +20,8 @@ import { ROOMS_GAMES_TYPES } from './constants'
 
 export const Rooms = memo(function() {
   const client = useColyseusClient()
-  const { navigate } = useNavigation()
-  const dispatch = useDispatch()
+  const { navigate, dispatch } = useNavigation()
+  const reduxDispatch = useDispatch()
 
   const [activeTab, setActiveTab] = useState(0)
   const [rooms, setRooms] = useState([])
@@ -55,17 +55,15 @@ export const Rooms = memo(function() {
     roomId => {
       if (!client) return
 
-      dispatch(joinRoom({ roomId }))
+      reduxDispatch(joinRoom({ roomId }))
     },
-    [client, dispatch],
+    [client, reduxDispatch],
   )
 
-  //  TODO: add password modal
   return (
     <ContainerWithBackground>
       <NavigationEvents
         onDidBlur={payload => {
-          //  TODO: stack doesn't reset anymore
           const route = payload.action.routeName
           const otherStacks = [RATINGS_STACK, SETTINGS_STACK, CHAT_STACK, SHOP_STACK]
 
@@ -88,11 +86,7 @@ export const Rooms = memo(function() {
           activeTabIndex={activeTab}
         />
         <>
-          {rooms.length ? (
-            <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
-          ) : (
-            <Text>No rooms available</Text>
-          )}
+          <RoomsList onItemPress={onJoinRoom} rooms={rooms} />
           <BelkaButton
             additionalStyles={[styles.createRoom]}
             title="Создать игру"

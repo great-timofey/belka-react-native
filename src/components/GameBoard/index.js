@@ -13,7 +13,7 @@ import { Card } from '../Card'
 import { GameOverModal } from '../GameOverModal'
 
 import styles from './styles'
-import { getPlayersDataForGameBoard } from './utils'
+import { sortPlayersDataForGameBoard } from './utils'
 
 export const GameBoard = memo(function({ onRoomLeave }) {
   const { players, objects, clients } = useSelector(state => state.belkaGame)
@@ -22,40 +22,38 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
     [objects],
   )
-
   const board = useMemo(() => boardId && objects[boardId], [objects, boardId])
-  const [showRoundResults, setShowRoundResults] = useState(false)
-  const [showGameResults, setShowGameResults] = useState(false)
-
   const boardScene = useMemo(() => boardId && objects[boardId].scene && objects[boardId].scene, [
     objects,
     boardId,
   ])
 
-  const me = useMemo(() => (clients[sessionId] && objects[clients[sessionId]]) || {}, [
-    clients,
-    sessionId,
-    objects,
-  ])
+  const [showRoundResults, setShowRoundResults] = useState(false)
+  const [showGameResults, setShowGameResults] = useState(false)
+
+  const me = useMemo(() => {
+    const clientMe = clients[sessionId]
+    if (clientMe && clientMe.objectId) {
+      const myId = clients[sessionId].objectId
+      return objects[myId]
+    }
+  }, [clients, sessionId, objects])
 
   const team1 = useMemo(() => (board && objects[board.team1Id]) || {}, [board, objects])
   const team2 = useMemo(() => (board && objects[board.team2Id]) || {}, [board, objects])
 
   const renderEnemies = useCallback(() => {
-    let playersList
+    if (players.length !== 4 || !me || !me.id) return
 
-    if (players.length === 4) {
-      const list = [...players]
-      const index = list.findIndex(id => me.id === id)
-      if (index > 0) {
-        list.push(...list.splice(0, index))
-      }
-      playersList = list.map(id => objects[id])
-    } else {
-      playersList = Object.values(clients).map(id => objects[id])
+    const list = [...players]
+    const index = list.findIndex(id => me.id === id)
+    if (index > 0) {
+      list.push(...list.splice(0, index))
     }
 
-    const { enemies, enemiesMap } = getPlayersDataForGameBoard({ playersList, me })
+    const playersList = list.map(id => objects[id])
+
+    const { enemies, enemiesMap } = sortPlayersDataForGameBoard({ playersList, me })
 
     return enemies.map(player => {
       const localIndex = enemiesMap[player.id]
@@ -68,7 +66,7 @@ export const GameBoard = memo(function({ onRoomLeave }) {
         </Fragment>
       )
     })
-  }, [clients, me, objects, players])
+  }, [me, objects, players])
 
   useEffect(() => {
     const roundEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_ROUND
@@ -93,9 +91,9 @@ export const GameBoard = memo(function({ onRoomLeave }) {
       {renderEnemies()}
       <>
         <View style={[styles.myPlayerContainer]}>
-          <PlayerBoard my key={`${me.id}-board`} player={me} />
+          <PlayerBoard my player={me} />
         </View>
-        <PlayerCard key={`${me.id}-card`} player={me} />
+        <PlayerCard player={me} />
       </>
       {showRoundResults && (
         <View style={styles.roundResultsContainer}>

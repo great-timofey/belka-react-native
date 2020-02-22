@@ -12,10 +12,13 @@ import { Card } from '../Card'
 import styles from './styles'
 
 export const PlayerBoard = memo(function({ player, my, index }) {
-  const { actions, hand, objects } = useSelector(state => state.belkaGame)
+  const { actions, hand, objects, clients } = useSelector(state => state.belkaGame)
   const dispatch = useDispatch()
 
-  const timer = useMemo(() => objects[player.timerId], [player, objects])
+  const timer = useMemo(() => player && player.timerId && objects[player.timerId], [
+    player,
+    objects,
+  ])
 
   const handlePlayCard = useCallback(
     cardId => () => {
@@ -28,7 +31,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
   )
 
   const renderPlayerCards = useCallback(() => {
-    if (!player.handId) return []
+    if (!player || !player.handId) return []
     let playerHand = objects[player.handId].items.map(id => objects[id]) || []
     playerHand = my ? playerHand.map(card => hand[card.id]) : playerHand
 
@@ -36,6 +39,16 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       <Card index={i} data={card} key={`${card.id}`} my={my} onPress={handlePlayCard(card.id)} />
     ))
   }, [hand, my, objects, player, handlePlayCard])
+
+  const playerClient = useMemo(
+    () =>
+      player &&
+      player.id &&
+      Object.values(clients).find(
+        client => client && client.objectId && client.objectId === player.id,
+      ),
+    [clients, player],
+  )
 
   return (
     <View style={[styles.playerBoardContainer, my && styles.playerBoardContainerMy]}>
@@ -51,7 +64,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
             color={colors.semanticHighlight}
             thickness={1}
             textStyle={{ fontSize: 20, color: 'white' }}
-            formatText={progress => `${Math.round((progress * 1000) / 30)}`}
+            formatText={progress => `${Math.round((progress * 1000) / 33.3)}`}
             progress={(30 / 100 / 10) * timer.value || 0}
             showsText
           />
@@ -59,10 +72,10 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       )}
       {!my && (
         <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer${index}`]]}>
-          <Text style={styles.commonTextStyles}>{player.name}</Text>
+          <Text style={styles.commonTextStyles}>{(playerClient && playerClient.name) || ''}</Text>
         </View>
       )}
-      {player.suit >= 0 && (
+      {player && player.suit && player.suit >= 0 && (
         <View
           style={[
             styles.trumpContainer,

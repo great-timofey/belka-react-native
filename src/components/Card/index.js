@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { Image, Text, ImageBackground, View, TouchableOpacity } from 'react-native'
 
 import { cards, roundResultsBlack, roundResultsRed } from '@global/images'
+import { cardWidth, normalize } from '@global/styles'
 
 import styles from './styles'
 
@@ -15,7 +16,6 @@ export const Card = memo(function({
   team,
   additionalStyles = [],
 }) {
-  //  TODO: press on full card
   if (team) {
     return (
       <ImageBackground
@@ -57,7 +57,7 @@ export const Card = memo(function({
   const cardValue = face.value.toString()
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={[my && { marginLeft: -normalize(cardWidth) }]} onPress={onPress}>
       <ImageBackground
         style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
         source={cardSuit[cardValue]}
