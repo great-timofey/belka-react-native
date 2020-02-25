@@ -14,6 +14,7 @@ export default StyleSheet.create({
   playerBoardContainer: {
     width: deviceWidth / 3,
     height: 50,
+    alignItems: 'center',
   },
   playerBoardContainerMy: {
     position: 'absolute',
@@ -79,6 +80,12 @@ export default StyleSheet.create({
     marginTop: 20,
     transform: [{ rotate: '180deg' }],
   },
+  playerCardsContainer3: {
+    transform: [{ rotate: '170deg' }],
+  },
+  playerCardsContainer2: {
+    transform: [{ rotate: '170deg' }],
+  },
   playerCardsContainerSecond: {
     marginTop: 20,
     transform: [{ rotate: '180deg' }],
@@ -118,5 +125,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
     transform: [{ rotate: '-90deg' }],
     ...squareSize(normalize(90)),
+  },
+  cardAlone: {
+    transform: [{ translateY: -30 }, { translateX: 0 }],
   },
 })

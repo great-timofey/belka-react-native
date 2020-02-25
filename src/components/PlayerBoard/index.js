@@ -12,6 +12,17 @@ import { Card } from '../Card'
 
 import styles from './styles'
 
+const CARD_OFFSETS = new Map([
+  [1, 3],
+  [2, 3],
+  [3, 3],
+  [4, 2],
+  [5, 1],
+  [6, 1],
+  [7, 0],
+  [8, 0],
+])
+
 export const PlayerBoard = memo(function({ player, my, index }) {
   const { actions, hand, objects, clients } = useSelector(state => state.belkaGame)
   const [timerValue, setTimerValue] = useState(null)
@@ -25,8 +36,6 @@ export const PlayerBoard = memo(function({ player, my, index }) {
   useEffect(() => {
     if (timer && timer > -1) {
       setTimerValue(timer)
-    } else if (!timer || timer === -1) {
-      setTimerValue(null)
     }
   }, [timer])
 
@@ -35,10 +44,25 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       setTimerValue(timerValue - 1)
     }
 
-    if (timerValue === 0) {
+    if (timerValue === 0 || !timer || timer === -1) {
       setTimerValue(null)
     }
   })
+
+  const playerClient = useMemo(
+    () =>
+      player &&
+      player.id &&
+      Object.values(clients).find(
+        client => client && client.objectId && client.objectId === player.id,
+      ),
+    [clients, player],
+  )
+
+  const playerCardsLength = useMemo(() => {
+    if (!player || !player.handId) return
+    return objects[player.handId].items.length
+  }, [player, objects])
 
   const handlePlayCard = useCallback(
     cardId => () => {
@@ -55,20 +79,19 @@ export const PlayerBoard = memo(function({ player, my, index }) {
     let playerHand = objects[player.handId].items.map(id => objects[id]) || []
     playerHand = my ? playerHand.map(card => hand[card.id]) : playerHand
 
-    return playerHand.map((card, i) => (
-      <Card index={i} data={card} key={`${card.id}`} my={my} onPress={handlePlayCard(card.id)} />
-    ))
-  }, [hand, my, objects, player, handlePlayCard])
+    const offset = CARD_OFFSETS.get(playerCardsLength)
 
-  const playerClient = useMemo(
-    () =>
-      player &&
-      player.id &&
-      Object.values(clients).find(
-        client => client && client.objectId && client.objectId === player.id,
-      ),
-    [clients, player],
-  )
+    return playerHand.map((card, i) => (
+      <Card
+        index={i + offset}
+        data={card}
+        key={`${card.id}`}
+        my={my}
+        additionalStyles={[playerCardsLength === 1 && !my && styles.cardAlone]}
+        onPress={handlePlayCard(card.id)}
+      />
+    ))
+  }, [hand, my, objects, player, handlePlayCard, playerCardsLength])
 
   return (
     <View style={[styles.playerBoardContainer, my && styles.playerBoardContainerMy]}>
@@ -105,7 +128,13 @@ export const PlayerBoard = memo(function({ player, my, index }) {
           <Text style={styles.commonTextStyles}>{getSuitCode(player.suit)}</Text>
         </View>
       )}
-      <View style={[styles.playerCardsContainer, styles[`playerCardsContainer${index}`]]}>
+      <View
+        style={[
+          styles.playerCardsContainer,
+          styles[`playerCardsContainer${index}`],
+          !my && styles[`playerCardsContainer${playerCardsLength}`],
+        ]}
+      >
         {renderPlayerCards()}
       </View>
     </View>
