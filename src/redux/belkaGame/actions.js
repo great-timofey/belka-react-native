@@ -1,7 +1,7 @@
 import * as TYPES from './types'
 
 export const initRoom = room => ({ type: TYPES.INIT_ROOM, payload: room })
-export const joinRoom = ({ roomId }) => ({ type: TYPES.JOIN_ROOM, payload: { roomId } })
+export const joinRoom = ({ roomId, bet }) => ({ type: TYPES.JOIN_ROOM, payload: { roomId, bet } })
 export const setMessageObject = object => ({ type: TYPES.SET_MESSAGE_OBJECT, payload: object })
 export const setMessageActions = actions => ({ type: TYPES.SET_MESSAGE_ACTIONS, payload: actions })
 export const addObject = object => ({ type: TYPES.ADD_OBJECT, payload: object })

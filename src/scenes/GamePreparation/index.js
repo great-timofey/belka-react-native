@@ -23,6 +23,7 @@ export const GamePreparation = memo(function() {
   const dispatch = useDispatch()
   const { navigate } = useNavigation()
   const { objects, clients } = useSelector(state => state.belkaGame)
+  const { bet } = useSelector(state => state.common)
 
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
@@ -79,7 +80,7 @@ export const GamePreparation = memo(function() {
               Ранг комнаты: {roomRank || 0}
             </BelkaTypography>
             <BelkaTypography bold style={[styles.text]}>
-              Общая сумма: {10000}
+              Общая сумма: {bet ? bet * 4 : 0}
             </BelkaTypography>
           </View>
         </BelkaCard>

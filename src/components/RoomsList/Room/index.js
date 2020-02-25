@@ -13,7 +13,11 @@ const iconsProps = ['fin120', 'eggsX4', 'spas30', 'dropAce']
 export const Room = memo(function(props) {
   const { locked, clientsData, name, roomId, onPress, options } = props
 
-  const handlePress = useCallback(() => onPress(roomId), [onPress, roomId])
+  const handlePress = useCallback(() => onPress({ roomId, bet: options.bet }), [
+    onPress,
+    options,
+    roomId,
+  ])
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>

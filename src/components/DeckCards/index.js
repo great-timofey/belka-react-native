@@ -8,6 +8,7 @@ import styles from './styles'
 
 export const DeckCards = memo(function() {
   const { objects } = useSelector(state => state.belkaGame)
+  const { bet } = useSelector(state => state.common)
 
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
@@ -26,7 +27,7 @@ export const DeckCards = memo(function() {
   return (
     <>
       <View style={styles.bank}>
-        <Text style={styles.bankText}>Банк: 2000</Text>
+        <Text style={styles.bankText}>Банк: {bet ? bet * 4 : 0}</Text>
       </View>
       <View style={styles.deck}>
         {deck.map((card, index) => (

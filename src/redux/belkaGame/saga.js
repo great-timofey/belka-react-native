@@ -6,6 +6,7 @@ import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
 
 import * as NavigationService from '@navigation/navigationService'
 import { PREPARATION, ROOMS } from '@navigation/names'
+import { setBet } from '@redux/common/actions'
 
 import * as TYPES from './types'
 import {
@@ -128,7 +129,9 @@ const sendSagaWorker = function*() {
 
 const createRoomSaga = function*({ payload }) {
   try {
+    const { bet } = payload
     const token = yield AsyncStorage.getItem('token')
+    yield put(setBet(bet))
     yield fork(sendSagaWorker)
     const createdRoom = yield client.create('belka', { token, room: { ...payload } })
     // yield AsyncStorage.setItem('sessionId', createdRoom.sessionId)
@@ -142,8 +145,9 @@ const createRoomSaga = function*({ payload }) {
 
 function* joinRoomSaga({ payload }) {
   try {
-    const { roomId } = payload
+    const { roomId, bet } = payload
     const token = yield AsyncStorage.getItem('token')
+    yield put(setBet(bet))
     yield fork(sendSagaWorker)
     // const existedSessionId = yield AsyncStorage.getItem('sessionId')
     // let room
