@@ -55,14 +55,14 @@ export const GameBoard = memo(function({ onRoomLeave }) {
 
     const { enemies, enemiesMap } = sortPlayersDataForGameBoard({ playersList, me })
 
-    return enemies.map(player => {
-      const localIndex = enemiesMap[player.id]
+    return enemies.map(enemy => {
+      const localIndex = enemiesMap[enemy.id]
       return (
         <Fragment key={`${localIndex}-fragment`}>
           <Player key={`${localIndex}-view`} index={localIndex}>
-            <PlayerBoard index={localIndex} key={`${player.id}-board`} player={player} />
+            <PlayerBoard index={localIndex} key={`${enemy.id}-board`} player={enemy} />
           </Player>
-          <PlayerCard index={localIndex} key={`${localIndex}-card`} player={player} />
+          <PlayerCard index={localIndex} key={`${localIndex}-card`} player={enemy} />
         </Fragment>
       )
     })
