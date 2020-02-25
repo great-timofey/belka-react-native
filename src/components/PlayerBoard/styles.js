@@ -54,7 +54,7 @@ export default StyleSheet.create({
   playerNameContainerCommon: {
     backgroundColor: 'black',
     width: '100%',
-    height: 40,
+    height: normalize(90),
     zIndex: 20,
     borderWidth: 1,
     alignItems: 'center',
@@ -66,7 +66,7 @@ export default StyleSheet.create({
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
-    fontSize: 20,
+    fontSize: 18,
     zIndex: 20,
     color: 'white',
   },
