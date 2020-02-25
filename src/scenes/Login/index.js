@@ -25,6 +25,7 @@ export const Login = memo(function() {
   const reduxDispatch = useDispatch()
   const { navigate } = useNavigation()
   const { error } = useSelector(state => state.common)
+  const [loading, setLoading] = useState(false)
 
   const passwordRef = useRef(null)
   const mailRef = useRef(null)
@@ -39,6 +40,7 @@ export const Login = memo(function() {
 
   const onSubmit = useCallback(
     signInData => {
+      setLoading(true)
       reduxDispatch(signIn(signInData))
     },
     [reduxDispatch],
@@ -81,12 +83,13 @@ export const Login = memo(function() {
         }
         formControls={[
           <BelkaButton
+            loading={loading}
             additionalStyles={[styles.button, styles.buttonRegister]}
             onPress={onSignUpRequest}
             appearance="Negative"
             title="Регистрация"
           />,
-          <BelkaButton additionalStyles={[styles.button]} title="Войти" />,
+          <BelkaButton loading={loading} additionalStyles={[styles.button]} title="Войти" />,
         ]}
       />
 

@@ -30,22 +30,22 @@ export default StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
   iconForeground: {
     right: -5,
   },
   iconBackground: {
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     alignSelf: 'center',
     position: 'absolute',
   },
   description: {
     fontFamily: fonts.ptsans.regular,
     color: colors.white,
-    fontSize: 15,
+    fontSize: 12,
     marginBottom: 3,
     width: '60%',
   },

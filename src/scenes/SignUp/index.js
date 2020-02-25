@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react'
+import React, { memo, useState, useCallback, useMemo, useRef } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from 'react-navigation-hooks'
@@ -19,6 +19,7 @@ export const SignUp = memo(function() {
   const reduxDispatch = useDispatch()
   const { navigate } = useNavigation()
   const { error } = useSelector(state => state.common)
+  const [loading, setLoading] = useState(false)
 
   const loginRef = useRef(null)
   const mailRef = useRef(null)
@@ -32,6 +33,7 @@ export const SignUp = memo(function() {
 
   const onSubmit = useCallback(
     signUpData => {
+      setLoading(true)
       reduxDispatch(signUp(signUpData))
     },
     [reduxDispatch],
@@ -55,6 +57,7 @@ export const SignUp = memo(function() {
         onSubmit={onSubmit}
         formControls={[
           <BelkaButton
+            loading={loading}
             additionalStyles={[styles.button, styles.buttonRegister]}
             title="Зарегистрироваться"
           />,

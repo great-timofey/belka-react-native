@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef } from 'react'
+import React, { memo, useState, useCallback, useRef } from 'react'
 import { Text, Slider, View, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 
@@ -20,6 +20,7 @@ import styles from './styles'
 export const CreateGame = memo(function() {
   const [state, dispatch] = useCustomState(initialState)
   const [errorState, errorDispatch] = useCustomState(errorInitialState)
+  const [loading, setLoading] = useState(false)
 
   const containerRef = useRef(null)
   const reduxDispatch = useDispatch()
@@ -35,6 +36,8 @@ export const CreateGame = memo(function() {
 
   const handleCreateRoom = useCallback(() => {
     const newErrorState = validate()
+    setLoading(true)
+
     if (!Object.values(newErrorState).find(error => error)) {
       errorDispatch(errorInitialState)
       reduxDispatch(
@@ -54,6 +57,7 @@ export const CreateGame = memo(function() {
         containerRef.current.scrollTo({ y: 0 })
       }
       errorDispatch(newErrorState)
+      setLoading(false)
     }
   }, [reduxDispatch, errorDispatch, containerRef, state, validate])
 
@@ -102,7 +106,7 @@ export const CreateGame = memo(function() {
         <Slider
           style={styles.slider}
           minimumValue={1}
-          maximumValue={100}
+          maximumValue={10}
           initialValue={state.rank}
           step={1}
           onValueChange={value => dispatch({ rank: value })}
@@ -130,6 +134,7 @@ export const CreateGame = memo(function() {
           additionalStyles={[styles.createGame]}
           title="Создать игру"
           onPress={handleCreateRoom}
+          loading={loading}
         />
       </ScrollView>
     </ContainerWithBackground>
