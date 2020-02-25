@@ -31,17 +31,11 @@ export const Login = memo(function() {
 
   const refs = useMemo(() => [mailRef, passwordRef], [mailRef, passwordRef])
 
-  const [minifyImage, setMinifyImage] = useState(false)
   const [rememberPassword, setRememberPassword] = useState(false)
 
   const onFocus = useCallback(() => {
     if (error) reduxDispatch(clearError())
-    setMinifyImage(true)
   }, [reduxDispatch, error])
-
-  const onUnfocus = useCallback(() => {
-    setMinifyImage(false)
-  }, [])
 
   const onSubmit = useCallback(
     signInData => {
@@ -60,7 +54,7 @@ export const Login = memo(function() {
 
   return (
     <ContainerWithBackground needPersistTaps size="full" additionalStyles={[styles.container]}>
-      <Image source={bootsplashLogo} style={[styles.logo, minifyImage && styles.logoSmall]} />
+      <Image source={bootsplashLogo} resizeMode="contain" style={[styles.logo]} />
 
       <BelkaTypography bold style={[styles.text, styles.title]}>
         Вход
@@ -69,7 +63,6 @@ export const Login = memo(function() {
       <Form
         inputs={inputsData}
         onFocus={onFocus}
-        onUnfocus={onUnfocus}
         refs={refs}
         validationRules={formState.rules}
         initialState={formState.initialState}
