@@ -52,10 +52,10 @@ export const Rooms = memo(function() {
   }, [updateRooms])
 
   const onJoinRoom = useCallback(
-    roomId => {
+    (roomId, bet) => {
       if (!client) return
 
-      reduxDispatch(joinRoom({ roomId }))
+      reduxDispatch(joinRoom({ roomId, bet }))
     },
     [client, reduxDispatch],
   )

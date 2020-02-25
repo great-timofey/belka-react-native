@@ -48,7 +48,10 @@ export const Card = memo(function({
 
   if (!(face.value || data.side === 'face')) {
     return (
-      <Image style={[styles.card, styles[`card-${index}`], styles.cover]} source={cards.cover} />
+      <Image
+        style={[styles.card, styles[`card-${index}`], styles.cover, ...additionalStyles]}
+        source={cards.cover}
+      />
     )
   }
 

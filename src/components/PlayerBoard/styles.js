@@ -14,6 +14,7 @@ export default StyleSheet.create({
   playerBoardContainer: {
     width: deviceWidth / 3,
     height: 50,
+    alignItems: 'center',
   },
   playerBoardContainerMy: {
     position: 'absolute',
@@ -53,7 +54,7 @@ export default StyleSheet.create({
   playerNameContainerCommon: {
     backgroundColor: 'black',
     width: '100%',
-    height: 40,
+    height: normalize(90),
     zIndex: 20,
     borderWidth: 1,
     alignItems: 'center',
@@ -65,7 +66,7 @@ export default StyleSheet.create({
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
-    fontSize: 20,
+    fontSize: 18,
     zIndex: 20,
     color: 'white',
   },
@@ -78,6 +79,12 @@ export default StyleSheet.create({
   playerCardsContainerFirst: {
     marginTop: 20,
     transform: [{ rotate: '180deg' }],
+  },
+  playerCardsContainer3: {
+    transform: [{ rotate: '170deg' }],
+  },
+  playerCardsContainer2: {
+    transform: [{ rotate: '170deg' }],
   },
   playerCardsContainerSecond: {
     marginTop: 20,
@@ -118,5 +125,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
     transform: [{ rotate: '-90deg' }],
     ...squareSize(normalize(90)),
+  },
+  cardAlone: {
+    transform: [{ translateY: -30 }, { translateX: 0 }],
   },
 })

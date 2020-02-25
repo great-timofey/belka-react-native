@@ -11,7 +11,7 @@ export default StyleSheet.create({
   button: {
     height: '100%',
     width: '25%',
-    paddingLeft: 20,
+    paddingLeft: 10,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
@@ -24,7 +24,6 @@ export default StyleSheet.create({
     fontSize: 20,
     position: 'absolute',
     alignSelf: 'center',
-    // left: deviceWidth / 2 - 45,
     color: colors.white,
   },
 })

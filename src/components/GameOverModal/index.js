@@ -11,6 +11,7 @@ import styles from './styles'
 
 export const GameOverModal = memo(function({ open, me, closeCallback }) {
   const { objects } = useSelector(state => state.belkaGame)
+  const { bet } = useSelector(state => state.common)
   const gameBoard = useBelkaGameBoard()
 
   const team1Score = useMemo(
@@ -57,13 +58,11 @@ export const GameOverModal = memo(function({ open, me, closeCallback }) {
     return playerInFirstTeam ? team1Score > team2Score : team2Score > team1Score
   }, [team1Players, team1Score, team2Score, me])
 
-  const sum = useMemo(() => 24000, [])
-
   const subheadText = useMemo(() => {
     return `${currentPlayerIsWinner ? 'Выиграли' : 'Проиграли'}: ${
-      currentPlayerIsWinner ? sum : -sum
+      currentPlayerIsWinner ? bet * 4 : -bet
     }`
-  }, [sum, currentPlayerIsWinner])
+  }, [bet, currentPlayerIsWinner])
 
   return (
     <BelkaModal

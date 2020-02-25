@@ -25,26 +25,22 @@ export const Login = memo(function() {
   const reduxDispatch = useDispatch()
   const { navigate } = useNavigation()
   const { error } = useSelector(state => state.common)
+  const [loading, setLoading] = useState(false)
 
   const passwordRef = useRef(null)
   const mailRef = useRef(null)
 
   const refs = useMemo(() => [mailRef, passwordRef], [mailRef, passwordRef])
 
-  const [minifyImage, setMinifyImage] = useState(false)
   const [rememberPassword, setRememberPassword] = useState(false)
 
   const onFocus = useCallback(() => {
     if (error) reduxDispatch(clearError())
-    setMinifyImage(true)
   }, [reduxDispatch, error])
-
-  const onUnfocus = useCallback(() => {
-    setMinifyImage(false)
-  }, [])
 
   const onSubmit = useCallback(
     signInData => {
+      setLoading(true)
       reduxDispatch(signIn(signInData))
     },
     [reduxDispatch],
@@ -60,7 +56,7 @@ export const Login = memo(function() {
 
   return (
     <ContainerWithBackground needPersistTaps size="full" additionalStyles={[styles.container]}>
-      <Image source={bootsplashLogo} style={[styles.logo, minifyImage && styles.logoSmall]} />
+      <Image source={bootsplashLogo} resizeMode="contain" style={[styles.logo]} />
 
       <BelkaTypography bold style={[styles.text, styles.title]}>
         Вход
@@ -69,7 +65,6 @@ export const Login = memo(function() {
       <Form
         inputs={inputsData}
         onFocus={onFocus}
-        onUnfocus={onUnfocus}
         refs={refs}
         validationRules={formState.rules}
         initialState={formState.initialState}
@@ -88,12 +83,13 @@ export const Login = memo(function() {
         }
         formControls={[
           <BelkaButton
+            loading={loading}
             additionalStyles={[styles.button, styles.buttonRegister]}
             onPress={onSignUpRequest}
             appearance="Negative"
             title="Регистрация"
           />,
-          <BelkaButton additionalStyles={[styles.button]} title="Войти" />,
+          <BelkaButton loading={loading} additionalStyles={[styles.button]} title="Войти" />,
         ]}
       />
 

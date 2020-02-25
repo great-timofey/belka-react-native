@@ -33,7 +33,7 @@ export const mockState = {
       id: 'qhjqvswn',
       type: 'Timer',
       ownerId: 'xp9wbjui',
-      value: -1,
+      value: 10,
     },
     hvvr0t3u: {
       id: 'hvvr0t3u',
@@ -488,6 +488,7 @@ export const mockState = {
       id: 'tkk63m4j',
       type: 'Timer',
       ownerId: 'quzgu818',
+      // value: 30,
     },
     bd45452m: {
       id: 'bd45452m',

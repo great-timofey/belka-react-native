@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginBottom: 3,
   },
   slider: {
-    width: (deviceWidth - 20) / 1.5,
+    width: deviceWidth / 1.5 - 40,
     height: 30,
     marginBottom: 30,
     transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }, { translateX: 40 }],

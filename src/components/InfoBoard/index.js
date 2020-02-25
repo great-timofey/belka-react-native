@@ -15,6 +15,15 @@ export const InfoBoard = memo(function() {
 
   const gameBoard = useMemo(() => boardId && objects[boardId], [objects, boardId])
 
+  const eggsActive = useMemo(
+    () =>
+      gameBoard &&
+      gameBoard.eggsId &&
+      objects[gameBoard.eggsId] &&
+      objects[gameBoard.eggsId].active,
+    [gameBoard, objects],
+  )
+
   const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
   const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])
 
@@ -23,24 +32,28 @@ export const InfoBoard = memo(function() {
       <>
         <Image style={styles.chatButton} source={iconBelkaChat} />
         <View style={styles.infoBoard}>
-          <View style={styles.scoreContainer}>
-            <Image
-              source={scoreContainer}
-              style={styles.scoreContainerImage}
-              resizeMode="contain"
-            />
-            <Text style={styles.scoreText}>{(team1 && team1.gameScore) || 0}</Text>
-          </View>
-          <View style={[styles.scoreContainer]}>
-            <Image
-              source={scoreContainer}
-              style={[styles.scoreContainerImage, styles.scoreContainerImageRight]}
-              resizeMode="contain"
-            />
-            <Text style={[styles.scoreText, styles.scoreTextRight]}>
-              {(team2 && team2.gameScore) || 0}
-            </Text>
-          </View>
+          {eggsActive && (
+            <>
+              <View style={styles.scoreContainer}>
+                <Image
+                  source={scoreContainer}
+                  style={styles.scoreContainerImage}
+                  resizeMode="contain"
+                />
+                <Text style={styles.scoreText}>{(team1 && team1.gameScore) || 0}</Text>
+              </View>
+              <View style={[styles.scoreContainer]}>
+                <Image
+                  source={scoreContainer}
+                  style={[styles.scoreContainerImage, styles.scoreContainerImageRight]}
+                  resizeMode="contain"
+                />
+                <Text style={[styles.scoreText, styles.scoreTextRight]}>
+                  {(team2 && team2.gameScore) || 0}
+                </Text>
+              </View>
+            </>
+          )}
         </View>
       </>
     )
