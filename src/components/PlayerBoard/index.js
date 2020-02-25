@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useState, useMemo, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Circle } from 'react-native-progress'
@@ -6,6 +6,7 @@ import { Circle } from 'react-native-progress'
 import { getSuitCode } from '@utils/suit'
 import { roomAddAction } from '@redux/belkaGame/actions'
 import { colors } from '@global/styles'
+import { useInterval } from '@hooks'
 
 import { Card } from '../Card'
 
@@ -13,12 +14,31 @@ import styles from './styles'
 
 export const PlayerBoard = memo(function({ player, my, index }) {
   const { actions, hand, objects, clients } = useSelector(state => state.belkaGame)
+  const [timerValue, setTimerValue] = useState(null)
   const dispatch = useDispatch()
 
-  const timer = useMemo(() => player && player.timerId && objects[player.timerId], [
-    player,
-    objects,
-  ])
+  const timer = useMemo(
+    () => player && player.timerId && objects[player.timerId] && objects[player.timerId].value,
+    [player, objects],
+  )
+
+  useEffect(() => {
+    if (timer && timer > -1) {
+      setTimerValue(timer)
+    } else if (!timer || timer === -1) {
+      setTimerValue(null)
+    }
+  }, [timer])
+
+  useInterval(() => {
+    if (timerValue) {
+      setTimerValue(timerValue - 1)
+    }
+
+    if (timerValue === 0) {
+      setTimerValue(null)
+    }
+  })
 
   const handlePlayCard = useCallback(
     cardId => () => {
@@ -52,7 +72,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
 
   return (
     <View style={[styles.playerBoardContainer, my && styles.playerBoardContainerMy]}>
-      {timer && timer.value > -1 && (
+      {timerValue !== null && (
         <View
           style={[
             styles.playerTimerContainerCommon,
@@ -65,7 +85,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
             thickness={1}
             textStyle={{ fontSize: 20, color: 'white' }}
             formatText={progress => `${Math.round((progress * 1000) / 33.3)}`}
-            progress={(30 / 100 / 10) * timer.value || 0}
+            progress={(1 / 30) * timerValue || 0}
             showsText
           />
         </View>

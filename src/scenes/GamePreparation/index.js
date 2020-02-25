@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { Circle } from 'react-native-progress'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ import {
 } from '@components'
 import { leaveRoom } from '@redux/belkaGame/actions'
 import { BELKA } from '@navigation/names'
-import { useBackHandler } from '@hooks'
+import { useBackHandler, useInterval } from '@hooks'
 import { BOARD_SCENE_NAMES } from '@global/constants'
 
 import styles from './styles'
@@ -25,15 +25,36 @@ export const GamePreparation = memo(function() {
   const { objects, clients } = useSelector(state => state.belkaGame)
   const { bet } = useSelector(state => state.common)
 
+  const [timerValue, setTimerValue] = useState(null)
+
   const boardId = useMemo(
     () => Object.keys(objects).find(key => objects[key].type === 'BelkaBoard'),
     [objects],
   )
 
   const timer = useMemo(
-    () => boardId && objects[boardId].timerId && objects[objects[boardId].timerId],
+    () =>
+      boardId &&
+      objects[boardId].timerId &&
+      objects[objects[boardId].timerId] &&
+      objects[objects[boardId].timerId].value,
     [objects, boardId],
   )
+
+  useEffect(() => {
+    if (timer && timer > -1) {
+      setTimerValue(timer)
+    }
+  }, [timer])
+
+  useInterval(() => {
+    if (timerValue) {
+      setTimerValue(timerValue - 1)
+    }
+    if (timerValue === 0) {
+      setTimerValue(null)
+    }
+  })
 
   const handleLeaveRoom = useCallback(() => {
     dispatch(leaveRoom())
@@ -66,14 +87,16 @@ export const GamePreparation = memo(function() {
             <BelkaTypography bold style={[styles.text, styles.readiness]}>
               Готовность игроков
             </BelkaTypography>
-            <Circle
-              formatText={progress => `${Math.round(progress * 10)}`}
-              progress={timer && timer.value && timer.value * 0.1}
-              showsText
-              borderWidth={0}
-              textStyle={styles.text}
-              color={colors.semanticAttention}
-            />
+            {timerValue !== null && (
+              <Circle
+                formatText={progress => `${Math.round(progress * 10)}`}
+                progress={timerValue * 0.1}
+                showsText
+                borderWidth={0}
+                textStyle={styles.text}
+                color={colors.semanticAttention}
+              />
+            )}
           </View>
           <View style={styles.textContainer}>
             <BelkaTypography bold style={[styles.text]}>
