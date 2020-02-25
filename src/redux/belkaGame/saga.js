@@ -1,5 +1,5 @@
 import env from 'react-native-config'
-import * as Colyseus from 'colyseus.js'
+import { Client } from 'colyseus.js'
 import { eventChannel } from 'redux-saga'
 import AsyncStorage from '@react-native-community/async-storage'
 import { take, takeEvery, put, call, fork } from 'redux-saga/effects'
@@ -21,7 +21,7 @@ import {
   resetGame,
 } from './actions'
 
-const client = new Colyseus.Client(`${env.API_WEBSOCKET_PROTOCOL}://${env.API_HOST}`)
+const client = new Client(`${env.API_WEBSOCKET_PROTOCOL}://${env.API_HOST}`)
 let roomSend
 let roomLeave
 
