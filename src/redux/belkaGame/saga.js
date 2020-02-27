@@ -1,4 +1,4 @@
-import env from 'react-native-config'
+// import env from 'react-native-config'
 import { Client } from 'colyseus.js'
 import { eventChannel } from 'redux-saga'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -22,7 +22,7 @@ import {
   resetGame,
 } from './actions'
 
-const client = new Client(`${env.API_WEBSOCKET_PROTOCOL}://${env.API_HOST}`)
+const client = new Client(`wss://game11.herokuapp.com`)
 let roomSend
 let roomLeave
 
