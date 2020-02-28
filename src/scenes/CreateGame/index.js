@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { ContainerWithBackground, BelkaInput, BelkaToggler, BelkaButton } from '@components'
 import { iconLockOff } from '@global/images'
-import { colors } from '@global/styles'
+import { colors, isAndroid } from '@global/styles'
 import { createRoom } from '@redux/belkaGame/actions'
 import { useCustomState } from '@hooks'
 
@@ -66,7 +66,7 @@ export const CreateGame = memo(function() {
       <ScrollView
         ref={containerRef}
         style={styles.container}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={styles.contentContainer}
       >
         <BelkaInput
           containerAdditionalStyles={[styles.input]}
@@ -108,8 +108,8 @@ export const CreateGame = memo(function() {
           minimumValue={1}
           maximumValue={10}
           initialValue={state.rank}
-          step={1}
-          onValueChange={value => dispatch({ rank: value })}
+          onValueChange={value => dispatch({ rank: Math.round(value) })}
+          {...(isAndroid && { step: 1 })}
           minimumTrackTintColor="#25272d"
           maximumTrackTintColor="#25272d"
           thumbTintColor={colors.semanticPrimary}

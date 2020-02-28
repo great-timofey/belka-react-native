@@ -1,5 +1,5 @@
 import React, { Fragment, memo, useMemo } from 'react'
-import { ImageBackground, ScrollView } from 'react-native'
+import { ImageBackground, ScrollView, SafeAreaView } from 'react-native'
 
 import { backgroundCenter, backgroundFullscreen } from '@global/images'
 import { isAndroid } from '@global/styles'
@@ -33,13 +33,15 @@ export const ContainerWithBackground = memo(function({
 
   return (
     <Wrapper {...scrollViewProps}>
-      <ImageBackground
-        resizeMode="cover"
-        style={useWrapper ? [styles.image, ...additionalStyles] : wrapperStyleProps}
-        source={size === 'center' ? backgroundCenter : backgroundFullscreen}
-      >
-        {children}
-      </ImageBackground>
+      <SafeAreaView style={styles.safeAreaView}>
+        <ImageBackground
+          resizeMode="cover"
+          style={useWrapper ? [styles.image, ...additionalStyles] : wrapperStyleProps}
+          source={size === 'center' ? backgroundCenter : backgroundFullscreen}
+        >
+          {children}
+        </ImageBackground>
+      </SafeAreaView>
     </Wrapper>
   )
 })

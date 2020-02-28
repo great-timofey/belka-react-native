@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 
+import { colors } from '@global/styles'
+
 import { configureStore } from './redux'
 import { AppNavigator } from './navigation'
 
@@ -21,7 +23,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <StatusBar barStyle="light-content" backgroundColor="#000000" />
+        <StatusBar barStyle="light-content" backgroundColor={colors.appBackground} />
         <AppNavigator />
       </PersistGate>
     </Provider>

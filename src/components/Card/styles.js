@@ -1,14 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import {
-  cardHeight,
-  cardWidth,
-  deviceWidth,
-  deviceHeight,
-  colors,
-  normalize,
-  fonts,
-} from '@global/styles'
+import { cardHeight, cardWidth, deviceHeight, colors, normalize, fonts } from '@global/styles'
 
 export default StyleSheet.create({
   card: {
@@ -23,8 +15,8 @@ export default StyleSheet.create({
     backgroundColor: colors.trumpContainer,
   },
   cover: {
-    width: deviceWidth * 0.09,
-    height: deviceHeight * 0.08,
+    width: cardWidth * 0.6,
+    height: cardHeight * 0.6,
   },
   gameRoundCard: {
     position: 'absolute',
