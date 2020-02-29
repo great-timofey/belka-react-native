@@ -114,7 +114,13 @@ export const PlayerBoard = memo(function({ player, my, index }) {
         </View>
       )}
       {!my && (
-        <View style={[styles.playerNameContainerCommon, styles[`playerNameContainer${index}`]]}>
+        <View
+          style={[
+            styles.playerNameContainerCommon,
+            styles[`playerNameContainer${index}`],
+            timerValue !== null && styles.playerNameActive,
+          ]}
+        >
           <Text style={styles.commonTextStyles}>{(playerClient && playerClient.name) || ''}</Text>
         </View>
       )}

@@ -58,11 +58,14 @@ export default StyleSheet.create({
     zIndex: 20,
     borderWidth: 1,
     alignItems: 'center',
+    borderColor: 'black',
     justifyContent: 'center',
-    borderColor: colors.semanticHighlight,
     borderRadius: 40,
     position: 'absolute',
     top: 0,
+  },
+  playerNameActive: {
+    borderColor: colors.semanticHighlight,
   },
   commonTextStyles: {
     fontFamily: fonts.ptsans.regular,
