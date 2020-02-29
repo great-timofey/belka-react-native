@@ -36,6 +36,8 @@ target 'Belka' do
   pod 'React-ART', :path => '../node_modules/react-native/Libraries/ART'
 
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'BelkaTests' do
     inherit! :search_paths
     # Pods for testing
