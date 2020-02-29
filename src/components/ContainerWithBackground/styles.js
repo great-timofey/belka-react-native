@@ -14,4 +14,8 @@ export default StyleSheet.create({
   containerPadded: {
     paddingBottom: 30,
   },
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: colors.black,
+  },
 })

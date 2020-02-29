@@ -91,6 +91,7 @@ export const Rooms = memo(function() {
             additionalStyles={[styles.createRoom]}
             title="Создать игру"
             onPress={() => navigate(CREATE_GAME)}
+            // onPress={() => navigate(BELKA)}
           />
         </>
       </View>

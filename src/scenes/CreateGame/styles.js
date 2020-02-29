@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native'
 
-import { colors, deviceWidth, fonts } from '@global/styles'
+import { colors, deviceWidth, fonts, isAndroid, selectStyles } from '@global/styles'
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 10,
+    paddingTop: isAndroid ? 10 : 20,
+  },
+  contentContainer: {
+    paddingBottom: isAndroid ? 20 : 30,
   },
   wrapper: {
     paddingBottom: 0,
@@ -21,10 +24,17 @@ export default StyleSheet.create({
     marginBottom: 3,
   },
   slider: {
-    width: deviceWidth / 1.5 - 40,
     height: 30,
     marginBottom: 30,
-    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }, { translateX: 40 }],
+    ...selectStyles(
+      {
+        width: deviceWidth - 40,
+      },
+      {
+        width: deviceWidth / 1.5 - 40,
+        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }, { translateX: 40 }],
+      },
+    ),
   },
   createGame: {
     height: 50,
