@@ -1,31 +1,28 @@
 import { StyleSheet } from 'react-native'
 
-import { cardWidth, cardHeight, deviceWidth, normalize } from '@global/styles'
+import { CARD_WIDTH, CARD_HEIGHT, deviceWidth, deviceHeight } from '@global/styles'
 
-const center = deviceWidth / 2 - cardWidth / 2
+const CENTER = deviceWidth / 2 - CARD_WIDTH / 2
+const CARDS_BOTTOM_OFFSET = deviceHeight * 0.5
 
 export default StyleSheet.create({
   commonContainer: {
     position: 'absolute',
   },
   First: {
-    bottom: 250,
-    zIndex: 4,
-    left: center - normalize(110),
+    top: deviceHeight - CARDS_BOTTOM_OFFSET,
+    left: CENTER - CARD_WIDTH / 1.8,
   },
   Second: {
-    bottom: 250 + cardHeight / 2,
-    left: center,
-    zIndex: 3,
+    top: deviceHeight - CARDS_BOTTOM_OFFSET - CARD_HEIGHT / 2,
+    left: CENTER,
   },
   Third: {
-    bottom: 250,
-    zIndex: 2,
-    left: center + normalize(110),
+    top: deviceHeight - CARDS_BOTTOM_OFFSET,
+    left: CENTER + CARD_WIDTH / 1.8,
   },
   player: {
-    bottom: 210,
-    zIndex: 1,
-    left: center,
+    top: deviceHeight - CARDS_BOTTOM_OFFSET + CARD_HEIGHT / 2,
+    left: CENTER,
   },
 })

@@ -95,7 +95,9 @@ export const PlayerBoard = memo(function({ player, my, index }) {
 
   return (
     <View style={[styles.playerBoardContainer, my && styles.playerBoardContainerMy]}>
-      {timerValue !== null && (
+      {timerValue === null ? (
+        <></>
+      ) : (
         <View
           style={[
             styles.playerTimerContainerCommon,
@@ -113,7 +115,9 @@ export const PlayerBoard = memo(function({ player, my, index }) {
           />
         </View>
       )}
-      {!my && (
+      {my ? (
+        <></>
+      ) : (
         <View
           style={[
             styles.playerNameContainerCommon,
@@ -124,7 +128,7 @@ export const PlayerBoard = memo(function({ player, my, index }) {
           <Text style={styles.commonTextStyles}>{(playerClient && playerClient.name) || ''}</Text>
         </View>
       )}
-      {player && player.suit && player.suit >= 0 && (
+      {player && player.suit && player.suit >= 0 ? (
         <View
           style={[
             styles.trumpContainer,
@@ -133,6 +137,8 @@ export const PlayerBoard = memo(function({ player, my, index }) {
         >
           <Text style={styles.commonTextStyles}>{getSuitCode(player.suit)}</Text>
         </View>
+      ) : (
+        <></>
       )}
       <View
         style={[

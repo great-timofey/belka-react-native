@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 
-import { colors } from '@global/styles'
+import { colors, isIOS } from '@global/styles'
 
 export default StyleSheet.create({
   container: {
-    height: 56,
+    height: isIOS ? 80 : 56,
     padding: 10,
     backgroundColor: colors.appBackground,
   },

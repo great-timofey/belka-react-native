@@ -109,12 +109,8 @@ export const GamePreparation = memo(function() {
         </BelkaCard>
         <BelkaCard additionalStyles={[styles.card, styles.cardPlayers]}>
           {clients &&
-            Object.values(clients).map(player => (
-              <PlayerPreparation
-                key={player.objectId}
-                name={player.name}
-                ready={player.connected}
-              />
+            Object.values(clients).map(({ objectId = '1', name = '', connected = true }) => (
+              <PlayerPreparation key={objectId} name={name} ready={connected} />
             ))}
         </BelkaCard>
         <BelkaButton

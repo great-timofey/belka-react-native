@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { Image, Text, ImageBackground, View, TouchableOpacity } from 'react-native'
 
 import { cards, roundResultsBlack, roundResultsRed } from '@global/images'
-import { cardWidth, normalize } from '@global/styles'
+import { CARD_WIDTH, normalize } from '@global/styles'
 
 import styles from './styles'
 
@@ -14,6 +14,7 @@ export const Card = memo(function({
   deck,
   score,
   team,
+  playerCard,
   additionalStyles = [],
 }) {
   if (team) {
@@ -60,7 +61,11 @@ export const Card = memo(function({
   const cardValue = face.value.toString()
 
   return (
-    <TouchableOpacity style={[my && { marginLeft: -normalize(cardWidth) }]} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={playerCard ? 1 : 0}
+      style={[my && { marginLeft: -normalize(CARD_WIDTH) }]}
+      onPress={onPress}
+    >
       <ImageBackground
         style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
         source={cardSuit[cardValue]}

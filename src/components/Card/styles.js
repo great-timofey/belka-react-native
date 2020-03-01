@@ -1,22 +1,30 @@
 import { StyleSheet } from 'react-native'
 
-import { cardHeight, cardWidth, deviceHeight, colors, normalize, fonts } from '@global/styles'
+import {
+  CARD_HEIGHT,
+  CARD_WIDTH,
+  deviceHeight,
+  colors,
+  normalize,
+  fonts,
+  hex2rgba,
+} from '@global/styles'
 
 export default StyleSheet.create({
   card: {
     position: 'absolute',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: hex2rgba('#FFFFFF', 0.2),
     padding: normalize(5),
     borderRadius: 3,
-    width: cardWidth,
-    height: cardHeight,
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     marginLeft: normalize(5),
     backgroundColor: colors.trumpContainer,
   },
   cover: {
-    width: cardWidth * 0.6,
-    height: cardHeight * 0.6,
+    width: CARD_WIDTH * 0.6,
+    height: CARD_HEIGHT * 0.6,
   },
   gameRoundCard: {
     position: 'absolute',
@@ -39,11 +47,11 @@ export default StyleSheet.create({
   },
   cardDeck: {
     left: 0,
-    width: cardWidth * 0.6,
-    height: cardHeight * 0.6,
+    width: CARD_WIDTH * 0.6,
+    height: CARD_HEIGHT * 0.6,
   },
   cardDeckOffseted: {
-    transform: [{ translateX: cardWidth * 0.6 + 5 }],
+    transform: [{ translateX: CARD_WIDTH * 0.6 + 5 }],
   },
   myCard: {
     position: 'relative',

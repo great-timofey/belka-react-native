@@ -22,13 +22,15 @@ export const { width: deviceWidth, height: deviceHeight } = Dimensions.get('wind
 
 const designWidth = 1080
 
+export const TOP_PLAYER_OFFSET = 0.25
+
 export const scale = deviceWidth / designWidth
 export const normalize = value => parseInt(value * scale, 10)
 
 export const squareSize = size => ({ width: size, height: size })
 
-export const cardWidth = normalize(182)
-export const cardHeight = normalize(269)
+export const CARD_WIDTH = normalize(182)
+export const CARD_HEIGHT = normalize(269)
 
 export const hex2rgba = (hex, alpha = 1) => {
   const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16))

@@ -68,6 +68,17 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     })
   }, [me, objects, players])
 
+  const renderMe = useCallback(() => {
+    return (
+      <>
+        <View style={[styles.myPlayerContainer]}>
+          <PlayerBoard my player={me} />
+        </View>
+        <PlayerCard player={me} />
+      </>
+    )
+  }, [me])
+
   useEffect(() => {
     const roundEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_ROUND
 
@@ -89,12 +100,7 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     <View style={styles.gameBoardContainer}>
       <DeckCards />
       {renderEnemies()}
-      <>
-        <View style={[styles.myPlayerContainer]}>
-          <PlayerBoard my player={me} />
-        </View>
-        <PlayerCard player={me} />
-      </>
+      {renderMe()}
       {showRoundResults && (
         <View style={styles.roundResultsContainer}>
           <Card

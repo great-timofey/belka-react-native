@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 
 import {
   deviceHeight,
-  cardWidth,
+  CARD_WIDTH,
   colors,
   fonts,
   squareSize,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     position: 'absolute',
     width: deviceWidth,
     height: 60,
-    paddingLeft: normalize(cardWidth),
+    paddingLeft: normalize(CARD_WIDTH),
     flex: 1,
     bottom: 0,
   },

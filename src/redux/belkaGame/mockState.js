@@ -378,7 +378,7 @@ export const mockState = {
       id: 'f678cebv',
       type: 'Cards',
       ownerId: 'j2gx87tw',
-      items: [],
+      items: ['mhreowf3'],
       cardsSide: 'face',
     },
     '1yhf19c9': {
@@ -425,7 +425,7 @@ export const mockState = {
       id: 'jrb0tkqj',
       type: 'Cards',
       ownerId: 'nrpd8cuu',
-      items: [],
+      items: ['mhreowf3'],
       cardsSide: 'face',
     },
     '8gzor99s': {
