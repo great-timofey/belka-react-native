@@ -17,15 +17,16 @@ export const Card = memo(function({
   deck,
   score,
   team,
+  playerCard,
   additionalStyles = [],
 }) {
-  const { selectedCardId } = useSelector(state => state.belkaGame)
+  const { selectedCardId, currentPlayerActive } = useSelector(state => state.belkaGame)
 
   const dispatch = useDispatch()
   const [translateY] = useState(new Animated.Value(0))
 
   const onSelect = useCallback(() => {
-    if (!my) return
+    if (!my || !currentPlayerActive || playerCard) return
 
     if (selectedCardId === data.id) {
       onPress()
@@ -33,7 +34,7 @@ export const Card = memo(function({
     } else {
       dispatch(selectCard(data.id))
     }
-  }, [dispatch, onPress, selectedCardId, data, my])
+  }, [dispatch, onPress, selectedCardId, currentPlayerActive, playerCard, data, my])
 
   useEffect(() => {
     if (!my) return
@@ -97,7 +98,11 @@ export const Card = memo(function({
 
   return (
     <Animated.View style={[{ transform: [{ translateY }] }]}>
-      <TouchableOpacity style={[my && { marginLeft: -normalize(CARD_WIDTH) }]} onPress={onSelect}>
+      <TouchableOpacity
+        activeOpacity={1}
+        style={[my && { marginLeft: -normalize(CARD_WIDTH) }]}
+        onPress={onSelect}
+      >
         <ImageBackground
           style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
           source={cardSuit[cardValue]}

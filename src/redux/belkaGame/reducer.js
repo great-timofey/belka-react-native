@@ -3,7 +3,7 @@ import { createReducer } from '@utils/createReducer'
 import * as TYPES from './types'
 import { mockState } from './mockState'
 
-const useMocks = true
+const useMocks = false
 
 const initState = useMocks
   ? {
@@ -17,10 +17,12 @@ const initState = useMocks
       actions: [],
       room: null,
       selectedCardId: null,
+      currentPlayerActive: false,
     }
 
 const initRoomHandler = (state, room) => ({ ...state, room })
 const selectCardHandler = (state, id) => ({ ...state, selectedCardId: id })
+const currentPlayerActiveHandler = (state, active) => ({ ...state, currentPlayerActive: active })
 const setMessageObjectHandler = (state, object) => ({
   ...state,
   hand: { ...state.hand, [object.id]: object },
@@ -61,6 +63,7 @@ const handlersMap = {
   [TYPES.REMOVE_PLAYER]: removePlayerHandler,
   [TYPES.RESET_GAME]: resetGameHandler,
   [TYPES.SELECT_CARD]: selectCardHandler,
+  [TYPES.SET_CURRENT_PLAYER_ACTIVE]: currentPlayerActiveHandler,
 }
 
 export default createReducer(initState, handlersMap)

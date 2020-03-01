@@ -4,27 +4,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Circle } from 'react-native-progress'
 
 import { getSuitCode } from '@utils/suit'
-import { roomAddAction } from '@redux/belkaGame/actions'
+import { roomAddAction, setCurrentPlayerActive } from '@redux/belkaGame/actions'
 import { colors } from '@global/styles'
 import { useInterval } from '@hooks'
 
 import { Card } from '../Card'
 
+import { CARD_OFFSETS } from './constants'
 import styles from './styles'
 
-const CARD_OFFSETS = new Map([
-  [1, 3],
-  [2, 3],
-  [3, 3],
-  [4, 2],
-  [5, 1],
-  [6, 1],
-  [7, 0],
-  [8, 0],
-])
-
 export const PlayerBoard = memo(function({ player, my, index }) {
-  const { actions, hand, objects, clients } = useSelector(state => state.belkaGame)
+  const { actions, hand, objects, clients, currentPlayerActive } = useSelector(
+    state => state.belkaGame,
+  )
   const [timerValue, setTimerValue] = useState(null)
   const dispatch = useDispatch()
 
@@ -38,6 +30,14 @@ export const PlayerBoard = memo(function({ player, my, index }) {
       setTimerValue(timer)
     }
   }, [timer])
+
+  useEffect(() => {
+    if (timerValue && my && !currentPlayerActive) {
+      dispatch(setCurrentPlayerActive(true))
+    } else if (!timerValue && my && currentPlayerActive) {
+      dispatch(setCurrentPlayerActive(false))
+    }
+  }, [my, timerValue, dispatch, currentPlayerActive])
 
   useInterval(() => {
     if (timerValue) {

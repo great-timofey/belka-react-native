@@ -10,20 +10,20 @@ import styles from './styles'
 const DURATION = 500
 
 export const PlayerCard = memo(function({ player, index }) {
-  const { objects } = useSelector(state => state.belkaGame)
+  const { objects, currentPlayerOrder } = useSelector(state => state.belkaGame)
   const [mounted, setMounted] = useState(false)
 
-  const cards = useMemo(
-    () =>
-      Object.values(objects).filter(
-        object => object.type === 'Cards' && object.cardsSide === 'face',
-      ),
-    [objects],
-  )
-  const cardsCount = useMemo(
-    () => cards && cards.reduce((acc, cardItems) => acc + cardItems.items.length, 0),
-    [cards],
-  )
+  // const cards = useMemo(
+  //   () =>
+  //     Object.values(objects).filter(
+  //       object => object.type === 'Cards' && object.cardsSide === 'face',
+  //     ),
+  //   [objects],
+  // )
+  // const cardsCount = useMemo(
+  //   () => cards && cards.reduce((acc, cardItems) => acc + cardItems.items.length, 0),
+  //   [cards],
+  // )
 
   const leftInitial = useMemo(() => {
     return index ? playerStyles[index].left : playerStyles.player.left
@@ -82,9 +82,9 @@ export const PlayerCard = memo(function({ player, index }) {
 
   //  TODO: find out about zindex
   return (
-    <Animated.View style={[styles.commonContainer, { left, top, zIndex: cardsCount + 1 }]}>
+    <Animated.View style={[styles.commonContainer, { zIndex: currentPlayerOrder }, { left, top }]}>
       {playerCard.map(card => (
-        <Card data={card} key={`${player.id}-${index}-card`} />
+        <Card playerCard data={card} key={`${player.id}-${index}-card`} />
       ))}
     </Animated.View>
   )

@@ -38,7 +38,7 @@ export const mockState = {
       id: 'j11wmo40',
       type: 'BelkaEggs',
       ownerId: 'eyuuz61j',
-      active: false,
+      active: true,
     },
     m27e6npe: {
       id: 'm27e6npe',
