@@ -84,7 +84,7 @@ export const PlayerCard = memo(function({ player, index }) {
   return (
     <Animated.View style={[styles.commonContainer, { left, top, zIndex: cardsCount + 1 }]}>
       {playerCard.map(card => (
-        <Card playerCard data={card} key={`${player.id}-${index}-card`} />
+        <Card data={card} key={`${player.id}-${index}-card`} />
       ))}
     </Animated.View>
   )

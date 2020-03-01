@@ -28,3 +28,4 @@ export const createRoom = ({ ...params }) => ({
 })
 export const leaveRoom = () => ({ type: TYPES.LEAVE_ROOM })
 export const resetGame = () => ({ type: TYPES.RESET_GAME })
+export const selectCard = id => ({ type: TYPES.SELECT_CARD, payload: id })

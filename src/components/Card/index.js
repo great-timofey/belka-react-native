@@ -1,8 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Image, Text, ImageBackground, View, TouchableOpacity } from 'react-native'
+import Animated, { Easing } from 'react-native-reanimated'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { cards, roundResultsBlack, roundResultsRed } from '@global/images'
-import { CARD_WIDTH, normalize } from '@global/styles'
+import { CARD_HEIGHT, CARD_WIDTH, normalize } from '@global/styles'
+import { selectCard } from '@redux/belkaGame/actions'
 
 import styles from './styles'
 
@@ -14,9 +17,41 @@ export const Card = memo(function({
   deck,
   score,
   team,
-  playerCard,
   additionalStyles = [],
 }) {
+  const { selectedCardId } = useSelector(state => state.belkaGame)
+
+  const dispatch = useDispatch()
+  const [translateY] = useState(new Animated.Value(0))
+
+  const onSelect = useCallback(() => {
+    if (!my) return
+
+    if (selectedCardId === data.id) {
+      onPress()
+      dispatch(selectCard(null))
+    } else {
+      dispatch(selectCard(data.id))
+    }
+  }, [dispatch, onPress, selectedCardId, data, my])
+
+  useEffect(() => {
+    if (!my) return
+    if (selectedCardId === data.id) {
+      Animated.timing(translateY, {
+        toValue: -CARD_HEIGHT / 5,
+        duration: 100,
+        easing: Easing.linear,
+      }).start()
+    } else {
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 100,
+        easing: Easing.linear,
+      }).start()
+    }
+  }, [selectedCardId, translateY, data, my])
+
   if (team) {
     return (
       <ImageBackground
@@ -29,8 +64,6 @@ export const Card = memo(function({
       </ImageBackground>
     )
   }
-
-  const face = (data && (data.face || data.data)) || { value: '' }
 
   if (deck) {
     return (
@@ -47,6 +80,8 @@ export const Card = memo(function({
     )
   }
 
+  const face = (data && (data.face || data.data)) || { value: '' }
+
   if (!(face.value || data.side === 'face')) {
     return (
       <Image
@@ -61,15 +96,13 @@ export const Card = memo(function({
   const cardValue = face.value.toString()
 
   return (
-    <TouchableOpacity
-      activeOpacity={playerCard ? 1 : 0}
-      style={[my && { marginLeft: -normalize(CARD_WIDTH) }]}
-      onPress={onPress}
-    >
-      <ImageBackground
-        style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
-        source={cardSuit[cardValue]}
-      />
-    </TouchableOpacity>
+    <Animated.View style={[{ transform: [{ translateY }] }]}>
+      <TouchableOpacity style={[my && { marginLeft: -normalize(CARD_WIDTH) }]} onPress={onSelect}>
+        <ImageBackground
+          style={[styles.card, my ? styles.myCard : styles[`card-${index}`], ...additionalStyles]}
+          source={cardSuit[cardValue]}
+        />
+      </TouchableOpacity>
+    </Animated.View>
   )
 })

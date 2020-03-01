@@ -105,10 +105,11 @@ export const PlayerBoard = memo(function({ player, my, index }) {
           ]}
         >
           <Circle
+            size={40}
             direction="counter-clockwise"
             color={colors.semanticHighlight}
             thickness={1}
-            textStyle={{ fontSize: 20, color: 'white' }}
+            textStyle={{ fontSize: 15, color: 'white' }}
             formatText={progress => `${Math.round((progress * 1000) / 33.3)}`}
             progress={(1 / 30) * timerValue || 0}
             showsText
