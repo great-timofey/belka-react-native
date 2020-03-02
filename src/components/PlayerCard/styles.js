@@ -6,6 +6,7 @@ import {
   deviceWidth,
   deviceHeight,
   isIphoneXOrBigger,
+  selectStyles,
 } from '@global/styles'
 
 const CENTER = deviceWidth / 2 - CARD_WIDTH / 2
@@ -34,7 +35,14 @@ export default StyleSheet.create({
     left: CARD_HEIGHT * 1.8 + 3,
   },
   player: {
-    top: -CARD_HEIGHT * (isIphoneXOrBigger ? 2 : 1.5),
+    ...selectStyles(
+      {
+        top: -CARD_HEIGHT * (isIphoneXOrBigger ? 2 : 1.5),
+      },
+      {
+        top: -CARD_HEIGHT * (isIphoneXOrBigger ? 2 : 0.9),
+      },
+    ),
     left: deviceWidth / 6 - CARD_WIDTH / 2,
   },
 })

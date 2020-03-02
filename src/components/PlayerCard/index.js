@@ -65,7 +65,7 @@ export const PlayerCard = memo(function({ player, index }) {
     if (!mounted) {
       left.setValue(0)
       top.setValue(0)
-      rotate.setValue('0deg')
+      rotate.setValue(0)
     }
   }, [mounted, left, top, rotate])
 
