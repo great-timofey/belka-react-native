@@ -32,6 +32,8 @@ export const squareSize = size => ({ width: size, height: size })
 export const CARD_WIDTH = normalize(182)
 export const CARD_HEIGHT = normalize(269)
 
+export const isIphoneXOrBigger = deviceWidth >= 812 || deviceHeight >= 812
+
 export const hex2rgba = (hex, alpha = 1) => {
   const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16))
   return `rgba(${r},${g},${b},${alpha})`

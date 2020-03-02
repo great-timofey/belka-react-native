@@ -1,40 +1,23 @@
 import React, { memo, useMemo, useEffect, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import Animated, { Easing } from 'react-native-reanimated'
+import Animated, { Easing, interpolate, concat } from 'react-native-reanimated'
+
+import { CARD_WIDTH, deviceWidth } from '@global/styles'
 
 import { Card } from '../Card'
-import playerStyles from '../Player/styles'
 
-import styles from './styles'
+import styles, { rotations } from './styles'
 
 const DURATION = 500
 
 export const PlayerCard = memo(function({ player, index }) {
-  const { objects, currentPlayerOrder } = useSelector(state => state.belkaGame)
+  const { objects } = useSelector(state => state.belkaGame)
   const [mounted, setMounted] = useState(false)
 
-  // const cards = useMemo(
-  //   () =>
-  //     Object.values(objects).filter(
-  //       object => object.type === 'Cards' && object.cardsSide === 'face',
-  //     ),
-  //   [objects],
-  // )
-  // const cardsCount = useMemo(
-  //   () => cards && cards.reduce((acc, cardItems) => acc + cardItems.items.length, 0),
-  //   [cards],
-  // )
-
-  const leftInitial = useMemo(() => {
-    return index ? playerStyles[index].left : playerStyles.player.left
-  }, [index])
-
-  const topInitial = useMemo(() => {
-    return index ? playerStyles[index].top : playerStyles.player.top
-  }, [index])
-
-  const [left] = useState(new Animated.Value(leftInitial))
-  const [top] = useState(new Animated.Value(topInitial))
+  const [left] = useState(new Animated.Value(deviceWidth / 6 - CARD_WIDTH / 2))
+  const [top] = useState(new Animated.Value(deviceWidth / 6))
+  const [rotate] = useState(new Animated.Value(0))
+  const rotation = interpolate(rotate, { inputRange: [0, 360], outputRange: [0, 360] })
 
   const animate = useCallback(() => {
     Animated.timing(left, {
@@ -47,7 +30,12 @@ export const PlayerCard = memo(function({ player, index }) {
       duration: DURATION,
       easing: Easing.ease,
     }).start()
-  }, [index, left, top])
+    Animated.timing(rotate, {
+      toValue: index ? rotations[index] : rotations.player,
+      duration: DURATION,
+      easing: Easing.ease,
+    }).start()
+  }, [index, left, top, rotate])
 
   const cardSlot = useMemo(() => player && player.cardSlotId && objects[player.cardSlotId], [
     objects,
@@ -75,16 +63,26 @@ export const PlayerCard = memo(function({ player, index }) {
 
   useEffect(() => {
     if (!mounted) {
-      left.setValue(leftInitial)
-      top.setValue(topInitial)
+      left.setValue(0)
+      top.setValue(0)
+      rotate.setValue('0deg')
     }
-  }, [mounted, left, top, leftInitial, topInitial])
+  }, [mounted, left, top, rotate])
 
-  //  TODO: find out about zindex
+  //  TODO: fix crash on android (concat)
   return (
-    <Animated.View style={[styles.commonContainer, { zIndex: currentPlayerOrder }, { left, top }]}>
+    <Animated.View
+      style={[
+        styles.commonContainer,
+        {
+          left,
+          top,
+          transform: [{ rotate: concat(rotation, 'deg') }],
+        },
+      ]}
+    >
       {playerCard.map(card => (
-        <Card playerCard data={card} key={`${player.id}-${index}-card`} />
+        <Card playerCard data={card} key={`${player.id}-${index}-card`} additionalStyles={[{}]} />
       ))}
     </Animated.View>
   )

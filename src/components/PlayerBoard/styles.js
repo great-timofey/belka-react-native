@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
 
 import {
   deviceHeight,
@@ -8,13 +8,49 @@ import {
   squareSize,
   normalize,
   deviceWidth,
+  TOP_PLAYER_OFFSET,
+  isIOS,
+  CARD_HEIGHT,
+  isIphoneXOrBigger,
 } from '@global/styles'
 
+const CONTAINER_SIZE = deviceWidth / 3
+
 export default StyleSheet.create({
+  commonPlayerContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    alignItems: 'center',
+    ...squareSize(CONTAINER_SIZE),
+  },
+  playerContainer: {
+    top: deviceHeight - CARD_HEIGHT * (isIphoneXOrBigger ? 2 : 1.5),
+  },
+  FirstContainer: {
+    top: deviceHeight * TOP_PLAYER_OFFSET + (isIOS ? 0 : StatusBar.currentHeight),
+    left: 10,
+    transform: [{ rotate: '-90deg' }],
+  },
+  SecondContainer: {
+    top: 10,
+    left: deviceWidth / 2 - CONTAINER_SIZE / 2,
+  },
+  ThirdContainer: {
+    top: deviceHeight * TOP_PLAYER_OFFSET + (isIOS ? 0 : StatusBar.currentHeight),
+    left: deviceWidth - 10 - CONTAINER_SIZE,
+    transform: [{ rotate: '90deg' }],
+  },
   playerBoardContainer: {
+    position: 'absolute',
     width: deviceWidth / 3,
     height: 50,
     alignItems: 'center',
+  },
+  playerCardContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   playerBoardContainerMy: {
     position: 'absolute',

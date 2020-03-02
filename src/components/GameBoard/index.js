@@ -1,14 +1,12 @@
-import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { useSessionId } from '@hooks'
 import { BOARD_SCENE_NAMES } from '@global/constants'
 
-import { Player } from '../Player'
 import { PlayerBoard } from '../PlayerBoard'
 import { DeckCards } from '../DeckCards'
-import { PlayerCard } from '../PlayerCard'
 import { Card } from '../Card'
 import { GameOverModal } from '../GameOverModal'
 
@@ -28,9 +26,6 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     boardId,
   ])
 
-  const [showRoundResults, setShowRoundResults] = useState(false)
-  const [showGameResults, setShowGameResults] = useState(false)
-
   const me = useMemo(() => {
     const clientMe = clients[sessionId]
     if (clientMe && clientMe.objectId) {
@@ -38,9 +33,6 @@ export const GameBoard = memo(function({ onRoomLeave }) {
       return objects[myId]
     }
   }, [clients, sessionId, objects])
-
-  const team1 = useMemo(() => (board && objects[board.team1Id]) || {}, [board, objects])
-  const team2 = useMemo(() => (board && objects[board.team2Id]) || {}, [board, objects])
 
   const renderEnemies = useCallback(() => {
     if (players.length !== 4 || !me || !me.id) return
@@ -57,27 +49,12 @@ export const GameBoard = memo(function({ onRoomLeave }) {
 
     return enemies.map(enemy => {
       const localIndex = enemiesMap[enemy.id]
-      return (
-        <Fragment key={`${localIndex}-fragment`}>
-          <Player key={`${localIndex}-view`} index={localIndex}>
-            <PlayerBoard index={localIndex} key={`${enemy.id}-board`} player={enemy} />
-          </Player>
-          <PlayerCard index={localIndex} key={`${localIndex}-card`} player={enemy} />
-        </Fragment>
-      )
+      return <PlayerBoard index={localIndex} key={`${enemy.id}-board`} player={enemy} />
     })
   }, [me, objects, players])
 
-  const renderMe = useCallback(() => {
-    return (
-      <>
-        <View style={[styles.myPlayerContainer]}>
-          <PlayerBoard my player={me} />
-        </View>
-        <PlayerCard player={me} />
-      </>
-    )
-  }, [me])
+  const [showRoundResults, setShowRoundResults] = useState(false)
+  const [showGameResults, setShowGameResults] = useState(false)
 
   useEffect(() => {
     const roundEnded = boardScene && boardScene === BOARD_SCENE_NAMES.END_ROUND
@@ -96,11 +73,14 @@ export const GameBoard = memo(function({ onRoomLeave }) {
     }
   }, [boardScene])
 
+  const team1 = useMemo(() => (board && objects[board.team1Id]) || {}, [board, objects])
+  const team2 = useMemo(() => (board && objects[board.team2Id]) || {}, [board, objects])
+
   return (
     <View style={styles.gameBoardContainer}>
       <DeckCards />
       {renderEnemies()}
-      {renderMe()}
+      <PlayerBoard my player={me} />
       {showRoundResults && (
         <View style={styles.roundResultsContainer}>
           <Card
