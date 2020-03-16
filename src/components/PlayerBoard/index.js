@@ -13,7 +13,7 @@ import { PlayerCard } from '../PlayerCard'
 
 import { CARD_OFFSETS } from './constants'
 import styles from './styles'
-import { sortCards } from './utils'
+// import { sortCards } from './utils'
 
 const hash = {
   First: 0,
@@ -103,9 +103,9 @@ export const PlayerBoard = memo(function({ player, my, index }) {
     let playerHand = objects[player.handId].items.map(id => objects[id]) || []
     playerHand = my ? playerHand.map(card => hand[card.id]) : playerHand
 
-    if (my) {
-      playerHand = sortCards(playerHand)
-    }
+    // if (my) {
+    //   playerHand = sortCards(playerHand)
+    // }
 
     const offset = CARD_OFFSETS.get(playerCardsLength)
 
