@@ -69,7 +69,6 @@ export const PlayerCard = memo(function({ player, index }) {
     }
   }, [mounted, left, top, rotate])
 
-  //  TODO: fix crash on android (concat)
   return (
     <Animated.View
       style={[

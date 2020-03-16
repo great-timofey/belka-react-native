@@ -4,9 +4,12 @@ import { colors, fonts } from '@global/styles'
 
 export default StyleSheet.create({
   deck: {
-    position: 'absolute',
+    ...StyleSheet.absoluteFillObject,
+  },
+  scoreBoard: {
     top: 30,
-    left: 10,
+    left: 0,
+    backgroundColor: 'red',
   },
   bank: {
     position: 'absolute',

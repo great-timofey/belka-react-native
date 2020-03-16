@@ -16,6 +16,8 @@ export const Card = memo(function({
   index,
   deck,
   score,
+  scoreboard,
+  cover,
   team,
   playerCard,
   additionalStyles = [],
@@ -77,6 +79,16 @@ export const Card = memo(function({
           ...additionalStyles,
         ]}
         source={cards.cover}
+      />
+    )
+  }
+
+  if (scoreboard && cards[scoreboard]) {
+    return (
+      <Image
+        borderRadius={1}
+        style={[styles.card, styles.scoreboardCard, ...additionalStyles]}
+        source={cover ? cards.cover : cards[scoreboard]}
       />
     )
   }

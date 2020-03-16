@@ -52,10 +52,10 @@ function createRoomChannel(room) {
   })
 }
 
-const joinRoom = (roomId, token) => {
+const joinRoom = ({ roomId, token, password }) => {
   return new Promise(resolve => {
     client
-      .joinById(roomId, { token })
+      .joinById(roomId, { token, room: { password } })
       .then(room => {
         resolve(room)
       })
@@ -145,7 +145,7 @@ const createRoomSaga = function*({ payload }) {
 
 function* joinRoomSaga({ payload }) {
   try {
-    const { roomId, bet } = payload
+    const { roomId, bet, password } = payload
     const token = yield AsyncStorage.getItem('token')
     yield put(setBet(bet))
     yield fork(sendSagaWorker)
@@ -154,7 +154,7 @@ function* joinRoomSaga({ payload }) {
     // if (existedSessionId) {
     //   room = yield call(reconnectRoom, roomId, existedSessionId)
     // } else {
-    const room = yield call(joinRoom, roomId, token)
+    const room = yield call(joinRoom, { roomId, token, password })
     // }
     NavigationService.navigate(PREPARATION)
     yield* socketWorker(room)
@@ -163,8 +163,6 @@ function* joinRoomSaga({ payload }) {
     yield* leaveRoomWorker()
   }
 }
-
-//  TODO: reconnect on session id
 
 const rootSaga = function*() {
   yield takeEvery(TYPES.JOIN_ROOM, joinRoomSaga)

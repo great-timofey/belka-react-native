@@ -26,6 +26,9 @@ export const InfoBoard = memo(function() {
     [gameBoard, objects],
   )
 
+  const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
+  const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])
+
   useEffect(() => {
     if (eggsActive) {
       Animated.timing(opacity, {
@@ -42,9 +45,6 @@ export const InfoBoard = memo(function() {
     }
   }, [eggsActive, opacity])
 
-  const team1 = useMemo(() => (gameBoard && objects[gameBoard.team1Id]) || {}, [gameBoard, objects])
-  const team2 = useMemo(() => (gameBoard && objects[gameBoard.team2Id]) || {}, [gameBoard, objects])
-
   return (
     gameBoard && (
       <>
@@ -56,7 +56,7 @@ export const InfoBoard = memo(function() {
               style={styles.scoreContainerImage}
               resizeMode="contain"
             />
-            <Text style={styles.scoreText}>{(team1 && team1.gameScore) || 0}</Text>
+            <Text style={styles.scoreText}>{(team1 && team1.roundScore) || 0}</Text>
           </View>
           <View style={[styles.scoreContainer]}>
             <Image
@@ -65,7 +65,7 @@ export const InfoBoard = memo(function() {
               resizeMode="contain"
             />
             <Text style={[styles.scoreText, styles.scoreTextRight]}>
-              {(team2 && team2.gameScore) || 0}
+              {(team2 && team2.roundScore) || 0}
             </Text>
           </View>
         </Animated.View>

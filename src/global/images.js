@@ -52,6 +52,10 @@ const diamondsQueen = require('../../assets/cards/Qd.png')
 const diamondsKing = require('../../assets/cards/Kd.png')
 const diamondsAce = require('../../assets/cards/Ad.png')
 const cover = require('../../assets/cards/cover.png')
+const score6h = require('../../assets/cards/6sh.png')
+const score6d = require('../../assets/cards/6sd.png')
+const score6s = require('../../assets/cards/6ss.png')
+const score6c = require('../../assets/cards/6sc.png')
 export const roundResultsRed = require('../../assets/cards/roundResultsRed.png')
 export const roundResultsBlack = require('../../assets/cards/roundResultsBlack.png')
 
@@ -181,4 +185,8 @@ export const cards = {
     A: diamondsAce,
   },
   cover,
+  score6h,
+  score6d,
+  score6s,
+  score6c,
 }

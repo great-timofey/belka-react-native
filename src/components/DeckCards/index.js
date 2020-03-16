@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { Card } from '../Card'
+import { ScoreBoard } from '../ScoreBoard'
 
 import styles from './styles'
 
@@ -28,6 +29,9 @@ export const DeckCards = memo(function() {
     <>
       <View style={styles.bank}>
         <Text style={styles.bankText}>Банк: {bet ? bet * 4 : 0}</Text>
+      </View>
+      <View style={styles.scoreBoard}>
+        <ScoreBoard />
       </View>
       <View style={styles.deck}>
         {deck.map((card, index) => (

@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import {
   CARD_HEIGHT,
   CARD_WIDTH,
+  deviceWidth,
   deviceHeight,
   colors,
   normalize,
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: hex2rgba('#FFFFFF', 0.2),
     padding: normalize(5),
-    borderRadius: 3,
+    borderRadius: 5,
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     marginLeft: normalize(5),
@@ -46,9 +47,14 @@ export default StyleSheet.create({
     fontFamily: fonts.ptsans.regular,
   },
   cardDeck: {
-    left: 0,
+    left: deviceWidth / 2 - CARD_WIDTH * 0.6 - 5,
+    top: deviceHeight / 4,
     width: CARD_WIDTH * 0.6,
     height: CARD_HEIGHT * 0.6,
+  },
+  scoreboardCard: {
+    width: CARD_WIDTH * 0.63,
+    height: CARD_HEIGHT * 0.62,
   },
   cardDeckOffseted: {
     transform: [{ translateX: CARD_WIDTH * 0.6 + 5 }],

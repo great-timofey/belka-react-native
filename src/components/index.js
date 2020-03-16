@@ -1,4 +1,5 @@
 export { Avatar } from './Avatar'
+export { ScoreBoard } from './ScoreBoard'
 export { BelkaButton } from './BelkaButton'
 export { BelkaSegmentedControl } from './BelkaSegmentedControl'
 export { BelkaInput } from './BelkaInput'
